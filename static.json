@@ -1,0 +1,12 @@
+{
+    "root": "dist/",
+    "https_only": true,
+    "proxies": {
+        "/api/": {
+            "origin": "https://bs-store-18092.firebaseio.com/"
+        }
+    },
+    "routes": {
+        "/**": "index.html"
+    }
+}
