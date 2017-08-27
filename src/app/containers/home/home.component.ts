@@ -6,12 +6,14 @@ import { Component, OnInit } from '@angular/core';
         <bs-product-highlight
         ></bs-product-highlight>
 
-        <bs-product-list
-        ></bs-product-list>
+        <div class="container">
+            <bs-product-list
+            ></bs-product-list>
+        </div>
     `,
     styles: []
 })
-export class HomeComponent implements OnInit {
+export class HomeContainerComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {

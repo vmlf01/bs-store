@@ -1,20 +1,24 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HomeComponent } from './home.component';
+import { HomeContainerComponent } from './home.component';
 
 describe('HomeComponent', () => {
-    let component: HomeComponent;
-    let fixture: ComponentFixture<HomeComponent>;
+    let component: HomeContainerComponent;
+    let fixture: ComponentFixture<HomeContainerComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [HomeComponent]
+            declarations: [HomeContainerComponent],
+            schemas: [
+                NO_ERRORS_SCHEMA,
+            ],
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(HomeComponent);
+        fixture = TestBed.createComponent(HomeContainerComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

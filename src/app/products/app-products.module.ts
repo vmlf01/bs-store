@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 
-import { ProductListComponent } from './products/product-list/product-list.component';
-import { ProductHighlightComponent } from './products/product-highlight/product-highlight.component';
-import { ProductDetailsComponent } from './products/product-details/product-details.component';
-import { ProductCardComponent } from './products/product-card/product-card.component';
+import { ProductListComponent } from './product-list/product-list.component';
+import { ProductHighlightComponent } from './product-highlight/product-highlight.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
+import { ProductCardComponent } from './product-card/product-card.component';
 
 @NgModule({
     imports: [],
