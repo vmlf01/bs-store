@@ -1,8 +1,8 @@
-import { LoadingService } from '../../loading.service';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { IProduct } from '../../../interfaces/IProduct';
+import { LoadingService } from '../../../shared/loading.service';
+import { IProduct } from '../../../../interfaces/IProduct';
 
 @Component({
     selector: 'bs-home',
@@ -29,7 +29,7 @@ export class HomeContainerComponent implements OnInit {
     products: IProduct[] = [];
     loading: boolean;
 
-    constructor(private router: Router, private loadingService: LoadingService) {
+    constructor(private route: ActivatedRoute, private router: Router, private loadingService: LoadingService) {
     }
 
     ngOnInit() {
@@ -47,8 +47,7 @@ export class HomeContainerComponent implements OnInit {
     }
 
     showItemDetails(product: IProduct) {
-        console.log('SHOW', product);
-        this.router.navigate(['item', product.id]);
+        this.router.navigate([product.id], { relativeTo: this.route });
     }
 
     addToCart(product: IProduct) {

@@ -1,8 +1,8 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { LoadingService } from '../../../shared/loading.service';
 import { ItemDetailsContainerComponent } from './item-details.component';
-import { LoadingService } from '../../loading.service';
 
 describe('ItemDetailsContainerComponent', () => {
     let component: ItemDetailsContainerComponent;

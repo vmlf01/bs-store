@@ -1,5 +1,6 @@
-import { LoadingService } from './loading.service';
 import { Component, OnInit } from '@angular/core';
+
+import { LoadingService } from './shared/loading.service';
 
 @Component({
     selector: 'bs-root',

@@ -1,10 +1,10 @@
-import { LoadingService } from '../../loading.service';
-import { mockProduct } from '../../../mockData/products';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { LoadingService } from '../../../shared/loading.service';
 import { HomeContainerComponent } from './home.component';
+import { mockProduct } from '../../../../mockData/products';
 
 describe('HomeComponent', () => {
     let component: HomeContainerComponent;
@@ -13,6 +13,8 @@ describe('HomeComponent', () => {
     const mockRouter = {
         navigate: jasmine.createSpy('navigate')
     };
+
+    const mockRoute = {};
 
     const mockLoadingService = {
         show: jasmine.createSpy('show'),
@@ -27,6 +29,7 @@ describe('HomeComponent', () => {
             ],
             providers: [
                 { provide: Router, useValue: mockRouter },
+                { provide: ActivatedRoute, useValue: mockRoute },
                 { provide: LoadingService, useValue: mockLoadingService },
             ],
         })
@@ -53,7 +56,7 @@ describe('HomeComponent', () => {
         });
 
         it('should navigate to item details page', () => {
-            expect(mockRouter.navigate).toHaveBeenCalledWith(['item', mockProduct.id]);
+            expect(mockRouter.navigate).toHaveBeenCalledWith([mockProduct.id], { relativeTo: mockRoute });
         });
     });
 });

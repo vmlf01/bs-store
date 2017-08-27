@@ -17,7 +17,7 @@ import { Component, Input } from '@angular/core';
                 <div class="collapse navbar-collapse" [ngbCollapse]="isCollapsed">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" routerLink="/shop" routerLinkActive="active">Shop</a>
+                            <a class="nav-link" routerLink="./shop" routerLinkActive="active">Shop</a>
                         </li>
                     </ul>
                 </div>

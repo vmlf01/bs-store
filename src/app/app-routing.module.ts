@@ -1,17 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeContainerComponent } from './containers/home/home.component';
-import { ItemDetailsContainerComponent } from './containers/item-details/item-details.component';
+import { HomeContainerComponent } from './shop/containers/home/home.component';
+
 
 const routes: Routes = [
     {
         path: 'shop',
-        component: HomeContainerComponent,
-    },
-    {
-        path: 'item/:id',
-        component: ItemDetailsContainerComponent,
+        loadChildren: './shop/shop.module#AppShopModule',
     },
     {
         path: '**',

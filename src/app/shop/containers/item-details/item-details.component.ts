@@ -1,7 +1,7 @@
-import { LoadingService } from '../../loading.service';
 import { Component, OnInit } from '@angular/core';
 
-import { IProduct } from '../../../interfaces/IProduct';
+import { LoadingService } from '../../../shared/loading.service';
+import { IProduct } from '../../../../interfaces/IProduct';
 
 @Component({
     selector: 'bs-item-details',
