@@ -1,3 +1,4 @@
+import { LoadingService } from './loading.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -7,6 +8,11 @@ import { AppProductsModule } from './products/app-products.module';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
+    const mockLoadingService = {
+        show: jasmine.createSpy('show'),
+        hide: jasmine.createSpy('hide'),
+    };
+
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
@@ -14,6 +20,9 @@ describe('AppComponent', () => {
             ],
             declarations: [
                 AppComponent
+            ],
+            providers: [
+                { provide: LoadingService, useValue: mockLoadingService },
             ],
             schemas: [
                 NO_ERRORS_SCHEMA,

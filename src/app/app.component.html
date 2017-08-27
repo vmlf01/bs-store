@@ -1,7 +1,11 @@
 <bs-header [title]="title"></bs-header>
 
 <main>
-    <router-outlet></router-outlet>
+    <router-outlet>
+        <bs-loading-indicator
+            [visible]="showLoader"
+        ></bs-loading-indicator>
+    </router-outlet>
 </main>
 
 <bs-footer></bs-footer>
