@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 
-import { IProduct } from '../../../interfaces/IProduct';
+import { IProduct } from '../../../../interfaces/IProduct';
 
 @Component({
     selector: 'bs-product-list',

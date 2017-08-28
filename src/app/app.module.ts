@@ -5,7 +5,6 @@ import { StoreModule } from '@ngrx/store';
 
 import { AppSharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
-import { AppProductsModule } from './products/app-products.module';
 import { AppShopModule } from './shop/shop.module';
 
 import { AppComponent } from './app.component';

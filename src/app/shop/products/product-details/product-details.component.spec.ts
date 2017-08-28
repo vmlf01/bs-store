@@ -2,7 +2,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProductDetailsComponent } from './product-details.component';
-import { mockProduct } from '../../../mockData/products';
+import { mockProduct } from '../../../../mockData/products';
 
 describe('ProductDetailsComponent', () => {
     let component: ProductDetailsComponent;

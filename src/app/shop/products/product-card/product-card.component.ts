@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { IProduct } from '../../../interfaces/IProduct';
+import { IProduct } from '../../../../interfaces/IProduct';
 
 @Component({
     selector: 'bs-product-card',
