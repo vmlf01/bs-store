@@ -8,21 +8,26 @@ export const LOAD_PRODUCT_DETAILS_SUCCESS = 'LOAD_PRODUCT_DETAILS_SUCCESS';
 
 export class LoadProducts implements Action {
     readonly type = LOAD_PRODUCTS;
+    readonly payload: boolean;
+
+    constructor(resetList: boolean) {
+        this.payload = resetList;
+    }
 }
 
 export class LoadProductsSuccess implements Action {
     readonly type = LOAD_PRODUCTS_SUCCESS;
-    constructor(public payload: { products: IProduct[], hasMore: boolean }) {}
+    constructor(public readonly payload: { products: IProduct[], hasMore: boolean }) {}
 }
 
 export class LoadProductDetails implements Action {
     readonly type = LOAD_PRODUCT_DETAILS;
-    constructor(public payload: string) {}
+    constructor(public readonly payload: string) {}
 }
 
 export class LoadProductDetailsSuccess implements Action {
     readonly type = LOAD_PRODUCT_DETAILS_SUCCESS;
-    constructor(public payload: IProduct) {}
+    constructor(public readonly payload: IProduct) {}
 }
 
 export type ProductActions =

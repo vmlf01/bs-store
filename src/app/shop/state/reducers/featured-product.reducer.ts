@@ -12,7 +12,7 @@ export const initialFeaturedProductState: IFeaturedProductState = {
     isLoading: false,
 };
 
-export function featuredProductReducer(state: IFeaturedProductState = initialFeaturedProductState, action) {
+export function featuredProductReducer(state: IFeaturedProductState = initialFeaturedProductState, action: FeaturedProductActions): IFeaturedProductState {
     switch (action.type) {
         case ActionTypes.LOAD_FEATURED_PRODUCT:
             return {

@@ -1,6 +1,7 @@
 import { ActionReducerMap } from '@ngrx/store';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { environment } from '../environments/environment';
+import { LoadingEffects } from './state/effects/loading.effects';
 
 const metaReducers = environment.production ?
     [] :
@@ -17,6 +18,7 @@ export const appReducers: ActionReducerMap<IAppStore> = {
 };
 
 export const appEffects = [
+    LoadingEffects,
 ];
 
 export const storeOptions = {

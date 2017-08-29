@@ -1,19 +1,19 @@
-import { LoadProducts } from '../../state/actions/product.actions';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Rx';
 
-import { IProductsState } from '../../state/reducers/products.reducer';
+import { LoadProductHighlight } from '../../state/actions/featured-product.actions';
+import { LoadProducts } from '../../state/actions/product.actions';
 
-import { LoadingService } from '../../../shared/loading.service';
 import { IProduct } from '../../../../interfaces/IProduct';
-import { IShopStore, selectProducts } from '../../shop.store';
+import { selectFeaturedProduct, selectProducts } from '../../shop.store';
 
 @Component({
     selector: 'bs-home',
     template: `
         <bs-product-highlight
+            *ngIf="productHighlight"
             [product]="productHighlight"
             (productSelected)="showItemDetails($event)"
             (buyNowSelected)="addToCart($event)"
@@ -35,38 +35,50 @@ export class HomeContainerComponent implements OnInit, OnDestroy {
     products: IProduct[] = [];
     loading: boolean;
 
-    private productsSubscription: Subscription;
+    private subscriptions: Subscription[] = [];
 
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private loadingService: LoadingService,
-        private store: Store<IShopStore>
+        private store: Store<any>
     ) {
     }
 
     ngOnInit() {
-        this.productHighlight = {
-            id: 'item-0',
-            name: 'Great Item!!!',
-            image: 'http://placehold.it/700x400',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!',
-            price: 24.99,
-            currency: 'USD',
-            rating: 4.5,
-        };
-
-        this.productsSubscription = this.store.select(selectProducts)
-            .subscribe(state => {
-                this.loading = state.isLoading;
-                this.products = state.products;
-            });
-
-        this.loadMoreItems();
+        this.registerSubscriptions();
+        this.loadMoreItems(true);
+        this.loadFeaturedProduct();
     }
 
     ngOnDestroy() {
-        this.productsSubscription.unsubscribe();
+        this.unregisterSubscriptions();
+    }
+
+    registerSubscriptions() {
+        this.subscriptions = [
+            this.store.select(selectProducts)
+                .subscribe(state => {
+                    this.loading = state.isLoading;
+                    this.products = state.products;
+                }),
+            this.store.select(selectFeaturedProduct)
+                .subscribe(state => {
+                    this.productHighlight = state.product;
+                }),
+        ];
+    }
+
+    unregisterSubscriptions() {
+        this.subscriptions
+            .forEach(subscription => subscription.unsubscribe());
+    }
+
+    loadFeaturedProduct() {
+        this.store.dispatch(new LoadProductHighlight());
+    }
+
+    loadMoreItems(reset = false) {
+        this.store.dispatch(new LoadProducts(reset));
     }
 
     showItemDetails(product: IProduct) {
@@ -75,12 +87,5 @@ export class HomeContainerComponent implements OnInit, OnDestroy {
 
     addToCart(product: IProduct) {
         console.log('BUY', product);
-    }
-
-    loadMoreItems() {
-        this.store.dispatch(new LoadProducts());
-
-            // this.loadingService.show();
-            // this.loadingService.hide();
     }
 }

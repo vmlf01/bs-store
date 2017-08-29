@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { LoadProductDetails } from '../../state/actions/product.actions';
+import { ActivatedRoute } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Rx';
 
-import { LoadingService } from '../../../shared/loading.service';
 import { IProduct } from '../../../../interfaces/IProduct';
+import { selectProducts } from '../../shop.store';
 
 @Component({
     selector: 'bs-item-details',
@@ -24,27 +28,42 @@ import { IProduct } from '../../../../interfaces/IProduct';
         }
     `]
 })
-export class ItemDetailsContainerComponent implements OnInit {
+export class ItemDetailsContainerComponent implements OnInit, OnDestroy {
     product: IProduct;
 
-    constructor(private loadingService: LoadingService) { }
+    private subscriptions: Subscription[] = [];
+
+    constructor(
+        private route: ActivatedRoute,
+        private store: Store<any>
+    ) {
+    }
 
     ngOnInit() {
-        this.loadingService.show();
+        this.registerSubscriptions();
+        this.loadItemDetails(this.route.snapshot.params.id);
+    }
 
-        setTimeout(() => {
-            this.product = {
-                id: 'mock-item',
-                name: 'test item',
-                description: 'test desc',
-                image: 'http://placehold.it/900x400',
-                price: 10,
-                currency: 'USD',
-                rating: 4.5,
-            };
+    ngOnDestroy() {
+        this.unregisterSubscriptions();
+    }
 
-            this.loadingService.hide();
-        }, 500);
+    registerSubscriptions() {
+        this.subscriptions = [
+            this.store.select(selectProducts)
+                .subscribe(state => {
+                    this.product = state.productDetails;
+                }),
+        ];
+    }
+
+    unregisterSubscriptions() {
+        this.subscriptions
+            .forEach(subscription => subscription.unsubscribe());
+    }
+
+    loadItemDetails(id: string) {
+        this.store.dispatch(new LoadProductDetails(id));
     }
 
     addToCart(product: IProduct) {

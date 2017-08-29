@@ -1,3 +1,4 @@
+import { AppSharedModule } from '../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -22,6 +23,7 @@ import { shopEffects } from './shop.effects';
         RouterModule.forChild(routes),
         StoreModule.forFeature<IShopStore>(shopFeatureName, shopReducers, { initialState: initialShopState }),
         EffectsModule.forFeature(shopEffects),
+        AppSharedModule,
     ],
     declarations: [
         HomeContainerComponent,
