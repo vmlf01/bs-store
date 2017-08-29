@@ -1,8 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { LoadProducts } from '../../state/actions/product.actions';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Rx';
+
+import { IProductsState } from '../../state/reducers/products.reducer';
 
 import { LoadingService } from '../../../shared/loading.service';
 import { IProduct } from '../../../../interfaces/IProduct';
+import { IShopStore, selectProducts } from '../../shop.store';
 
 @Component({
     selector: 'bs-home',
@@ -24,12 +30,19 @@ import { IProduct } from '../../../../interfaces/IProduct';
     `,
     styles: []
 })
-export class HomeContainerComponent implements OnInit {
+export class HomeContainerComponent implements OnInit, OnDestroy {
     productHighlight: IProduct;
     products: IProduct[] = [];
     loading: boolean;
 
-    constructor(private route: ActivatedRoute, private router: Router, private loadingService: LoadingService) {
+    private productsSubscription: Subscription;
+
+    constructor(
+        private route: ActivatedRoute,
+        private router: Router,
+        private loadingService: LoadingService,
+        private store: Store<IShopStore>
+    ) {
     }
 
     ngOnInit() {
@@ -43,7 +56,17 @@ export class HomeContainerComponent implements OnInit {
             rating: 4.5,
         };
 
+        this.productsSubscription = this.store.select(selectProducts)
+            .subscribe(state => {
+                this.loading = state.isLoading;
+                this.products = state.products;
+            });
+
         this.loadMoreItems();
+    }
+
+    ngOnDestroy() {
+        this.productsSubscription.unsubscribe();
     }
 
     showItemDetails(product: IProduct) {
@@ -55,25 +78,9 @@ export class HomeContainerComponent implements OnInit {
     }
 
     loadMoreItems() {
-        this.loading = true;
-        this.loadingService.show();
-        setTimeout(() => {
-            this.products = this.products.concat(
-                Array.from(Array(9).keys())
-                    .map(value => {
-                        return {
-                            id: `item-${this.products.length + value + 1}`,
-                            name: `Item ${this.products.length + value + 1}`,
-                            image: 'http://placehold.it/700x400',
-                            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!',
-                            price: 10 + Math.round(Math.random() * 5000) / 100,
-                            currency: 'USD',
-                            rating: Math.round(Math.random() * 5),
-                        };
-                    })
-            );
-            this.loading = false;
-            this.loadingService.hide();
-        }, 500);
+        this.store.dispatch(new LoadProducts());
+
+            // this.loadingService.show();
+            // this.loadingService.hide();
     }
 }
