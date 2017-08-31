@@ -30,4 +30,4 @@ export function featuredProductReducer(state: IFeaturedProductState = initialFea
         default:
             return state;
     }
-};
+}

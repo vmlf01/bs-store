@@ -17,7 +17,7 @@ export class LoadingEffects {
     @Effect({ dispatch: false }) showLoading$ = this.actions$
         .ofType(
             ProductActionTypes.LOAD_PRODUCTS,
-            ProductActionTypes.LOAD_PRODUCT_DETAILS
+            ProductActionTypes.LOAD_PRODUCT_DETAILS,
         )
         .do(() => this.loadingService.show());
 
