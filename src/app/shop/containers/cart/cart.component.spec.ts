@@ -1,25 +1,21 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/Rx';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Rx';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ItemDetailsContainerComponent } from './item-details.component';
-import { mockProduct } from '../../../../mockData/products';
+import { LoadingService } from '../../../shared/loading.service';
+import { CartContainerComponent } from './cart.component';
 
-describe('ItemDetailsContainerComponent', () => {
-    let component: ItemDetailsContainerComponent;
-    let fixture: ComponentFixture<ItemDetailsContainerComponent>;
+describe('CartContainerComponent', () => {
+    let component: CartContainerComponent;
+    let fixture: ComponentFixture<CartContainerComponent>;
 
     const mockRouter = {
         navigate: jasmine.createSpy('navigate')
     };
 
-    const mockRoute = {
-        snapshot: {
-            params: { id: 'id' },
-        },
-    };
+    const mockRoute = {};
 
     const mockStore = {
         select: jasmine.createSpy('select').and.returnValue(Observable.of({})),
@@ -28,7 +24,7 @@ describe('ItemDetailsContainerComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ItemDetailsContainerComponent],
+            declarations: [CartContainerComponent],
             providers: [
                 { provide: Router, useValue: mockRouter },
                 { provide: ActivatedRoute, useValue: mockRoute },
@@ -42,9 +38,8 @@ describe('ItemDetailsContainerComponent', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ItemDetailsContainerComponent);
+        fixture = TestBed.createComponent(CartContainerComponent);
         component = fixture.componentInstance;
-        component.product = mockProduct;
         fixture.detectChanges();
     });
 

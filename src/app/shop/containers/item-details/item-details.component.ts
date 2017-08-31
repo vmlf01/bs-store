@@ -1,11 +1,12 @@
 import { LoadProductDetails } from '../../state/actions/product.actions';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Rx';
 
 import { IProduct } from '../../../../interfaces/IProduct';
 import { selectProducts } from '../../shop.store';
+import { AddToCart } from '../../state/actions/cart.actions';
 
 @Component({
     selector: 'bs-item-details',
@@ -16,7 +17,7 @@ import { selectProducts } from '../../shop.store';
                     <bs-product-details
                         *ngIf="product"
                         [product]="product"
-                        (buyNowSelected)="addToCart($event)"
+                        (buyNowSelected)="buyNow($event)"
                     ></bs-product-details>
                 </div>
             </div>
@@ -35,6 +36,7 @@ export class ItemDetailsContainerComponent implements OnInit, OnDestroy {
 
     constructor(
         private route: ActivatedRoute,
+        private router: Router,
         private store: Store<any>
     ) {
     }
@@ -66,7 +68,8 @@ export class ItemDetailsContainerComponent implements OnInit, OnDestroy {
         this.store.dispatch(new LoadProductDetails(id));
     }
 
-    addToCart(product: IProduct) {
-        console.log('BUY', product);
+    buyNow(product: IProduct) {
+        this.store.dispatch(new AddToCart(product));
+        this.router.navigate(['cart'], { relativeTo: this.route.parent });
     }
 }

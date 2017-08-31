@@ -12,10 +12,14 @@ import { ProductCardComponent } from './products/product-card/product-card.compo
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { ItemDetailsContainerComponent } from './containers/item-details/item-details.component';
 import { HomeContainerComponent } from './containers/home/home.component';
+import { CartContainerComponent } from './containers/cart/cart.component';
 
 import { routes } from './shop.routes';
 import { initialShopState, IShopStore, shopReducers, shopFeatureName } from './shop.store';
 import { shopEffects } from './shop.effects';
+import { CartContentsComponent } from './cart/cart-contents/cart-contents.component';
+import { CartItemComponent } from './cart/cart-item/cart-item.component';
+import { CartTotalsComponent } from './cart/cart-totals/cart-totals.component';
 
 @NgModule({
     imports: [
@@ -28,11 +32,15 @@ import { shopEffects } from './shop.effects';
     declarations: [
         HomeContainerComponent,
         ItemDetailsContainerComponent,
+        CartContainerComponent,
         ProductListComponent,
         ProductCardComponent,
         ProductDetailsComponent,
         ProductHighlightComponent,
-        ProductRatingComponent
+        ProductRatingComponent,
+        CartContentsComponent,
+        CartItemComponent,
+        CartTotalsComponent,
     ],
     exports: [
     ],

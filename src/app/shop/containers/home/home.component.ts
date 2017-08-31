@@ -8,6 +8,7 @@ import { LoadProducts } from '../../state/actions/product.actions';
 
 import { IProduct } from '../../../../interfaces/IProduct';
 import { selectFeaturedProduct, selectProducts } from '../../shop.store';
+import { AddToCart } from '../../state/actions/cart.actions';
 
 @Component({
     selector: 'bs-home',
@@ -16,7 +17,7 @@ import { selectFeaturedProduct, selectProducts } from '../../shop.store';
             *ngIf="productHighlight"
             [product]="productHighlight"
             (productSelected)="showItemDetails($event)"
-            (buyNowSelected)="addToCart($event)"
+            (buyNowSelected)="buyNow($event)"
         ></bs-product-highlight>
 
         <div class="container">
@@ -85,7 +86,8 @@ export class HomeContainerComponent implements OnInit, OnDestroy {
         this.router.navigate([product.id], { relativeTo: this.route });
     }
 
-    addToCart(product: IProduct) {
-        console.log('BUY', product);
+    buyNow(product: IProduct) {
+        this.store.dispatch(new AddToCart(product));
+        this.router.navigate(['cart'], { relativeTo: this.route.parent });
     }
 }

@@ -19,7 +19,10 @@ import { Component, Input } from '@angular/core';
                         <li class="nav-item">
                             <a class="nav-link" routerLink="./shop" routerLinkActive="active">Shop</a>
                         </li>
-                    </ul>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="./shop/cart" routerLinkActive="active">Cart</a>
+                        </li>
+                </ul>
                 </div>
             </div>
         </nav>

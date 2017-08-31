@@ -1,4 +1,6 @@
-export const mockProduct = {
+import { IProduct } from '../interfaces/IProduct';
+
+export const mockProduct: IProduct = {
     id: 'mock-item',
     name: 'test item',
     description: 'test desc',
