@@ -15,7 +15,7 @@ import { IProduct } from '../../../../interfaces/IProduct';
                     <h4 class="card-title">
                         <a href="" (click)="$event.preventDefault(); handleClick()">{{ product.name }}</a>
                     </h4>
-                    <h5>{{ product.price | currency:product.currency:true:'1.2-2' }}</h5>
+                    <h5>{{ product.price | bsCurrency:product.currency }}</h5>
 
                     <hr class="my-4">
 

@@ -11,19 +11,30 @@ import { IOrderItem } from '../../../../interfaces/IOrderItem';
                 Shopping Cart
             </div>
             <div class="card-block">
-                <bs-cart-item
-                    *ngFor="let item of contents.items"
-                    [item]="item"
-                    (quantityChange)="updateItemQuantity.emit($event)"
-                    (showItemDetails)="showItemDetails.emit($event)"
-                    (removeItem)="removeItem.emit($event)"
-                ></bs-cart-item>
+                <div class="row">
+                    <div class="col-md-12">
+                        <bs-cart-item
+                            *ngFor="let item of contents.items"
+                            [item]="item"
+                            (quantityChange)="updateItemQuantity.emit($event)"
+                            (showItemDetails)="showItemDetails.emit($event)"
+                            (removeItem)="removeItem.emit($event)"
+                        ></bs-cart-item>
+                    </div>
+                </div>
 
-                <bs-cart-totals
-                    [subTotal]="contents.total"
-                    [shipping]="contents.shipping"
-                    [total]="contents.total + contents.shipping"
-                ></bs-cart-totals>
+                <div class="row">
+                    <div class="col-sm-6 col-md-8">
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <bs-cart-totals
+                            [subTotal]="contents.total"
+                            [shipping]="contents.shipping"
+                            [total]="contents.total + contents.shipping"
+                            [currency]="contents.currency"
+                        ></bs-cart-totals>
+                    </div>
+                </div>
             </div>
             <div class="card-footer">
                 <div class="row d-flex align-items-center">

@@ -1,7 +1,9 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { CurrencyPipe } from '@angular/common';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CartTotalsComponent } from './cart-totals.component';
+import { BsCurrencyPipe } from '../../../shared/bs-currency.pipe';
 
 describe('CartTotalsComponent', () => {
     let component: CartTotalsComponent;
@@ -9,7 +11,10 @@ describe('CartTotalsComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [CartTotalsComponent],
+            declarations: [CartTotalsComponent, BsCurrencyPipe],
+            providers: [
+                CurrencyPipe,
+            ],
             schemas: [
                 NO_ERRORS_SCHEMA,
             ],

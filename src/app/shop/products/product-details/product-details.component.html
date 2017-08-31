@@ -2,7 +2,7 @@
     <img class="card-img-top img-fluid" [src]="product.image" alt="">
     <div class="card-body">
         <h3 class="card-title">{{ product.name }}</h3>
-        <h4>{{ product.price | currency:product.currency:true:'1.2-2' }}</h4>
+        <h4>{{ product.price | bsCurrency:product.currency }}</h4>
         <p class="card-text">{{ product.description }}</p>
 
         <div class="row d-flex align-items-center">

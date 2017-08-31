@@ -1,12 +1,13 @@
 import { RouterModule } from '@angular/router';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { LoadingService } from './loading.service';
 import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
+import { BsCurrencyPipe } from './bs-currency.pipe';
 
 @NgModule({
     imports: [
@@ -18,11 +19,13 @@ import { HeaderComponent } from './header/header.component';
         HeaderComponent,
         FooterComponent,
         LoadingIndicatorComponent,
+        BsCurrencyPipe,
     ],
     exports: [
         HeaderComponent,
         FooterComponent,
         LoadingIndicatorComponent,
+        BsCurrencyPipe,
     ],
 })
 export class AppSharedModule {
@@ -31,6 +34,7 @@ export class AppSharedModule {
             ngModule: AppSharedModule,
             providers: [
                 LoadingService,
+                CurrencyPipe,
             ],
         };
     }

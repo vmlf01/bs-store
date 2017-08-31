@@ -5,24 +5,73 @@ import { IOrderItem } from '../../../../interfaces/IOrderItem';
     selector: 'bs-cart-item',
     template: `
         <div class="card cart-item">
-            <div class="row">
-                <div class="col-md-4">
-                    <img class="" [src]="item.image" alt="">
+            <img class="cart-item__image" [src]="item.image" alt="">
+            <div class="cart-item__text">
+                <h4 class="card-title">{{ item.name }}</h4>
+                <p class="card-text">{{ item.description }}</p>
+            </div>
+            <div class="cart-item__values">
+                <div>{{ item.price | bsCurrency:item.currency }}</div>
+                <div>
+                    <input
+                        type="number"
+                        name="quantity"
+                        class="cart-item__quantity"
+                        min="1"
+                        step="1"
+                        [value]="item.quantity"
+                        (change)="handleQuantityChange($event.target.value)"
+                    >
                 </div>
-                <div class="col-md-4">
-                    <h4 class="card-title">{{ item.name }}</h4>
-                    <p class="card-text">{{ item.description }}</p>
-                </div>
-                <div class="col-md-4">
-                    <input type="number" name="quantity" [value]="item.quantity" (change)="handleQuantityChange($event.target.value)">
-                    <button class="btn btn-danger btn-sm btn-block" (click)="removeItem.emit(item)">Remove</button>
+                <div>{{ item.price * item.quantity | bsCurrency:item.currency }}</div>
+                <div>
+                    <button class="btn btn-danger btn-sm" (click)="removeItem.emit(item)">Remove</button>
                 </div>
             </div>
         </div>
     `,
     styles: [`
         .cart-item {
-            height: 150px;
+            align-content: center;
+            margin: 5px 20px;
+        }
+
+        @media (min-width: 992px) {
+            .cart-item {
+                flex-direction: row;
+                height: 150px;
+            }
+        }
+
+        .cart-item__image {
+            flex: 1;
+            max-height: 200px;
+            object-fit: cover;
+        }
+
+        .cart-item__text {
+            flex: 3;
+            padding: 5px 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .cart-item__values {
+            flex: 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 10px 0;
+        }
+
+        .cart-item__values > div {
+        }
+
+        .cart-item__quantity {
+            width: 70px;
+            padding: 5px;
+            text-align: center;
         }
     `]
 })

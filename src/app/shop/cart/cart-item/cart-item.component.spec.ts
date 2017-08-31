@@ -1,8 +1,10 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { CurrencyPipe } from '@angular/common';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CartItemComponent } from './cart-item.component';
 import { mockCart } from '../../../../mockData/cart';
+import { BsCurrencyPipe } from '../../../shared/bs-currency.pipe';
 
 describe('CartItemComponent', () => {
     let component: CartItemComponent;
@@ -10,7 +12,10 @@ describe('CartItemComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [CartItemComponent],
+            declarations: [CartItemComponent, BsCurrencyPipe],
+            providers: [
+                CurrencyPipe,
+            ],
             schemas: [
                 NO_ERRORS_SCHEMA,
             ],

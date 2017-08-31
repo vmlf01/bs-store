@@ -1,6 +1,8 @@
+import { CurrencyPipe } from '@angular/common';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProductHighlightComponent } from './product-highlight.component';
+import { BsCurrencyPipe } from '../../../shared/bs-currency.pipe';
 import { mockProduct } from '../../../../mockData/products';
 
 describe('ProductHighlightComponent', () => {
@@ -9,7 +11,10 @@ describe('ProductHighlightComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ProductHighlightComponent]
+            declarations: [ProductHighlightComponent, BsCurrencyPipe],
+            providers: [
+                CurrencyPipe,
+            ],
         })
             .compileComponents();
     }));

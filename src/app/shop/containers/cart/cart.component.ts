@@ -67,8 +67,8 @@ export class CartContainerComponent implements OnInit, OnDestroy {
             .forEach(subscription => subscription.unsubscribe());
     }
 
-    updateItemQuantity($event) {
-        this.store.dispatch(new ChangeItemQuantity($event));
+    updateItemQuantity({ item, quantity }: { item: IOrderItem, quantity: number }) {
+        this.store.dispatch(new ChangeItemQuantity({ product: item, quantity: quantity }));
     }
 
     checkoutCart() {
