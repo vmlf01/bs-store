@@ -1,17 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-$theme-colors: (
-    primary: #ED254E,
-    secondary: #FED766,
-    success: #28a745,
-    info: #009FB7,
-    warning: #ffc107,
-    danger: #dc3545,
-    light: #F4FFFD,
-    dark: #011936
-) !default;
+@import 'variables';
 
-$body-bg: #F4FFFD;
-$body-color: #011936;
-
-@import "../node_modules/bootstrap/scss/bootstrap.scss"
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+@import '../node_modules/font-awesome/scss/font-awesome';
