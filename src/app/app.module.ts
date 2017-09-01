@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -18,6 +19,7 @@ import { AppComponent } from './app.component';
     ],
     imports: [
         BrowserModule,
+        ReactiveFormsModule,
         NgbModule.forRoot(),
         AppRoutingModule,
         AppSharedModule.forRoot(),

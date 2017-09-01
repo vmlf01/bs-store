@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="login__container">
+                    <div>
+                        <form class="form" role="form" autocomplete="off" novalidate=""
+                            [formGroup]="loginForm" (ngSubmit)="login()"
+                        >
+                            <div class="form-group">
+                                <label class="form-control-label" for="user">Username</label>
+                                <input
+                                    type="text"
+                                    class="form-control form-control-lg rounded-0"
+                                    name="user"
+                                    formControlName="user"
+                                    [ngClass]="{ 'is-invalid': user.dirty && !user.valid, 'is-valid': user.valid }"
+                                >
+                            </div>
+                            <div class="form-group has-danger">
+                                <label for="password">Password</label>
+                                <input
+                                    type="password"
+                                    class="form-control form-control-lg rounded-0"
+                                    autocomplete="new-password"
+                                    name="password"
+                                    formControlName="password"
+                                    [ngClass]="{ 'is-invalid': password.dirty && !password.valid, 'is-valid': password.valid }"
+                                >
+                            </div>
+                            <div class="text-center">
+                                <button type="button" class="btn btn-success" [disabled]="!loginForm.valid">Log In</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="text-center mt-4 mb-4">
+                        <div>or</div>
+                        <div class="small">you can use one of these services to log in:</div>
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-link login__button--facebook">
+                            <i class="fa fa-3x fa-facebook-square"></i>
+                        </button>
+                        <button type="button" class="btn btn-link login__button--github">
+                            <i class="fa fa-3x fa-github-square"></i>
+                        </button>
+                    </div>
+                    <hr>
+                    <div class="text-center mt-4 mb-4">
+                        <div class="small mb-2">Don't have an account yet?</div>
+                            <button type="button" class="btn btn-outline-secondary">
+                                Sign up here
+                            </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
