@@ -292,6 +292,12 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
+angular-playground@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/angular-playground/-/angular-playground-1.7.1.tgz#6cd6df61c8fdbe027270a1bc73ffb0e1028e82cb"
+  dependencies:
+    node-watch "^0.4.1"
+
 angularfire2@^4.0.0-rc.2:
   version "4.0.0-rc0"
   resolved "https://registry.yarnpkg.com/angularfire2/-/angularfire2-4.0.0-rc0.tgz#071bda9a51774b6d9e7ad8e8fd4486dbd3b8032b"
@@ -3540,6 +3546,10 @@ node-sass@^4.3.0:
     request "^2.79.0"
     sass-graph "^2.1.1"
     stdout-stream "^1.4.0"
+
+node-watch@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/node-watch/-/node-watch-0.4.1.tgz#d0947d54a995f91135db4056b68722c6d7c322ad"
 
 "nopt@2 || 3":
   version "3.0.6"

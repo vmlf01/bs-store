@@ -27,6 +27,33 @@
                 "dev": "environments/environment.ts",
                 "prod": "environments/environment.prod.ts"
             }
+        },
+
+
+        {
+            "name": "bs-store-playground",
+            "root": "src",
+            "outDir": "dist",
+            "assets": [
+                "assets",
+                "favicon.ico"
+            ],
+            "index": "index.html",
+            "main": "main.playground.ts",
+            "polyfills": "polyfills.ts",
+            "test": "test.ts",
+            "tsconfig": "tsconfig.app.json",
+            "testTsconfig": "tsconfig.spec.json",
+            "prefix": "bs",
+            "styles": [
+                "styles.scss"
+            ],
+            "scripts": [],
+            "environmentSource": "environments/environment.ts",
+            "environments": {
+                "dev": "environments/environment.ts",
+                "prod": "environments/environment.prod.ts"
+            }
         }
     ],
     "e2e": {

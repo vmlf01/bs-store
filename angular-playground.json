@@ -1,0 +1,6 @@
+{
+    "sourceRoot": "./src",
+    "angularCli": {
+        "appName": "bs-store-playground"
+    }
+}
