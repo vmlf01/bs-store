@@ -7,6 +7,7 @@ import { IOrderItem } from '../../../../interfaces/IOrderItem';
 
 export interface ICartState {
     contents: ICartContents;
+    itemCount: number;
 }
 
 export const initialCartState: ICartState = {
@@ -16,6 +17,7 @@ export const initialCartState: ICartState = {
         shipping: 0,
         items: [],
     },
+    itemCount: 0,
 };
 
 export function cartReducer(state: ICartState = initialCartState, action: CartActions): ICartState {
@@ -47,7 +49,8 @@ export function cartReducer(state: ICartState = initialCartState, action: CartAc
                     items: cartItems,
                     total: calculateItemsTotal(cartItems),
                     shipping: calculateShipping(cartItems),
-                }
+                },
+                itemCount: calculateItemsCount(cartItems),
             };
         }
 
@@ -65,7 +68,8 @@ export function cartReducer(state: ICartState = initialCartState, action: CartAc
                     items: cartItems,
                     total: calculateItemsTotal(cartItems),
                     shipping: calculateShipping(cartItems),
-                }
+                },
+                itemCount: calculateItemsCount(cartItems),
             };
         }
 
@@ -80,13 +84,18 @@ export function cartReducer(state: ICartState = initialCartState, action: CartAc
                     items: cartItems,
                     total: calculateItemsTotal(cartItems),
                     shipping: calculateShipping(cartItems),
-                }
+                },
+                itemCount: calculateItemsCount(cartItems),
             };
         }
 
         default:
             return state;
     }
+}
+
+function calculateItemsCount(items: IOrderItem[]) {
+    return items.reduce((total, item) => total + item.quantity, 0);
 }
 
 function calculateItemsTotal(items: IOrderItem[]) {

@@ -86,8 +86,8 @@ export class CartItemComponent implements OnInit {
     ngOnInit() {
     }
 
-    handleQuantityChange(newQuantity: number) {
-        this.quantityChange.emit({ item: this.item, quantity: newQuantity });
+    handleQuantityChange(newQuantity: string) {
+        this.quantityChange.emit({ item: this.item, quantity: Number(newQuantity) });
     }
 
 }

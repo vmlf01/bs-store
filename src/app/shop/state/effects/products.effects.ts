@@ -40,7 +40,7 @@ export class ProductEffects {
             return {
                 id: action.payload,
                 name: `Item ${action.payload}`,
-                image: 'http://placehold.it/700x400',
+                image: '//placehold.it/700x400',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!',
                 price: 10 + Math.round(Math.random() * 5000) / 100,
                 currency: 'USD',
@@ -55,7 +55,7 @@ export class ProductEffects {
                 return {
                     id: `item-${startingIndex + value + 1}`,
                     name: `Item ${startingIndex + value + 1}`,
-                    image: 'http://placehold.it/700x400',
+                    image: '//placehold.it/700x400',
                     description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!',
                     price: 10 + Math.round(Math.random() * 5000) / 100,
                     currency: 'USD',

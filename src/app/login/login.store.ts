@@ -1,3 +1,4 @@
+import { IUserProfile } from '../../interfaces/IUserProfile';
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
 import { initialLoginState, ILoginState, loginReducer } from './state/reducers/login.reducer';
 
@@ -15,7 +16,7 @@ export const LoginReducers: ActionReducerMap<ILoginStore> = {
 
 export const LoginFeatureName = 'Login';
 
-export const selectLogin = createFeatureSelector(LoginFeatureName);
-export const selectUserProfile = createSelector(selectLogin, (state: ILoginState) => state.profile);
-export const selectIsAuthenticating = createSelector(selectLogin, (state: ILoginState) => state.isAuthenticating);
-export const selectIsAuthenticated = createSelector(selectLogin, (state: ILoginState) => state.isAuthenticated);
+export const selectLogin = createFeatureSelector<ILoginStore>(LoginFeatureName);
+export const selectUserProfile = createSelector(selectLogin, (state: ILoginStore) => state.login.profile);
+export const selectIsAuthenticating = createSelector(selectLogin, (state: ILoginStore) => state.login.isAuthenticating);
+export const selectIsAuthenticated = createSelector(selectLogin, (state: ILoginStore) => state.login.isAuthenticated);

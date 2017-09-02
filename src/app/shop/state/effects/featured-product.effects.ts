@@ -24,7 +24,7 @@ export class FeaturedProductEffects {
             return {
                 id: 'item-0',
                 name: 'Great Item!!!',
-                image: 'http://placehold.it/700x400',
+                image: '//placehold.it/700x400',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!',
                 price: 24.99,
                 currency: 'USD',

@@ -53,10 +53,13 @@ export class AuthenticationService {
     }
 
     _mapAppUser(user: firebaseApp.User) {
+        // TODO: get user roles from db
+
         return user ?
             {
                 email: user.email,
                 name: user.displayName || user.email,
+                picture: user.photoURL,
             } :
             null;
     }

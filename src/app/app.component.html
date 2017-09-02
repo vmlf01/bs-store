@@ -1,4 +1,10 @@
-<bs-header [title]="title"></bs-header>
+<bs-header
+    [title]="title"
+    [itemCount]="itemCount"
+    [isAuthenticated]="isAuthenticated"
+    [profile]="profile"
+    [menuOptions]="menuOptions"
+></bs-header>
 
 <main>
     <router-outlet>

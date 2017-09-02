@@ -1,3 +1,4 @@
+import { ICartContents } from '../../interfaces/ICartContents';
 import { IProduct } from '../../interfaces/IProduct';
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
 import { initialProductsState, IProductsState, productsReducer } from './state/reducers/products.reducer';
@@ -28,7 +29,9 @@ export const shopReducers: ActionReducerMap<IShopStore> = {
 
 export const shopFeatureName = 'shop';
 
-export const selectShop = createFeatureSelector(shopFeatureName);
+export const selectShop = createFeatureSelector<IShopStore>(shopFeatureName);
 export const selectProducts = createSelector(selectShop, (state: IShopStore) => state.products);
 export const selectFeaturedProduct = createSelector(selectShop, (state: IShopStore) => state.featuredProduct);
-export const selectCartContents = createSelector(selectShop, (state: IShopStore) => state.cart.contents);
+export const selectCart = createSelector(selectShop, (state: IShopStore) => state && state.cart);
+export const selectCartContents = createSelector(selectCart, (state: ICartState) => state.contents);
+export const selectCartCount = createSelector(selectCart, (state: ICartState) => state && state.itemCount || 0);

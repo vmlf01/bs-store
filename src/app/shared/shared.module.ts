@@ -8,6 +8,8 @@ import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { BsCurrencyPipe } from './bs-currency.pipe';
+import { UserDropdownComponent } from './user-dropdown/user-dropdown.component';
+import { CartIconComponent } from './cart-icon/cart-icon.component';
 
 @NgModule({
     imports: [
@@ -20,6 +22,8 @@ import { BsCurrencyPipe } from './bs-currency.pipe';
         FooterComponent,
         LoadingIndicatorComponent,
         BsCurrencyPipe,
+        UserDropdownComponent,
+        CartIconComponent,
     ],
     exports: [
         HeaderComponent,

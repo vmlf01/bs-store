@@ -8,12 +8,13 @@ import { IUserProfile } from '../../../../interfaces/IUserProfile';
 export interface ILoginState {
     isAuthenticated: boolean;
     isAuthenticating: boolean;
-    profile?: IUserProfile;
+    profile: IUserProfile;
 }
 
 export const initialLoginState: ILoginState = {
     isAuthenticated: false,
     isAuthenticating: false,
+    profile: null,
 };
 
 export function loginReducer(state: ILoginState = initialLoginState, action: LoginActions): ILoginState {

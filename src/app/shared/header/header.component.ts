@@ -1,5 +1,8 @@
 import { Component, Input } from '@angular/core';
 
+import { IUserProfile } from '../../../interfaces/IUserProfile';
+import { IMenuOption } from '../../../interfaces/IMenuOption';
+
 @Component({
     selector: 'bs-header',
     template: `
@@ -17,16 +20,25 @@ import { Component, Input } from '@angular/core';
                 <div class="collapse navbar-collapse" [ngbCollapse]="isCollapsed">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" routerLink="./shop">Shop</a>
+                            <a class="nav-link active" routerLink="./shop/cart">
+                                <bs-cart-icon [itemCount]="itemCount"></bs-cart-icon>
+                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" routerLink="./shop/cart">Cart</a>
-                        </li>
-                        <li class="nav-item">
+                    </ul>
+                    <ul class="navbar-nav ml-auto" *ngIf="!isAuthenticated">
+                        <li class="nav-item" >
                             <a class="nav-link active" routerLink="./login">Login</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" routerLink="./signup">Sign up</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto" *ngIf="isAuthenticated">
+                        <li class="nav-item text-light">
+                            <bs-user-dropdown
+                                [profile]="profile"
+                                [menuOptions]="menuOptions"
+                            ></bs-user-dropdown>
                         </li>
                     </ul>
                 </div>
@@ -37,6 +49,10 @@ import { Component, Input } from '@angular/core';
 })
 export class HeaderComponent {
     @Input() title: string;
+    @Input() itemCount: number;
+    @Input() isAuthenticated: boolean;
+    @Input() profile: IUserProfile;
+    @Input() menuOptions: IMenuOption[];
 
     isCollapsed = true;
 }

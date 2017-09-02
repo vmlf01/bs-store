@@ -16,7 +16,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AppRoutingModule } from './app-routing.module';
 import { AppSharedModule } from './shared/shared.module';
 import { AppLoginModule } from './login/login.module';
-import { appEffects, appReducers, initialAppState, storeOptions } from './app.store';
+import { appEffects, appReducers, storeOptions } from './app.store';
 
 import { AppComponent } from './app.component';
 
