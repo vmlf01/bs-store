@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { IUserProfile } from '../../../interfaces/IUserProfile';
 import { IMenuOption } from '../../../interfaces/IMenuOption';
@@ -38,6 +38,7 @@ import { IMenuOption } from '../../../interfaces/IMenuOption';
                             <bs-user-dropdown
                                 [profile]="profile"
                                 [menuOptions]="menuOptions"
+                                (optionSelected)="menuOptionSelected.emit($event)"
                             ></bs-user-dropdown>
                         </li>
                     </ul>
@@ -53,6 +54,7 @@ export class HeaderComponent {
     @Input() isAuthenticated: boolean;
     @Input() profile: IUserProfile;
     @Input() menuOptions: IMenuOption[];
+    @Output() menuOptionSelected = new EventEmitter<IMenuOption>();
 
     isCollapsed = true;
 }

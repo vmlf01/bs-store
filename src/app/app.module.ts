@@ -7,9 +7,11 @@ import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import {
+    StoreRouterConnectingModule,
+    RouterStateSerializer,
+} from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-
-import * as firebaseApp from 'firebase/app';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
@@ -19,6 +21,7 @@ import { AppLoginModule } from './login/login.module';
 import { appEffects, appReducers, storeOptions } from './app.store';
 
 import { AppComponent } from './app.component';
+import { CustomRouterStateSerializer } from './utils';
 
 @NgModule({
     declarations: [
@@ -31,20 +34,19 @@ import { AppComponent } from './app.component';
         RecaptchaFormsModule,
         NgbModule.forRoot(),
         StoreModule.forRoot(appReducers, storeOptions),
-        StoreDevtoolsModule.instrument(),
+        !environment.production ? StoreDevtoolsModule.instrument() : [],
         EffectsModule.forRoot(appEffects),
-
+        StoreRouterConnectingModule,
+        AppRoutingModule,
         AngularFireModule.initializeApp(environment.firebase.config, environment.firebase.appName),
         AngularFireAuthModule,
-
-        AppRoutingModule,
         AppSharedModule.forRoot(),
         AppLoginModule.forRoot(),
     ],
-    providers: [{
-        provide: RECAPTCHA_SETTINGS,
-        useValue: { siteKey: environment.recaptchaSiteKey }
-    }],
+    providers: [
+        { provide: RECAPTCHA_SETTINGS, useValue: { siteKey: environment.recaptchaSiteKey } },
+        { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule { }

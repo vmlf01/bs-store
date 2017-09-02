@@ -21,7 +21,7 @@ import { IMenuOption } from '../../../interfaces/IMenuOption';
                 <button
                     class="dropdown-item"
                     *ngFor="let option of menuOptions"
-                    (click)="handleMenuOption(option)"
+                    (click)="optionSelected.emit(option)"
                 >{{ option.label }}</button>
             </div>
         </div>
@@ -42,9 +42,5 @@ export class UserDropdownComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
-    }
-
-    handleMenuOption(optionSelected: IMenuOption) {
-        this.optionSelected.emit(optionSelected);
     }
 }

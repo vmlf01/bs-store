@@ -44,6 +44,9 @@ export function loginReducer(state: ILoginState = initialLoginState, action: Log
                 profile: null,
             };
 
+        case ActionTypes.LOGOUT_SUCCESS:
+            return { ...initialLoginState };
+
         default:
             return state;
     }

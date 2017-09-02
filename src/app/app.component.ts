@@ -1,4 +1,4 @@
-import { IMenuOption } from '../interfaces/IMenuOption';
+import { IMenuOption, UserMenuOptions } from '../interfaces/IMenuOption';
 import { selectUserProfile, selectIsAuthenticated } from './login/login.store';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -8,6 +8,7 @@ import { LoadingService } from './shared/loading.service';
 import { IAppStore } from './app.store';
 import { selectCartCount } from './shop/shop.store';
 import { selectMenuOptions } from './state/reducers/app.reducer';
+import { Logout } from './login/state/actions/login.actions';
 
 @Component({
     selector: 'bs-root',
@@ -78,4 +79,10 @@ export class AppComponent implements OnInit {
 
     }
 
+    handleMenuOptionSelected(menuOption: IMenuOption) {
+        switch (menuOption.id) {
+            case UserMenuOptions.Logout:
+                return this.store.dispatch(new Logout());
+        }
+    }
 }

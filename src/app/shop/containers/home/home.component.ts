@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -9,6 +8,7 @@ import { LoadProducts } from '../../state/actions/product.actions';
 import { IProduct } from '../../../../interfaces/IProduct';
 import { selectFeaturedProduct, selectProducts } from '../../shop.store';
 import { AddToCart } from '../../state/actions/cart.actions';
+import { ShowProductDetails, ShowShoppingCart } from '../../state/actions/router.actions';
 
 @Component({
     selector: 'bs-home',
@@ -39,8 +39,6 @@ export class HomeContainerComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
 
     constructor(
-        private route: ActivatedRoute,
-        private router: Router,
         private store: Store<any>
     ) {
     }
@@ -83,11 +81,11 @@ export class HomeContainerComponent implements OnInit, OnDestroy {
     }
 
     showItemDetails(product: IProduct) {
-        this.router.navigate([product.id], { relativeTo: this.route });
+        this.store.dispatch(new ShowProductDetails(product.id));
     }
 
     buyNow(product: IProduct) {
         this.store.dispatch(new AddToCart(product));
-        this.router.navigate(['cart'], { relativeTo: this.route.parent });
+        this.store.dispatch(new ShowShoppingCart());
     }
 }

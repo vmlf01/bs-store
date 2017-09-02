@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
@@ -8,6 +7,8 @@ import { IProduct } from '../../../../interfaces/IProduct';
 import { ChangeItemQuantity, CheckoutCart, RemoveFromCart } from '../../state/actions/cart.actions';
 import { selectCartContents } from '../../shop.store';
 import { IOrderItem } from '../../../../interfaces/IOrderItem';
+import { GoToHome } from '../../../state/actions/app.actions';
+import { ShowProductList, ShowProductDetails } from '../../state/actions/router.actions';
 
 @Component({
     selector: 'bs-cart',
@@ -39,8 +40,6 @@ export class CartContainerComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
 
     constructor(
-        private route: ActivatedRoute,
-        private router: Router,
         private store: Store<any>
     ) {
     }
@@ -76,11 +75,11 @@ export class CartContainerComponent implements OnInit, OnDestroy {
     }
 
     continueShopping() {
-        this.router.navigate([''], { relativeTo: this.route.parent });
+        this.store.dispatch(new ShowProductList());
     }
 
     showItemDetails(product: IOrderItem) {
-        this.router.navigate([product.id], { relativeTo: this.route.parent });
+        this.store.dispatch(new ShowProductDetails(product.id));
     }
 
     removeCartItem(product: IOrderItem) {

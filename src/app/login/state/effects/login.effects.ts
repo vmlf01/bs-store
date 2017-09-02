@@ -9,7 +9,7 @@ import { Actions, Effect } from '@ngrx/effects';
 
 import { LoginProvider } from '../../../../interfaces/ILogin';
 import * as ActionTypes from '../actions/login.actions';
-import { Login, LoginFailure, LoginSuccess, Signup } from '../actions/login.actions';
+import { Login, LoginFailure, LoginSuccess, Signup, Logout, LogoutSuccess } from '../actions/login.actions';
 import { AuthenticationService } from '../../services/authentication.service';
 
 @Injectable()
@@ -61,4 +61,8 @@ export class LoginEffects {
         .map(payload => new LoginSuccess(payload))
         .catch(error => Observable.of(new LoginFailure()));
 
+        @Effect() logout$ = this.actions$
+            .ofType<Logout>(ActionTypes.LOGOUT)
+            .switchMap(() => this.authService.logout())
+            .map(payload => new LogoutSuccess());
 }
