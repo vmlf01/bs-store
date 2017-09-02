@@ -179,6 +179,10 @@
     magic-string "^0.22.3"
     source-map "^0.5.6"
 
+"@types/grecaptcha@^2.0.33":
+  version "2.0.33"
+  resolved "https://registry.yarnpkg.com/@types/grecaptcha/-/grecaptcha-2.0.33.tgz#ab5019c23c8ca9a2554d4f17c308f3d2c3477740"
+
 "@types/jasmine@*", "@types/jasmine@~2.5.53":
   version "2.5.54"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.5.54.tgz#a6b5f2ae2afb6e0307774e8c7c608e037d491c63"
@@ -3443,6 +3447,12 @@ ncname@1.0.x:
 negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
+
+ng-recaptcha@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/ng-recaptcha/-/ng-recaptcha-3.0.0.tgz#2d117a795ea42a5be769467bf0a39afa2fd6357d"
+  optionalDependencies:
+    "@types/grecaptcha" "^2.0.33"
 
 ngrx-store-freeze@^0.1.9:
   version "0.1.9"

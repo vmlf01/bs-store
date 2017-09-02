@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
+import 'rxjs/add/operator/delay';
+import 'rxjs/add/operator/withLatestFrom';
 
 import * as ActionTypes from '../actions/product.actions';
 import {

@@ -1,11 +1,13 @@
-import { IFeaturedProductState } from '../reducers/featured-product.reducer';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
+import 'rxjs/add/operator/delay';
+import 'rxjs/add/operator/map';
 
 import * as ActionTypes from '../actions/featured-product.actions';
 import { LoadProductHighlight, LoadProductHighlightSuccess } from '../actions/featured-product.actions';
 import { selectFeaturedProduct } from '../../shop.store';
+import { IFeaturedProductState } from '../reducers/featured-product.reducer';
 
 @Injectable()
 export class FeaturedProductEffects {

@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
+import 'rxjs/add/operator/do';
 
 import { LoadingService } from '../../shared/loading.service';
 import * as ProductActionTypes from '../../shop/state/actions/product.actions';
+import * as LoginActionTypes from '../../login/state/actions/login.actions';
 
 @Injectable()
 export class LoadingEffects {
@@ -18,13 +20,19 @@ export class LoadingEffects {
         .ofType(
             ProductActionTypes.LOAD_PRODUCTS,
             ProductActionTypes.LOAD_PRODUCT_DETAILS,
+            LoginActionTypes.LOGIN,
+            LoginActionTypes.SIGNUP,
         )
         .do(() => this.loadingService.show());
 
     @Effect({ dispatch: false }) hideLoading$ = this.actions$
         .ofType(
             ProductActionTypes.LOAD_PRODUCTS_SUCCESS,
-            ProductActionTypes.LOAD_PRODUCT_DETAILS_SUCCESS
+            ProductActionTypes.LOAD_PRODUCT_DETAILS_SUCCESS,
+            LoginActionTypes.LOGIN_SUCCESS,
+            LoginActionTypes.LOGIN_FAILURE,
+            LoginActionTypes.SIGNUP_SUCCESS,
+            LoginActionTypes.SIGNUP_FAILURE,
         )
         .do(() => this.loadingService.hide());
 }

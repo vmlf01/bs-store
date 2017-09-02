@@ -1,20 +1,18 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-
 import { ILogin, LoginProvider } from '../../../interfaces/ILogin';
-import { Login } from '../state/actions/login.actions';
 
 @Component({
-    selector: 'bs-login-form',
-    templateUrl: './login-form.component.html',
-    styleUrls: ['./login-form.component.scss']
+    selector: 'bs-signup-form',
+    templateUrl: './signup-form.component.html',
+    styleUrls: ['./signup-form.component.scss']
 })
-export class LoginFormComponent implements OnInit {
-    @Output() onLogin = new EventEmitter<ILogin>();
-    @Output() onGoToSignup = new EventEmitter();
+export class SignupFormComponent implements OnInit {
+    @Output() onSignup = new EventEmitter<ILogin>();
+    @Output() onGoToLogin = new EventEmitter();
 
     LoginProviders = LoginProvider;
-    loginForm: FormGroup;
+    signupForm: FormGroup;
 
     email = new FormControl('', [
         Validators.required,
@@ -27,19 +25,22 @@ export class LoginFormComponent implements OnInit {
         Validators.maxLength(50),
     ]);
 
-    constructor(
-        private formBuilder: FormBuilder,
-    ) { }
+    captcha = new FormControl('', [
+        Validators.required,
+    ]);
+
+    constructor(private formBuilder: FormBuilder) { }
 
     ngOnInit() {
-        this.loginForm = this.formBuilder.group({
+        this.signupForm = this.formBuilder.group({
             email: this.email,
             password: this.password,
+            captcha: this.captcha,
         });
     }
 
-    login() {
-        if (!this.loginForm.valid) {
+    signup() {
+        if (!this.signupForm.valid) {
             return;
         }
 
@@ -47,15 +48,16 @@ export class LoginFormComponent implements OnInit {
             provider: LoginProvider.EMail,
             email: this.email.value,
             password: this.password.value,
+            recaptcha: this.captcha.value,
         };
-        this.onLogin.emit(userLogin);
+        this.onSignup.emit(userLogin);
     }
 
-    loginWithProvider(provider) {
-        this.onLogin.emit({ provider });
+    signupWithProvider(provider) {
+        this.onSignup.emit({ provider });
     }
 
-    goToSignup() {
-        this.onGoToSignup.emit();
+    goToLogin() {
+        this.onGoToLogin.emit();
     }
 }

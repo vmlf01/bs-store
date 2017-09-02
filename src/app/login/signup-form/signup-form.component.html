@@ -2,10 +2,10 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <div class="login__container">
+                <div class="signup__container">
                     <div>
                         <form class="form" role="form" autocomplete="off" novalidate=""
-                            [formGroup]="loginForm" (ngSubmit)="login()"
+                            [formGroup]="signupForm" (ngSubmit)="signup()"
                         >
                             <div class="form-group">
                                 <label class="form-control-label" for="email">E-Mail</label>
@@ -28,8 +28,17 @@
                                     [ngClass]="{ 'is-invalid': password.dirty && !password.valid, 'is-valid': password.valid }"
                                 >
                             </div>
+                            <div class="form-group text-center mt-4">
+                                <re-captcha
+                                    class="signup__captcha"
+                                    name="captcha"
+                                    size="reCaptcha"
+                                    formControlName="captcha"
+                                ></re-captcha>
+                            </div>
+
                             <div class="text-center">
-                                <button type="submit" class="btn btn-success" [disabled]="!loginForm.valid">Log In</button>
+                                <button type="submit" class="btn btn-success" [disabled]="!signupForm.valid">Register</button>
                             </div>
                         </form>
                     </div>
@@ -38,18 +47,18 @@
                         <div class="small">you can use one of these services to log in:</div>
                     </div>
                     <div class="text-center">
-                        <button type="button" class="btn btn-link login__button--facebook" (click)="loginWithProvider(LoginProviders.Facebook)">
+                        <button type="button" class="btn btn-link signup__button--facebook" (click)="signupWithProvider(LoginProviders.Facebook)">
                             <i class="fa fa-3x fa-facebook-square"></i>
                         </button>
-                        <button type="button" class="btn btn-link login__button--github" (click)="loginWithProvider(LoginProviders.GitHub)">
+                        <button type="button" class="btn btn-link signup__button--github" (click)="signupWithProvider(LoginProviders.GitHub)">
                             <i class="fa fa-3x fa-github-square"></i>
                         </button>
                     </div>
                     <hr>
                     <div class="text-center mt-4 mb-4">
-                        <div class="small mb-2">Don't have an account yet?</div>
-                        <button type="button" class="btn btn-outline-secondary" (click)="goToSignup()">
-                            Sign up here
+                        <div class="small mb-2">Already have an account yet?</div>
+                        <button type="button" class="btn btn-outline-secondary" (click)="goToLogin()">
+                            Log in here
                         </button>
                     </div>
                 </div>

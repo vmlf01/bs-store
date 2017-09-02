@@ -1,12 +1,12 @@
-import { LoadProductDetails } from '../../state/actions/product.actions';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs/Rx';
 
 import { IProduct } from '../../../../interfaces/IProduct';
 import { selectProducts } from '../../shop.store';
 import { AddToCart } from '../../state/actions/cart.actions';
+import { LoadProductDetails } from '../../state/actions/product.actions';
 
 @Component({
     selector: 'bs-item-details',
