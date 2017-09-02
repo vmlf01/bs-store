@@ -1,5 +1,4 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { Store } from '@ngrx/store';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
@@ -10,12 +9,6 @@ describe('LoginContainerComponent', () => {
     let component: LoginContainerComponent;
     let fixture: ComponentFixture<LoginContainerComponent>;
 
-    const mockRouter = {
-        navigate: jasmine.createSpy('navigate')
-    };
-
-    const mockRoute = {};
-
     const mockStore = {
         select: jasmine.createSpy('select').and.returnValue(Observable.of({})),
         dispatch: jasmine.createSpy('dispatch'),
@@ -25,8 +18,6 @@ describe('LoginContainerComponent', () => {
         TestBed.configureTestingModule({
             declarations: [LoginContainerComponent],
             providers: [
-                { provide: Router, useValue: mockRouter },
-                { provide: ActivatedRoute, useValue: mockRoute },
                 { provide: Store, useValue: mockStore },
             ],
             schemas: [

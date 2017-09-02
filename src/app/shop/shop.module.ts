@@ -20,6 +20,8 @@ import { shopEffects } from './shop.effects';
 import { CartContentsComponent } from './cart/cart-contents/cart-contents.component';
 import { CartItemComponent } from './cart/cart-item/cart-item.component';
 import { CartTotalsComponent } from './cart/cart-totals/cart-totals.component';
+import { CartDetailsComponent } from './cart/cart-details/cart-details.component';
+import { CartEmptyComponent } from './cart/cart-empty/cart-empty.component';
 
 @NgModule({
     imports: [
@@ -39,8 +41,10 @@ import { CartTotalsComponent } from './cart/cart-totals/cart-totals.component';
         ProductHighlightComponent,
         ProductRatingComponent,
         CartContentsComponent,
+        CartDetailsComponent,
         CartItemComponent,
         CartTotalsComponent,
+        CartEmptyComponent,
     ],
     exports: [
     ],
