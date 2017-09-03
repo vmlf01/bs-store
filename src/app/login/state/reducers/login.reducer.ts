@@ -4,10 +4,12 @@ import * as ActionTypes from '../actions/login.actions';
 import { LoginActions } from '../actions/login.actions';
 import { IOrderItem } from '../../../../interfaces/IOrderItem';
 import { IUserProfile } from '../../../../interfaces/IUserProfile';
+import { AppError } from '../../../../interfaces/AppError';
 
 export interface ILoginState {
     isAuthenticated: boolean;
     isAuthenticating: boolean;
+    error?: AppError;
     profile: IUserProfile;
 }
 
@@ -24,6 +26,7 @@ export function loginReducer(state: ILoginState = initialLoginState, action: Log
             return {
                 ...state,
                 isAuthenticating: true,
+                error: null,
             };
 
         case ActionTypes.LOGIN_SUCCESS:
@@ -32,6 +35,7 @@ export function loginReducer(state: ILoginState = initialLoginState, action: Log
                 ...state,
                 isAuthenticating: false,
                 isAuthenticated: true,
+                error: null,
                 profile: action.payload,
             };
 
@@ -41,6 +45,7 @@ export function loginReducer(state: ILoginState = initialLoginState, action: Log
                 ...state,
                 isAuthenticating: false,
                 isAuthenticated: false,
+                error: action.payload,
                 profile: null,
             };
 

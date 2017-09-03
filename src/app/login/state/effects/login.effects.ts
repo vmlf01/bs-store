@@ -9,8 +9,18 @@ import { Actions, Effect } from '@ngrx/effects';
 
 import { LoginProvider } from '../../../../interfaces/ILogin';
 import * as ActionTypes from '../actions/login.actions';
-import { Login, LoginFailure, LoginSuccess, Signup, Logout, LogoutSuccess } from '../actions/login.actions';
+import {
+    Login,
+    LoginFailure,
+    LoginSuccess,
+    Logout,
+    LogoutSuccess,
+    Signup,
+    SignupFailure,
+    SignupSuccess,
+} from '../actions/login.actions';
 import { AuthenticationService } from '../../services/authentication.service';
+import { IUserProfile } from '../../../../interfaces/IUserProfile';
 
 @Injectable()
 export class LoginEffects {
@@ -24,45 +34,52 @@ export class LoginEffects {
     @Effect() login$ = this.actions$
         .ofType<Login>(ActionTypes.LOGIN)
         .switchMap((action) => {
-            switch (action.payload.provider) {
-                case LoginProvider.EMail:
-                    return this.authService.login(action.payload.email, action.payload.password);
-
-                case LoginProvider.Facebook:
-                    return this.authService.loginWithFacebook();
-
-                case LoginProvider.GitHub:
-                    return this.authService.loginWithGitHub();
-
-                default:
-                    return Observable.of(new Error('Login provider not available!'));
-            }
-        })
-        .map(payload => new LoginSuccess(payload))
-        .catch(error => Observable.of(new LoginFailure()));
+            return this._doLogin(action)
+                .map(payload => new LoginSuccess(payload))
+                .catch(error => Observable.of(new LoginFailure({ code: error.code, message: error.message })));
+        });
 
     @Effect() signup$ = this.actions$
         .ofType<Signup>(ActionTypes.SIGNUP)
         .switchMap((action) => {
-            switch (action.payload.provider) {
-                case LoginProvider.EMail:
-                    return this.authService.register(action.payload.email, action.payload.password, action.payload.recaptcha);
+            return this._doSignup(action)
+                .map(payload => new SignupSuccess(payload))
+                .catch(error => Observable.of(new SignupFailure({ code: error.code, message: error.message })));
+        });
 
-                case LoginProvider.Facebook:
-                    return this.authService.loginWithFacebook();
+    @Effect() logout$ = this.actions$
+        .ofType<Logout>(ActionTypes.LOGOUT)
+        .switchMap(() => this.authService.logout().map(payload => new LogoutSuccess()));
 
-                case LoginProvider.GitHub:
-                    return this.authService.loginWithGitHub();
+    _doLogin(action): Observable<IUserProfile> {
+        switch (action.payload.provider) {
+            case LoginProvider.EMail:
+                return this.authService.login(action.payload.email, action.payload.password);
 
-                default:
-                    return Observable.of(new Error('Login provider not available!'));
-            }
-        })
-        .map(payload => new LoginSuccess(payload))
-        .catch(error => Observable.of(new LoginFailure()));
+            case LoginProvider.Facebook:
+                return this.authService.loginWithFacebook();
 
-        @Effect() logout$ = this.actions$
-            .ofType<Logout>(ActionTypes.LOGOUT)
-            .switchMap(() => this.authService.logout())
-            .map(payload => new LogoutSuccess());
+            case LoginProvider.GitHub:
+                return this.authService.loginWithGitHub();
+
+            default:
+                throw new Error('Login provider not available!');
+        }
+    }
+
+    _doSignup(action): Observable<IUserProfile> {
+        switch (action.payload.provider) {
+            case LoginProvider.EMail:
+                return this.authService.register(action.payload.email, action.payload.password, action.payload.recaptcha);
+
+            case LoginProvider.Facebook:
+                return this.authService.loginWithFacebook();
+
+            case LoginProvider.GitHub:
+                return this.authService.loginWithGitHub();
+
+            default:
+                throw new Error('Login provider not available!');
+        }
+    }
 }

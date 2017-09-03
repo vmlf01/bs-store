@@ -1,6 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ILogin, LoginProvider } from '../../../interfaces/ILogin';
+import { AppError } from '../../../interfaces/AppError';
 
 @Component({
     selector: 'bs-signup-form',
@@ -8,6 +9,7 @@ import { ILogin, LoginProvider } from '../../../interfaces/ILogin';
     styleUrls: ['./signup-form.component.scss']
 })
 export class SignupFormComponent implements OnInit {
+    @Input() error: AppError = null;
     @Output() onSignup = new EventEmitter<ILogin>();
     @Output() onGoToLogin = new EventEmitter();
 
@@ -51,6 +53,7 @@ export class SignupFormComponent implements OnInit {
             recaptcha: this.captcha.value,
         };
         this.onSignup.emit(userLogin);
+        this.signupForm.markAsPristine();
     }
 
     signupWithProvider(provider) {

@@ -38,6 +38,10 @@
                             </div>
 
                             <div class="text-center">
+                                <div class="alert alert-danger" role="alert" *ngIf="error?.message && signupForm.pristine">
+                                    {{ error.message }}
+                                </div>
+
                                 <button type="submit" class="btn btn-success" [disabled]="!signupForm.valid">Register</button>
                             </div>
                         </form>

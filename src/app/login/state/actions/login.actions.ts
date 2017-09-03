@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { ILogin } from '../../../../interfaces/ILogin';
 import { IUserProfile } from '../../../../interfaces/IUserProfile';
+import { AppError } from '../../../../interfaces/AppError';
 
 export const LOGIN = 'LOGIN';
 export const LOGIN_SUCCESS = 'LOGIN_SUCESS';
@@ -23,6 +24,7 @@ export class LoginSuccess implements Action {
 
 export class LoginFailure implements Action {
     readonly type = LOGIN_FAILURE;
+    constructor(public readonly payload: AppError) {}
 }
 
 export class Signup implements Action {
@@ -37,6 +39,7 @@ export class SignupSuccess implements Action {
 
 export class SignupFailure implements Action {
     readonly type = SIGNUP_FAILURE;
+    constructor(public readonly payload: AppError) {}
 }
 
 export class Logout implements Action {

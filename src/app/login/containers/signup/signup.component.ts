@@ -1,9 +1,12 @@
-import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
 import { ILogin } from '../../../../interfaces/ILogin';
 import { Signup } from '../../state/actions/login.actions';
+import { ShowLogin } from '../../state/actions/router.actions';
+import { selectAuthError } from '../../login.store';
+import { AppError } from '../../../../interfaces/AppError';
 
 @Component({
     selector: 'bs-signup',
@@ -12,6 +15,7 @@ import { Signup } from '../../state/actions/login.actions';
             <div class="row">
                 <div class="col-sm-8 col-md-5 mx-auto mt-5 mb-5">
                     <bs-signup-form
+                        [error]="signupError$ | async"
                         (onSignup)="handleSignup($event)"
                         (onGoToLogin)="goToLogin()"
                     ></bs-signup-form>
@@ -22,14 +26,14 @@ import { Signup } from '../../state/actions/login.actions';
     styles: []
 })
 export class SignupContainerComponent implements OnInit {
+    signupError$: Observable<AppError>;
 
     constructor(
-        private route: ActivatedRoute,
-        private router: Router,
         private store: Store<any>
     ) { }
 
     ngOnInit() {
+        this.signupError$ = this.store.select(selectAuthError);
     }
 
     handleSignup(loginRequest: ILogin) {
@@ -37,6 +41,6 @@ export class SignupContainerComponent implements OnInit {
     }
 
     goToLogin() {
-        this.router.navigate(['../login'], { relativeTo: this.route });
+        this.store.dispatch(new ShowLogin());
     }
 }

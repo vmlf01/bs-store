@@ -56,6 +56,6 @@ export class AppRouterEffects {
         .do(() => this.router.navigate(['/login']));
 
     @Effect({ dispatch: false }) goToSignup$ = this.actions$
-        .ofType(LoginRouterActionTypes.SHOW_LOGIN)
+        .ofType(LoginRouterActionTypes.SHOW_SIGNUP)
         .do(() => this.router.navigate(['/signup']));
 }

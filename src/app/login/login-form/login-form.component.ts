@@ -1,8 +1,9 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { ILogin, LoginProvider } from '../../../interfaces/ILogin';
 import { Login } from '../state/actions/login.actions';
+import { AppError } from '../../../interfaces/AppError';
 
 @Component({
     selector: 'bs-login-form',
@@ -10,6 +11,7 @@ import { Login } from '../state/actions/login.actions';
     styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent implements OnInit {
+    @Input() error: AppError = null;
     @Output() onLogin = new EventEmitter<ILogin>();
     @Output() onGoToSignup = new EventEmitter();
 
@@ -49,6 +51,7 @@ export class LoginFormComponent implements OnInit {
             password: this.password.value,
         };
         this.onLogin.emit(userLogin);
+        this.loginForm.markAsPristine();
     }
 
     loginWithProvider(provider) {
