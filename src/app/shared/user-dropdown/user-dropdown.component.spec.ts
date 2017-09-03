@@ -11,6 +11,7 @@ describe('UserDropdownComponent', () => {
         email: 'example@abc.com',
         name: 'Jane Doe',
         picture: '',
+        role: 'BUYER',
     };
 
     beforeEach(async(() => {

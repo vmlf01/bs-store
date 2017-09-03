@@ -6,6 +6,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import { AppSharedModule } from '../shared/shared.module';
 import { SignupFormComponent } from './signup-form/signup-form.component';
@@ -25,6 +26,7 @@ import { AuthenticationService } from './services/authentication.service';
         StoreModule.forFeature<ILoginStore>(LoginFeatureName, LoginReducers, { initialState: initialLoginStoreState }),
         EffectsModule.forFeature(loginEffects),
         AngularFireAuthModule,
+        AngularFireDatabaseModule,
         AppSharedModule,
     ],
     declarations: [

@@ -14,6 +14,7 @@ import {
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppSharedModule } from './shared/shared.module';
@@ -40,6 +41,7 @@ import { CustomRouterStateSerializer } from './utils';
         AppRoutingModule,
         AngularFireModule.initializeApp(environment.firebase.config, environment.firebase.appName),
         AngularFireAuthModule,
+        AngularFireDatabaseModule,
         AppSharedModule.forRoot(),
         AppLoginModule.forRoot(),
     ],

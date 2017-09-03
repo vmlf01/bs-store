@@ -1,5 +1,9 @@
 export enum UserMenuOptions {
-    Profile,
+    MyProfile,
+    MyOrders,
+    Users,
+    Products,
+    Orders,
     Logout,
 }
 

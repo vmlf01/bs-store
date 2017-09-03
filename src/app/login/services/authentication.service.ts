@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/take';
 import 'rxjs/add/observable/fromPromise';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
 import * as firebaseApp from 'firebase/app';
 
-import { IUserProfile } from '../../../interfaces/IUserProfile';
+import { IUserProfile, UserRoles } from '../../../interfaces/IUserProfile';
 
 @Injectable()
 export class AuthenticationService {
@@ -13,18 +16,19 @@ export class AuthenticationService {
 
     constructor(
         private afAuth: AngularFireAuth,
+        private afData: AngularFireDatabase,
     ) {
         this.authProvider = afAuth.auth;
     }
 
     getAuthState(): Observable<IUserProfile> {
         return this.afAuth.authState
-            .map(this._mapAppUser);
+            .switchMap(user => this._mapAppUser(user));
     }
 
     login(email: string, password: string): Observable<IUserProfile> {
         return Observable.fromPromise(this.authProvider.signInWithEmailAndPassword(email, password))
-            .map(this._mapAppUser);
+            .switchMap(user => this._mapAppUser(user));
     }
 
     loginWithFacebook(): Observable<IUserProfile> {
@@ -39,7 +43,7 @@ export class AuthenticationService {
         // TODO: validate reCaptcha
 
         return Observable.fromPromise(this.authProvider.createUserWithEmailAndPassword(email, password))
-            .map(this._mapAppUser);
+            .switchMap(user => this._mapAppUser(user));
     }
 
     logout(): Observable<void> {
@@ -49,18 +53,28 @@ export class AuthenticationService {
     _loginWithPopup(provider: firebaseApp.auth.AuthProvider): Observable<IUserProfile> {
         return Observable.fromPromise(this.authProvider.signInWithPopup(provider))
             .map(result => result.user)
-            .map(this._mapAppUser);
+            .switchMap(user => this._mapAppUser(user));
     }
 
-    _mapAppUser(user: firebaseApp.User) {
-        // TODO: get user roles from db
+    _mapAppUser(user: firebaseApp.User): Observable<IUserProfile> {
+        if (!user) {
+            return null;
+        }
 
-        return user ?
-            {
-                email: user.email,
-                name: user.displayName || user.email,
-                picture: user.photoURL,
-            } :
-            null;
+        return this._getUserRole(user.uid)
+            .map(userRole => {
+                return {
+                    email: user.email,
+                    name: user.displayName || user.email,
+                    picture: user.photoURL,
+                    role: userRole,
+                };
+            });
+    }
+
+    _getUserRole(userId) {
+        return this.afData.object(`/users/${userId}/role`)
+            .take(1)
+            .map(role => role.$exists() && role.$value || 'BUYER');
     }
 }

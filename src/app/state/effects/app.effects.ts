@@ -8,6 +8,27 @@ import { LoginSuccess, SignupSuccess } from '../../login/state/actions/login.act
 import { IUserProfile } from '../../../interfaces/IUserProfile';
 import { IMenuOption, UserMenuOptions } from '../../../interfaces/IMenuOption';
 
+const AppMenuOptions = {
+    'BUYER': [
+        { id: UserMenuOptions.MyProfile, label: 'My profile' },
+        { id: UserMenuOptions.MyOrders, label: 'My orders' },
+        { id: UserMenuOptions.Logout, label: 'Log out' },
+    ],
+    'ADMIN': [
+        { id: UserMenuOptions.MyProfile, label: 'My profile' },
+        { id: UserMenuOptions.Products, label: 'Products' },
+        { id: UserMenuOptions.Orders, label: 'Orders' },
+        { id: UserMenuOptions.Users, label: 'Users' },
+        { id: UserMenuOptions.Logout, label: 'Log out' },
+    ],
+    'MANAGER': [
+        { id: UserMenuOptions.MyProfile, label: 'My profile' },
+        { id: UserMenuOptions.Products, label: 'Products' },
+        { id: UserMenuOptions.Orders, label: 'Orders' },
+        { id: UserMenuOptions.Logout, label: 'Log out' },
+    ],
+};
+
 @Injectable()
 export class AppEffects {
     constructor(
@@ -23,11 +44,7 @@ export class AppEffects {
         )
         .map(action => action.payload)
         .map((user: IUserProfile) => {
-            const menuOptions: IMenuOption[] = [];
-
-            menuOptions.push({ id: UserMenuOptions.Profile, label: 'My profile' });
-            menuOptions.push({ id: UserMenuOptions.Logout, label: 'Log out' });
-
+            const menuOptions = AppMenuOptions[user.role] || [];
             return new SetUserMenuOptions({ options: menuOptions });
         });
 }
