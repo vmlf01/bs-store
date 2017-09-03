@@ -12,16 +12,25 @@ const routes: Routes = [
         loadChildren: './shop/shop.module#AppShopModule',
     },
     {
+        path: 'manage',
+        children: [
+            {
+                path: 'products',
+                loadChildren: './products/products.module#AppProductsModule',
+            },
+        ],
+    },
+    {
         path: '',
         children: [
             { path: '', pathMatch: 'full', redirectTo: '/shop' },
             ...loginRoutes,
         ],
     },
-    // {
-    //     path: '**',
-    //     redirectTo: '/shop',
-    // },
+    {
+        path: '**',
+        redirectTo: '/shop',
+    },
 ];
 
 @NgModule({

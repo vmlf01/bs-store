@@ -3,8 +3,9 @@ import { Store } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
 
 import * as LoginActionTypes from '../../login/state/actions/login.actions';
-import { SetUserMenuOptions } from '../actions/app.actions';
-import { LoginSuccess, SignupSuccess } from '../../login/state/actions/login.actions';
+import * as AppActionTypes from '../actions/app.actions';
+import { AppActions, GoToHome, SetUserMenuOptions, UserMenuOptionSelected, GoToProductsManagement } from '../actions/app.actions';
+import { LoginSuccess, SignupSuccess, Logout } from '../../login/state/actions/login.actions';
 import { IUserProfile } from '../../../interfaces/IUserProfile';
 import { IMenuOption, UserMenuOptions } from '../../../interfaces/IMenuOption';
 
@@ -46,5 +47,20 @@ export class AppEffects {
         .map((user: IUserProfile) => {
             const menuOptions = AppMenuOptions[user.role] || [];
             return new SetUserMenuOptions({ options: menuOptions });
+        });
+
+    @Effect() selectMenuOption$ = this.actions$
+        .ofType<UserMenuOptionSelected>(AppActionTypes.USER_MENU_OPTION_SELECTED)
+        .map(action => {
+            switch (action.payload.id) {
+                case UserMenuOptions.Logout:
+                    return new Logout();
+
+                case UserMenuOptions.Products:
+                    return new GoToProductsManagement();
+
+                default:
+                    return new GoToHome();
+            }
         });
 }

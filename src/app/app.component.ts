@@ -9,6 +9,7 @@ import { IAppStore } from './app.store';
 import { selectCartCount } from './shop/shop.store';
 import { selectMenuOptions } from './state/reducers/app.reducer';
 import { Logout } from './login/state/actions/login.actions';
+import { UserMenuOptionSelected } from './state/actions/app.actions';
 
 @Component({
     selector: 'bs-root',
@@ -80,9 +81,6 @@ export class AppComponent implements OnInit {
     }
 
     handleMenuOptionSelected(menuOption: IMenuOption) {
-        switch (menuOption.id) {
-            case UserMenuOptions.Logout:
-                return this.store.dispatch(new Logout());
-        }
+        this.store.dispatch(new UserMenuOptionSelected(menuOption));
     }
 }

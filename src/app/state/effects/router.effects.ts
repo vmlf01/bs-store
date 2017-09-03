@@ -58,4 +58,9 @@ export class AppRouterEffects {
     @Effect({ dispatch: false }) goToSignup$ = this.actions$
         .ofType(LoginRouterActionTypes.SHOW_SIGNUP)
         .do(() => this.router.navigate(['/signup']));
+
+    @Effect({ dispatch: false }) goToProductsManagement$ = this.actions$
+        .ofType(AppActionTypes.GO_TO_PRODUCTS_MANAGEMENT)
+        .do(() => this.router.navigate(['/manage', 'products']));
+
 }
