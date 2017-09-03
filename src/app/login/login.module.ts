@@ -16,6 +16,7 @@ import { SignupContainerComponent } from './containers/signup/signup.component';
 import { ILoginStore, initialLoginStoreState, LoginFeatureName, LoginReducers } from './login.store';
 import { loginEffects } from './login.effects';
 import { AuthenticationService } from './services/authentication.service';
+import { AuthorizationGuard } from './guards/authentication.guard';
 
 @NgModule({
     imports: [
@@ -48,6 +49,7 @@ export class AppLoginModule {
             ngModule: AppLoginModule,
             providers: [
                 AuthenticationService,
+                AuthorizationGuard,
             ],
         };
     }

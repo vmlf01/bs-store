@@ -4,13 +4,15 @@ import { IUserProfile } from '../../../../interfaces/IUserProfile';
 import { AppError } from '../../../../interfaces/AppError';
 
 export const LOGIN = 'LOGIN';
-export const LOGIN_SUCCESS = 'LOGIN_SUCESS';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const SIGNUP = 'SIGNUP';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
 export const LOGOUT = 'LOGOUT';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const USER_AUTHENTICATION_NEEDED = 'USER_AUTHENTICATION_NEEDED';
+export const USER_NOT_AUTHORIZED = 'USER_NOT_AUTHORIZED';
 
 export class Login implements Action {
     readonly type = LOGIN;
@@ -50,6 +52,16 @@ export class LogoutSuccess implements Action {
     readonly type = LOGOUT_SUCCESS;
 }
 
+export class UserAuthenticationNeeded implements Action {
+    readonly type = USER_AUTHENTICATION_NEEDED;
+    constructor(public readonly payload: string) {}
+}
+
+export class UserNotAuthorized implements Action {
+    readonly type = USER_NOT_AUTHORIZED;
+    constructor(public readonly payload: string) {}
+}
+
 export type LoginActions =
     Login
     | LoginSuccess
@@ -59,4 +71,6 @@ export type LoginActions =
     | SignupFailure
     | Logout
     | LogoutSuccess
+    | UserAuthenticationNeeded
+    | UserNotAuthorized
 ;

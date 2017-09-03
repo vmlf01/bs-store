@@ -5,6 +5,7 @@ import { HomeContainerComponent } from './shop/containers/home/home.component';
 import { LoginContainerComponent } from './login/containers/login/login.component';
 import { SignupContainerComponent } from './login/containers/signup/signup.component';
 import { loginRoutes } from './login/login.routes';
+import { AuthorizationGuard } from './login/guards/authentication.guard';
 
 const routes: Routes = [
     {
@@ -13,6 +14,8 @@ const routes: Routes = [
     },
     {
         path: 'manage',
+        canLoad: [AuthorizationGuard],
+        canActivateChild: [AuthorizationGuard],
         children: [
             {
                 path: 'products',

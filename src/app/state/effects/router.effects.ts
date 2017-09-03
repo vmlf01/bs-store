@@ -1,18 +1,22 @@
+import { Observable } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterStateSnapshot } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { ROUTER_NAVIGATION, RouterNavigationAction } from '@ngrx/router-store';
 import { Actions, Effect } from '@ngrx/effects';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/withLatestFrom';
 
 import { IAppStore } from '../../app.store';
 
-import { GoToHome } from '../actions/app.actions';
+import { GoToHome, ResumeNavigation } from '../actions/app.actions';
 import { ShowProductDetails } from '../../shop/state/actions/router.actions';
 import * as LoginActionTypes from '../../login/state/actions/login.actions';
 import * as LoginRouterActionTypes from '../../login/state/actions/router.actions';
 import * as AppActionTypes from '../actions/app.actions';
 import * as ShopActionTypes from '../../shop/state/actions/router.actions';
+import { selectAuthRedirect } from '../../login/login.store';
 
 @Injectable()
 export class AppRouterEffects {
@@ -28,7 +32,11 @@ export class AppRouterEffects {
             LoginActionTypes.LOGIN_SUCCESS,
             LoginActionTypes.SIGNUP_SUCCESS,
         )
-        .map(() => new GoToHome());
+        .withLatestFrom(this.store.select(selectAuthRedirect))
+        .map(([action, redirectUrl]) => redirectUrl ?
+            new ResumeNavigation(redirectUrl) :
+            new GoToHome()
+        );
 
     @Effect() logoutRedirect$ = this.actions$
         .ofType(
@@ -63,4 +71,7 @@ export class AppRouterEffects {
         .ofType(AppActionTypes.GO_TO_PRODUCTS_MANAGEMENT)
         .do(() => this.router.navigate(['/manage/products']));
 
+    @Effect({ dispatch: false }) resumeNavigation$ = this.actions$
+        .ofType<ResumeNavigation>(AppActionTypes.RESUME_NAVIGATION)
+        .do(action => this.router.navigateByUrl(action.payload));
 }

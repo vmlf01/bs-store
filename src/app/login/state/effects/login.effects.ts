@@ -18,9 +18,11 @@ import {
     Signup,
     SignupFailure,
     SignupSuccess,
+    UserAuthenticationNeeded,
 } from '../actions/login.actions';
 import { AuthenticationService } from '../../services/authentication.service';
 import { IUserProfile } from '../../../../interfaces/IUserProfile';
+import { ShowLogin } from '../actions/router.actions';
 
 @Injectable()
 export class LoginEffects {
@@ -30,6 +32,10 @@ export class LoginEffects {
         private authService: AuthenticationService
     ) {
     }
+
+    @Effect() doAuthentication$ = this.actions$
+        .ofType<UserAuthenticationNeeded>(ActionTypes.USER_AUTHENTICATION_NEEDED)
+        .map(() => new ShowLogin());
 
     @Effect() login$ = this.actions$
         .ofType<Login>(ActionTypes.LOGIN)

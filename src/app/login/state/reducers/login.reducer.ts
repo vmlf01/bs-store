@@ -11,6 +11,7 @@ export interface ILoginState {
     isAuthenticating: boolean;
     error?: AppError;
     profile: IUserProfile;
+    redirectUrl?: string;
 }
 
 export const initialLoginState: ILoginState = {
@@ -51,6 +52,12 @@ export function loginReducer(state: ILoginState = initialLoginState, action: Log
 
         case ActionTypes.LOGOUT_SUCCESS:
             return { ...initialLoginState };
+
+        case ActionTypes.USER_AUTHENTICATION_NEEDED:
+            return {
+                ...state,
+                redirectUrl: action.payload,
+            };
 
         default:
             return state;
