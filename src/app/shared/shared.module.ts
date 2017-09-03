@@ -10,6 +10,7 @@ import { HeaderComponent } from './header/header.component';
 import { BsCurrencyPipe } from './bs-currency.pipe';
 import { UserDropdownComponent } from './user-dropdown/user-dropdown.component';
 import { CartIconComponent } from './cart-icon/cart-icon.component';
+import { LettersFilterBarComponent } from './letters-filter-bar/letters-filter-bar.component';
 
 @NgModule({
     imports: [
@@ -24,11 +25,13 @@ import { CartIconComponent } from './cart-icon/cart-icon.component';
         BsCurrencyPipe,
         UserDropdownComponent,
         CartIconComponent,
+        LettersFilterBarComponent,
     ],
     exports: [
         HeaderComponent,
         FooterComponent,
         LoadingIndicatorComponent,
+        LettersFilterBarComponent,
         BsCurrencyPipe,
     ],
 })
