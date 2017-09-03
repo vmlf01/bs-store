@@ -3,24 +3,21 @@ import { Action, ActionReducer, createFeatureSelector, createSelector } from '@n
 import { ProductsListActions } from '../actions/products-list.actions';
 import * as ActionTypes from '../actions/products-list.actions';
 import { IProduct } from '../../../../interfaces/IProduct';
+import { AppError } from '../../../../interfaces/AppError';
 
 export interface IProductsListState {
     products: IProduct[];
     isLoading: boolean;
-    totalCount: number;
-    currentPage: number;
-    totalPages: number;
+    currentInitial: string;
+    error: AppError;
 }
 
 export const initialProductsListState: IProductsListState = {
     products: [],
     isLoading: false,
-    totalCount: 0,
-    currentPage: 0,
-    totalPages: 0,
+    currentInitial: 'a',
+    error: null,
 };
-
-const ItemsPerPage = 10;
 
 export function productsListReducer(state: IProductsListState = initialProductsListState, action: ProductsListActions): IProductsListState {
     switch (action.type) {
@@ -28,7 +25,7 @@ export function productsListReducer(state: IProductsListState = initialProductsL
             return {
                 ...state,
                 isLoading: true,
-                currentPage: action.payload,
+                currentInitial: action.payload,
             };
 
         case ActionTypes.LOAD_PRODUCTS_LIST_SUCCESS:
@@ -36,15 +33,17 @@ export function productsListReducer(state: IProductsListState = initialProductsL
                 ...state,
                 isLoading: false,
                 products: action.payload.products,
-                totalCount: action.payload.totalCount,
-                totalPages: _getPageCount(action.payload.totalCount, ItemsPerPage),
+            };
+
+        case ActionTypes.LOAD_PRODUCTS_LIST_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+                products: [],
+                error: action.payload,
             };
 
         default:
             return state;
     }
-}
-
-function _getPageCount(total, itemsPerPage) {
-    return Math.ceil(total / itemsPerPage);
 }

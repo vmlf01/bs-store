@@ -1,0 +1,16 @@
+<p>
+  products-list works!
+</p>
+
+<bs-letters-filter-bar
+    [selectedLetter]="currentInitialLetter | async"
+    (onSelected)="loadProducts($event)"
+></bs-letters-filter-bar>
+
+<div
+    *ngFor="let item of products | async"
+>
+    <div>{{ item?.id}}</div>
+    <div>{{ item?.name}}</div>
+    <div>{{ item?.description}}</div>
+</div>

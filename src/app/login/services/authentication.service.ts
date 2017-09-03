@@ -4,9 +4,9 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/observable/fromPromise';
+import * as firebaseApp from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
-import * as firebaseApp from 'firebase/app';
 
 import { IUserProfile, UserRoles } from '../../../interfaces/IUserProfile';
 

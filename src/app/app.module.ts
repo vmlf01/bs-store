@@ -12,6 +12,7 @@ import {
     RouterStateSerializer,
 } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import * as firebase from 'firebase';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -39,7 +40,7 @@ import { CustomRouterStateSerializer } from './utils';
         EffectsModule.forRoot(appEffects),
         StoreRouterConnectingModule,
         AppRoutingModule,
-        AngularFireModule.initializeApp(environment.firebase.config, environment.firebase.appName),
+        AngularFireModule.initializeApp(environment.firebase.config),
         AngularFireAuthModule,
         AngularFireDatabaseModule,
         AppSharedModule.forRoot(),

@@ -17,5 +17,6 @@ export const reducers: ActionReducerMap<IProductsStore> = {
 
 export const productsFeatureName = 'products';
 
-export const selectProducts = createFeatureSelector<IProductsStore>(productsFeatureName);
-export const selectProductsList = createSelector(selectProducts, state => state.products);
+export const selectProductsFeature = createFeatureSelector<IProductsStore>(productsFeatureName);
+export const selectProducts = createSelector(selectProductsFeature, state => state.products);
+export const selectProductsList = createSelector(selectProducts, state => state && state.products);

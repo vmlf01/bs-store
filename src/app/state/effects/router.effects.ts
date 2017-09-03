@@ -61,6 +61,6 @@ export class AppRouterEffects {
 
     @Effect({ dispatch: false }) goToProductsManagement$ = this.actions$
         .ofType(AppActionTypes.GO_TO_PRODUCTS_MANAGEMENT)
-        .do(() => this.router.navigate(['/manage', 'products']));
+        .do(() => this.router.navigate(['/manage/products']));
 
 }

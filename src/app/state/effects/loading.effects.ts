@@ -6,6 +6,7 @@ import 'rxjs/add/operator/do';
 import { LoadingService } from '../../shared/loading.service';
 import * as ProductActionTypes from '../../shop/state/actions/product.actions';
 import * as LoginActionTypes from '../../login/state/actions/login.actions';
+import * as ProductListActionTypes from '../../products/state/actions/products-list.actions';
 
 @Injectable()
 export class LoadingEffects {
@@ -22,6 +23,7 @@ export class LoadingEffects {
             ProductActionTypes.LOAD_PRODUCT_DETAILS,
             LoginActionTypes.LOGIN,
             LoginActionTypes.SIGNUP,
+            ProductListActionTypes.LOAD_PRODUCTS_LIST,
         )
         .do(() => this.loadingService.show());
 
@@ -33,6 +35,8 @@ export class LoadingEffects {
             LoginActionTypes.LOGIN_FAILURE,
             LoginActionTypes.SIGNUP_SUCCESS,
             LoginActionTypes.SIGNUP_FAILURE,
+            ProductListActionTypes.LOAD_PRODUCTS_LIST_SUCCESS,
+            ProductListActionTypes.LOAD_PRODUCTS_LIST_FAILURE,
         )
         .do(() => this.loadingService.hide());
 }
