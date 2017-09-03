@@ -183,6 +183,10 @@
     magic-string "^0.22.3"
     source-map "^0.5.6"
 
+"@swimlane/ngx-datatable@^10.2.1":
+  version "10.2.1"
+  resolved "https://registry.yarnpkg.com/@swimlane/ngx-datatable/-/ngx-datatable-10.2.1.tgz#7e7d56172816241430345e843d2028a114ca30cf"
+
 "@types/grecaptcha@^2.0.33":
   version "2.0.33"
   resolved "https://registry.yarnpkg.com/@types/grecaptcha/-/grecaptcha-2.0.33.tgz#ab5019c23c8ca9a2554d4f17c308f3d2c3477740"

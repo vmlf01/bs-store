@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { AppSharedModule } from '../shared/shared.module';
 import { routes } from './products.routes';
@@ -19,6 +20,7 @@ import { ProductsService } from './services/products.service';
         StoreModule.forFeature<IProductsStore>(productsFeatureName, reducers, { initialState }),
         EffectsModule.forFeature(productsEffects),
         AngularFireDatabaseModule,
+        NgxDatatableModule,
         AppSharedModule,
     ],
     declarations: [

@@ -9,7 +9,7 @@ import { selectProductsList, selectProducts } from '../../products.store';
 @Component({
     selector: 'bs-products-list',
     templateUrl: './products-list.component.html',
-    styleUrls: ['./products-list.component.scss']
+    styles: []
 })
 export class ProductsListComponent implements OnInit {
     currentInitialLetter: Observable<string>;

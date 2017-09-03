@@ -1,16 +1,42 @@
-<p>
-  products-list works!
-</p>
+<div class="container">
+    <bs-page-title [title]="'Product List'"></bs-page-title>
 
-<bs-letters-filter-bar
-    [selectedLetter]="currentInitialLetter | async"
-    (onSelected)="loadProducts($event)"
-></bs-letters-filter-bar>
+    <div class="row pt-2 mb-4">
+        <div class="col-md-12 text-center">
+            <bs-letters-filter-bar
+                [selectedLetter]="currentInitialLetter | async"
+                (onSelected)="loadProducts($event)"
+            ></bs-letters-filter-bar>
+        </div>
+    </div>
 
-<div
-    *ngFor="let item of products | async"
->
-    <div>{{ item?.id}}</div>
-    <div>{{ item?.name}}</div>
-    <div>{{ item?.description}}</div>
+    <div class="row pb-4">
+        <div class="col-md-12">
+            <ngx-datatable
+                class="material"
+                [columnMode]="'flex'"
+                [headerHeight]="50"
+                [footerHeight]="40"
+                [rowHeight]="'auto'"
+                [limit]="10"
+                [rows]="products | async"
+            >
+                <ngx-datatable-column name="Name" [flexGrow]="3">
+                    <ng-template let-value="value" ngx-datatable-cell-template>
+                        {{ value }}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Price" [flexGrow]="1">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                        {{ value | bsCurrency: row.currency}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Rating" [flexGrow]="1">
+                    <ng-template let-value="value" ngx-datatable-cell-template>
+                        {{ value }}
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>
+    </div>
 </div>

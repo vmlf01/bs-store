@@ -26,6 +26,7 @@
         "@ngrx/effects": "^4.0.5",
         "@ngrx/router-store": "^4.0.4",
         "@ngrx/store": "^4.0.3",
+        "@swimlane/ngx-datatable": "^10.2.1",
         "angularfire2": "^4.0.0-rc.2",
         "bootstrap": "next",
         "core-js": "^2.4.1",
