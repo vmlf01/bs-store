@@ -1,0 +1,43 @@
+<form class="form" role="form" novalidate="" [formGroup]="productForm" (ngSubmit)="handleSave(productForm)">
+    <div class="modal-header">
+        <h4 class="modal-title">Product Details</h4>
+        <button type="button" class="close" aria-label="Close" (click)="onCancel.emit()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': name.dirty && !name.valid, 'is-valid': name.valid }">
+        </div>
+        <div class="form-group">
+            <label for="description" class="form-control-label">Description</label>
+            <textarea formControlName="description" class="form-control" [ngClass]="{ 'is-invalid': description.dirty && !description.valid, 'is-valid': description.valid }"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="currency" class="form-control-label">Currency</label>
+            <select formControlName="currency" class="form-control custom-select" [ngClass]="{ 'is-invalid': currency.dirty && !currency.valid, 'is-valid': currency.valid }">
+                <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="price" class="form-control-label">Price</label>
+            <input type="number" formControlName="price" class="form-control" min="0" [ngClass]="{ 'is-invalid': price.dirty && !price.valid, 'is-valid': price.valid }">
+        </div>
+        <div class="form-group">
+            <label for="rating" class="form-control-label">Rating</label>
+            <input type="number" formControlName="rating" class="form-control" min="0" max="5" [ngClass]="{ 'is-invalid': rating.dirty && !rating.valid, 'is-valid': rating.valid }">
+        </div>
+        <div class="form-group">
+            <label for="image" class="form-control-label">Image</label>
+            <input type="text" formControlName="image" class="form-control" [ngClass]="{ 'is-invalid': image.dirty && !image.valid, 'is-valid': image.valid }">
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="error?.message">
+            {{ error.message }}
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" (click)="onCancel.emit()">Cancel</button>
+        <button type="submit" class="btn btn-success" [disabled]="!productForm.valid || productForm.pristine">Save</button>
+    </div>
+</form>

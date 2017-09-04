@@ -1,4 +1,3 @@
 export class AppError {
-    code: string;
-    message: string;
+    constructor(public readonly code: string, public readonly message) {}
 }

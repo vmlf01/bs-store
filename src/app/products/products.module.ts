@@ -1,5 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -12,10 +13,13 @@ import { IProductsStore, productsFeatureName, reducers, initialState } from './p
 import { productsEffects } from './products.effects';
 import { ProductsListComponent } from './containers/products-list/products-list.component';
 import { ProductsService } from './services/products.service';
+import { ProductsModalComponent } from './containers/products-modal/products-modal.component';
+import { ProductsEditComponent } from './products-edit/products-edit.component';
 
 @NgModule({
     imports: [
         CommonModule,
+        ReactiveFormsModule,
         RouterModule.forChild(routes),
         StoreModule.forFeature<IProductsStore>(productsFeatureName, reducers, { initialState }),
         EffectsModule.forFeature(productsEffects),
@@ -25,6 +29,11 @@ import { ProductsService } from './services/products.service';
     ],
     declarations: [
         ProductsListComponent,
+        ProductsModalComponent,
+        ProductsEditComponent,
+    ],
+    entryComponents: [
+        ProductsModalComponent,
     ],
     exports: [
     ],

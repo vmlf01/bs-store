@@ -1,3 +1,4 @@
+import { AddNewProduct, DeleteExistingProduct, EditExistingProduct } from '../../state/actions/product-details.actions';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
@@ -28,5 +29,17 @@ export class ProductsListComponent implements OnInit {
 
     loadProducts(selectedInitial: string) {
         this.store.dispatch(new LoadProductsList(selectedInitial));
+    }
+
+    handleAdd() {
+        this.store.dispatch(new AddNewProduct());
+    }
+
+    handleEdit(product: IProduct) {
+        this.store.dispatch(new EditExistingProduct(product.id));
+    }
+
+    handleDelete(product: IProduct) {
+        this.store.dispatch(new DeleteExistingProduct(product.id));
     }
 }
