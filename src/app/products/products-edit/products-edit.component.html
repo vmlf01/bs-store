@@ -37,7 +37,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-warning" (click)="onCancel.emit()">Cancel</button>
         <button type="submit" class="btn btn-success" [disabled]="!productForm.valid || productForm.pristine">Save</button>
+        <button class="btn btn-warning" (click)="onCancel.emit()">Cancel</button>
     </div>
 </form>

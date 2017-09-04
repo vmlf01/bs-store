@@ -14,6 +14,7 @@ export const PRODUCT_SAVE_FAILURE = 'PRODUCT_SAVE_FAILURE';
 export const DELETE_EXISTING_PRODUCT = 'DELETE_EXISTING_PRODUCT';
 export const DELETE_EXISTING_PRODUCT_SUCCESS = 'DELETE_EXISTING_PRODUCT_SUCCESS';
 export const DELETE_EXISTING_PRODUCT_FAILURE = 'DELETE_EXISTING_PRODUCT_FAILURE';
+export const CANCEL_DELETE_EXISTING_PRODUCT = 'CANCEL_DELETE_EXISTING_PRODUCT';
 
 export class AddNewProduct implements Action {
     readonly type = ADD_NEW_PRODUCT;
@@ -62,6 +63,10 @@ export class DeleteExistingProduct implements Action {
     constructor(public readonly payload: string) {}
 }
 
+export class CancelDeleteExistingProduct implements Action {
+    readonly type = CANCEL_DELETE_EXISTING_PRODUCT;
+}
+
 export class DeleteExistingProductSuccess implements Action {
     readonly type = DELETE_EXISTING_PRODUCT_SUCCESS;
 }
@@ -82,6 +87,7 @@ export type ProductDetailsActions =
     | ProductSaveSuccess
     | ProductSaveFailure
     | DeleteExistingProduct
+    | CancelDeleteExistingProduct
     | DeleteExistingProductSuccess
     | DeleteExistingProductFailure
 ;

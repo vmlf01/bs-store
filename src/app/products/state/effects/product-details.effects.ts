@@ -10,9 +10,24 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import * as ActionTypes from '../actions/product-details.actions';
-import { AddNewProduct, EditExistingProduct, OpenProductDetailsModal, ProductSaveSuccess, ProductSaveFailure, OpenProductDetailsModalFailure, CancelProductDetailsModal, SaveProductDetails, CloseProductDetailsModal } from '../actions/product-details.actions';
+import {
+    AddNewProduct,
+    CancelProductDetailsModal,
+    CloseProductDetailsModal,
+    DeleteExistingProduct,
+    DeleteExistingProductFailure,
+    DeleteExistingProductSuccess,
+    EditExistingProduct,
+    OpenProductDetailsModal,
+    OpenProductDetailsModalFailure,
+    ProductSaveFailure,
+    ProductSaveSuccess,
+    SaveProductDetails,
+    CancelDeleteExistingProduct,
+} from '../actions/product-details.actions';
 import { ProductsService } from '../../services/products.service';
 import { AppError } from '../../../../interfaces/AppError';
+import { BsAlertService } from '../../../shared/bs-alert.service';
 
 @Injectable()
 export class ProductDetailsEffects {
@@ -20,7 +35,8 @@ export class ProductDetailsEffects {
         private actions$: Actions,
         private store: Store<any>,
         private productsService: ProductsService,
-        private ngbModal: NgbModal
+        private ngbModal: NgbModal,
+        private bsAlert: BsAlertService,
     ) {
     }
 
@@ -50,6 +66,22 @@ export class ProductDetailsEffects {
             return this.productsService.saveProduct(action.payload)
                 .map(productId => new ProductSaveSuccess(productId))
                 .catch(error => Observable.of(new ProductSaveFailure(error.code)));
+        });
+
+    @Effect() deleteProduct$ = this.actions$
+        .ofType<DeleteExistingProduct>(ActionTypes.DELETE_EXISTING_PRODUCT)
+        .switchMap(action => {
+            return Observable.fromPromise(this.bsAlert.confirm({
+                title: 'Are you sure?',
+                text: 'This will remove the selected product!',
+                type: 'warning',
+                confirmButtonText: 'Yes, delete it!',
+            }))
+                .switchMap(() => this.productsService.deleteProduct(action.payload)
+                    .map(() => new DeleteExistingProductSuccess())
+                    .catch(error => Observable.of(new DeleteExistingProductFailure(error.code)))
+                )
+                .catch(() => Observable.of(new CancelDeleteExistingProduct()));
         });
 }
 

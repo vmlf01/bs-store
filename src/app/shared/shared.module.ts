@@ -12,6 +12,7 @@ import { UserDropdownComponent } from './user-dropdown/user-dropdown.component';
 import { CartIconComponent } from './cart-icon/cart-icon.component';
 import { LettersFilterBarComponent } from './letters-filter-bar/letters-filter-bar.component';
 import { PageTitleComponent } from './page-title/page-title.component';
+import { BsAlertService } from './bs-alert.service';
 
 @NgModule({
     imports: [
@@ -45,6 +46,7 @@ export class AppSharedModule {
             providers: [
                 LoadingService,
                 CurrencyPipe,
+                BsAlertService,
             ],
         };
     }
