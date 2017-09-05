@@ -47,7 +47,7 @@ export class ProductDetailsEffects {
     @Effect() editProduct$ = this.actions$
         .ofType<EditExistingProduct>(ActionTypes.EDIT_EXISTING_PRODUCT)
         .switchMap(action => {
-            return this.productsService.getProductDetails(action.payload)
+            return this.productsService.getProductDetails(action.payload).take(1)
                 .map(product => new OpenProductDetailsModal(product))
                 .catch(error => Observable.of(new OpenProductDetailsModalFailure(error)));
         });
