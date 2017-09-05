@@ -7,6 +7,8 @@ import { IProduct } from '../../../../interfaces/IProduct';
 import { selectProductDetails } from '../../products.store';
 import { SaveProductDetails } from '../../state/actions/product-details.actions';
 import { AppError } from '../../../../interfaces/AppError';
+import { AuthorizationService } from '../../../login/services/authorization.service';
+import { PermissionCatalogEditProduct } from '../../../app.permissions';
 
 @Component({
     selector: 'bs-products-modal',
@@ -15,6 +17,7 @@ import { AppError } from '../../../../interfaces/AppError';
             [product]="product | async"
             [currencies]="currencies"
             [error]="error | async"
+            [readOnly]="isReadOnly | async"
             (onCancel)="handleCancel()"
             (onSave)="handleSave($event)"
         ></bs-products-edit>
@@ -25,6 +28,7 @@ export class ProductsModalComponent implements OnInit, OnDestroy {
     product: Observable<IProduct>;
     error: Observable<AppError>;
     currencies = ['USD'];
+    isReadOnly: Observable<boolean>;
 
     private subscriptions: Subscription[];
 
@@ -36,6 +40,7 @@ export class ProductsModalComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.product = this.store.select(selectProductDetails).map(state => state.product);
         this.error = this.store.select(selectProductDetails).map(state => state.error);
+        this.isReadOnly = this.store.select(selectProductDetails).map(state => state.isReadOnly);
 
         this.subscriptions = [
             this.store.select(selectProductDetails)

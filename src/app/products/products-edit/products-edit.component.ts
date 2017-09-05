@@ -9,6 +9,7 @@ import { IProduct } from '../../../interfaces/IProduct';
     styles: []
 })
 export class ProductsEditComponent implements OnInit {
+    @Input() readOnly: boolean;
     @Input() product: IProduct;
     @Input() currencies: string[];
     @Input() error: AppError;
@@ -44,6 +45,10 @@ export class ProductsEditComponent implements OnInit {
             image: this.image,
             rating: this.rating,
         });
+
+        if (this.readOnly) {
+            this.productForm.disable();
+        }
     }
 
     handleSave({valid, value }) {

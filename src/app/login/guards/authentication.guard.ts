@@ -3,34 +3,27 @@ import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanLoad, Route, 
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
-import { UserAuthenticationNeeded } from '../state/actions/login.actions';
-import { selectIsAuthenticated } from '../login.store';
+import { AuthorizationService } from '../services/authorization.service';
 
 @Injectable()
 export class AuthorizationGuard implements CanActivate, CanActivateChild, CanLoad {
     constructor(
-        private store: Store<any>
+        private authService: AuthorizationService,
     ) {
     }
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-        return this._ensureUserIsAuthenticated(route, state);
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+        const permission = route.data['permission'];
+        return !permission || this.authService.hasPermissionTo(permission);
     }
 
-    canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-        return this._ensureUserIsAuthenticated(childRoute, state);
+    canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+        const permission = childRoute.data['permission'] || childRoute.parent.data['permission'];
+        return !permission || this.authService.hasPermissionTo(permission);
     }
 
     canLoad(route: Route) {
-        return true;
-    }
-
-    _ensureUserIsAuthenticated(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-        return this.store.select(selectIsAuthenticated)
-            .do(isAuthenticated => {
-                if (!isAuthenticated) {
-                    this.store.dispatch(new UserAuthenticationNeeded(state.url));
-                }
-            });
+        const permission = route.data['permission'];
+        return !permission || this.authService.hasPermissionTo(permission);
     }
 }

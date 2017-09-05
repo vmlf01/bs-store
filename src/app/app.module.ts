@@ -24,6 +24,8 @@ import { appEffects, appReducers, storeOptions } from './app.store';
 
 import { AppComponent } from './app.component';
 import { CustomRouterStateSerializer } from './utils';
+import { IPermissions, IRolePermissions } from './login/services/IPermissions';
+import { AppPermissions } from './app.permissions';
 
 @NgModule({
     declarations: [
@@ -49,6 +51,7 @@ import { CustomRouterStateSerializer } from './utils';
     providers: [
         { provide: RECAPTCHA_SETTINGS, useValue: { siteKey: environment.recaptchaSiteKey } },
         { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },
+        { provide: IPermissions, useClass: AppPermissions }
     ],
     bootstrap: [AppComponent],
 })

@@ -22,8 +22,8 @@
                 [rows]="products | async"
             >
                 <ngx-datatable-column name="Name" [flexGrow]="3">
-                    <ng-template let-value="value" ngx-datatable-cell-template>
-                        {{ value }}
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                        <a href="" class="btn btn-link" (click)="$event.preventDefault(); handleEdit(row)">{{ value }}</a>
                     </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Price" [flexGrow]="1">
@@ -36,12 +36,12 @@
                         {{ value }}
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="Actions" [flexGrow]="1">
+                <ngx-datatable-column name="Actions" [flexGrow]="1" *ngIf="permissions.canEdit || permissions.canDelete" >
                     <ng-template let-row="row" ngx-datatable-cell-template>
-                        <button class="btn btn-sm btn-outline-info" (click)="handleEdit(row)">
+                        <button *ngIf="permissions.canEdit" class="btn btn-sm btn-outline-info" (click)="handleEdit(row)">
                             <i class="fa fa-edit"></i>
                         </button>
-                        <button class="btn btn-sm btn-outline-danger" (click)="handleDelete(row)">
+                        <button *ngIf="permissions.canDelete" class="btn btn-sm btn-outline-danger" (click)="handleDelete(row)">
                             <i class="fa fa-trash"></i>
                         </button>
                         </ng-template>
@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    <div class="row pb-4">
+    <div class="row pb-4" *ngIf="permissions.canAdd" >
         <div class="col-md-12 text-right">
             <button class="btn btn-success" (click)="handleAdd()">Add New</button>
         </div>

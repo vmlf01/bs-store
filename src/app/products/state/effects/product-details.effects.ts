@@ -24,6 +24,7 @@ import {
     ProductSaveSuccess,
     SaveProductDetails,
     CancelDeleteExistingProduct,
+    ShowExistingProduct,
 } from '../actions/product-details.actions';
 import { ProductsService } from '../../services/products.service';
 import { AppError } from '../../../../interfaces/AppError';
@@ -45,7 +46,10 @@ export class ProductDetailsEffects {
         .map(action => new OpenProductDetailsModal(this.productsService.getNewBlankProduct()));
 
     @Effect() editProduct$ = this.actions$
-        .ofType<EditExistingProduct>(ActionTypes.EDIT_EXISTING_PRODUCT)
+        .ofType<EditExistingProduct | ShowExistingProduct>(
+            ActionTypes.EDIT_EXISTING_PRODUCT,
+            ActionTypes.SHOW_EXISTING_PRODUCT,
+        )
         .switchMap(action => {
             return this.productsService.getProductDetails(action.payload).take(1)
                 .map(product => new OpenProductDetailsModal(product))

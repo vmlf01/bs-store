@@ -17,6 +17,7 @@ import { ILoginStore, initialLoginStoreState, LoginFeatureName, LoginReducers } 
 import { loginEffects } from './login.effects';
 import { AuthenticationService } from './services/authentication.service';
 import { AuthorizationGuard } from './guards/authentication.guard';
+import { AuthorizationService } from './services/authorization.service';
 
 @NgModule({
     imports: [
@@ -49,6 +50,7 @@ export class AppLoginModule {
             ngModule: AppLoginModule,
             providers: [
                 AuthenticationService,
+                AuthorizationService,
                 AuthorizationGuard,
             ],
         };

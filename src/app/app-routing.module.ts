@@ -6,6 +6,7 @@ import { LoginContainerComponent } from './login/containers/login/login.componen
 import { SignupContainerComponent } from './login/containers/signup/signup.component';
 import { loginRoutes } from './login/login.routes';
 import { AuthorizationGuard } from './login/guards/authentication.guard';
+import { PermissionCatalogAccess } from './app.permissions';
 
 const routes: Routes = [
     {
@@ -16,6 +17,7 @@ const routes: Routes = [
         path: 'manage',
         canLoad: [AuthorizationGuard],
         canActivateChild: [AuthorizationGuard],
+        data: { permission: PermissionCatalogAccess },
         children: [
             {
                 path: 'products',

@@ -4,6 +4,7 @@ import { AppError } from '../../../../interfaces/AppError';
 
 export const ADD_NEW_PRODUCT = 'ADD_NEW_PRODUCT';
 export const EDIT_EXISTING_PRODUCT = 'EDIT_EXISTING_PRODUCT';
+export const SHOW_EXISTING_PRODUCT = 'SHOW_EXISTING_PRODUCT';
 export const OPEN_PRODUCT_DETAILS_MODAL = 'OPEN_PRODUCT_DETAILS_MODAL';
 export const OPEN_PRODUCT_DETAILS_MODAL_FAILURE = 'OPEN_PRODUCT_DETAILS_MODAL_FAILURE';
 export const CLOSE_PRODUCT_DETAILS_MODAL = 'CLOSE_PRODUCT_DETAILS_MODAL';
@@ -22,6 +23,11 @@ export class AddNewProduct implements Action {
 
 export class EditExistingProduct implements Action {
     readonly type = EDIT_EXISTING_PRODUCT;
+    constructor(public readonly payload: string) {}
+}
+
+export class ShowExistingProduct implements Action {
+    readonly type = SHOW_EXISTING_PRODUCT;
     constructor(public readonly payload: string) {}
 }
 
@@ -79,6 +85,7 @@ export class DeleteExistingProductFailure implements Action {
 export type ProductDetailsActions =
     AddNewProduct
     | EditExistingProduct
+    | ShowExistingProduct
     | OpenProductDetailsModal
     | OpenProductDetailsModalFailure
     | CloseProductDetailsModal

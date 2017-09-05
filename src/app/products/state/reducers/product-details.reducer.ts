@@ -10,6 +10,7 @@ export interface IProductDetailsState {
     product: IProduct;
     isNew: boolean;
     isSaved: boolean;
+    isReadOnly: boolean;
     error: AppError;
 }
 
@@ -17,6 +18,7 @@ export const initialProductDetailsState: IProductDetailsState = {
     product: null,
     isNew: true,
     isSaved: false,
+    isReadOnly: true,
     error: null,
 };
 
@@ -27,6 +29,7 @@ export function productDetailsReducer(state: IProductDetailsState = initialProdu
                 ...state,
                 product: null,
                 isNew: true,
+                isReadOnly: false,
                 error: null
             };
 
@@ -35,6 +38,16 @@ export function productDetailsReducer(state: IProductDetailsState = initialProdu
                 ...state,
                 product: null,
                 isNew: false,
+                isReadOnly: false,
+                error: null,
+            };
+
+        case ActionTypes.SHOW_EXISTING_PRODUCT:
+            return {
+                ...state,
+                product: null,
+                isNew: false,
+                isReadOnly: true,
                 error: null,
             };
 
