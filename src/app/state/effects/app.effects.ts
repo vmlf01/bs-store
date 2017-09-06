@@ -42,6 +42,7 @@ export class AppEffects {
         .ofType<LoginSuccess | SignupSuccess>(
             LoginActionTypes.LOGIN_SUCCESS,
             LoginActionTypes.SIGNUP_SUCCESS,
+            LoginActionTypes.SET_USER_AUTHENTICATION,
         )
         .map(action => action.payload)
         .map((user: IUserProfile) => {

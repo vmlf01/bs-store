@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -19,6 +20,7 @@ import {
     SignupFailure,
     SignupSuccess,
     UserAuthenticationNeeded,
+    SetUserAuthentication,
 } from '../actions/login.actions';
 import { AuthenticationService } from '../../services/authentication.service';
 import { IUserProfile } from '../../../../interfaces/IUserProfile';
@@ -31,6 +33,14 @@ export class LoginEffects {
         private store: Store<any>,
         private authService: AuthenticationService
     ) {
+        this.authService.getAuthState()
+            .subscribe(user => {
+                if (user) {
+                    this.store.dispatch(new SetUserAuthentication(user));
+                } else {
+                    this.store.dispatch(new LogoutSuccess());
+                }
+            });
     }
 
     @Effect() doAuthentication$ = this.actions$

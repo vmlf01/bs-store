@@ -32,6 +32,7 @@ export function loginReducer(state: ILoginState = initialLoginState, action: Log
 
         case ActionTypes.LOGIN_SUCCESS:
         case ActionTypes.SIGNUP_SUCCESS:
+        case ActionTypes.SET_USER_AUTHENTICATION:
             return {
                 ...state,
                 isAuthenticating: false,
