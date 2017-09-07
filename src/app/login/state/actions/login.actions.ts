@@ -22,7 +22,6 @@ export class Login implements Action {
 
 export class LoginSuccess implements Action {
     readonly type = LOGIN_SUCCESS;
-    constructor(public readonly payload: IUserProfile) {}
 }
 
 export class LoginFailure implements Action {
@@ -37,7 +36,6 @@ export class Signup implements Action {
 
 export class SignupSuccess implements Action {
     readonly type = SIGNUP_SUCCESS;
-    constructor(public readonly payload: IUserProfile) {}
 }
 
 export class SignupFailure implements Action {

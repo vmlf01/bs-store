@@ -8,6 +8,7 @@ describe('UserDropdownComponent', () => {
     let fixture: ComponentFixture<UserDropdownComponent>;
 
     const mockProfile: IUserProfile = {
+        id: 'id-1',
         email: 'example@abc.com',
         name: 'Jane Doe',
         picture: '',

@@ -5,6 +5,7 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/throw';
 import { Store } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
 
@@ -34,13 +35,7 @@ export class LoginEffects {
         private authService: AuthenticationService
     ) {
         this.authService.getAuthState()
-            .subscribe(user => {
-                if (user) {
-                    this.store.dispatch(new SetUserAuthentication(user));
-                } else {
-                    this.store.dispatch(new LogoutSuccess());
-                }
-            });
+            .subscribe(user => this.store.dispatch(new SetUserAuthentication(user)));
     }
 
     @Effect() doAuthentication$ = this.actions$
@@ -51,23 +46,23 @@ export class LoginEffects {
         .ofType<Login>(ActionTypes.LOGIN)
         .switchMap((action) => {
             return this._doLogin(action)
-                .map(payload => new LoginSuccess(payload))
-                .catch(error => Observable.of(new LoginFailure({ code: error.code, message: error.message })));
+                .map(() => new LoginSuccess())
+                .catch(error => Observable.of(new LoginFailure(error)));
         });
 
     @Effect() signup$ = this.actions$
         .ofType<Signup>(ActionTypes.SIGNUP)
         .switchMap((action) => {
             return this._doSignup(action)
-                .map(payload => new SignupSuccess(payload))
-                .catch(error => Observable.of(new SignupFailure({ code: error.code, message: error.message })));
+                .map(() => new SignupSuccess())
+                .catch(error => Observable.of(new SignupFailure(error)));
         });
 
     @Effect() logout$ = this.actions$
         .ofType<Logout>(ActionTypes.LOGOUT)
         .switchMap(() => this.authService.logout().map(payload => new LogoutSuccess()));
 
-    _doLogin(action): Observable<IUserProfile> {
+    _doLogin(action): Observable<void> {
         switch (action.payload.provider) {
             case LoginProvider.EMail:
                 return this.authService.login(action.payload.email, action.payload.password);
@@ -79,11 +74,11 @@ export class LoginEffects {
                 return this.authService.loginWithGitHub();
 
             default:
-                throw new Error('Login provider not available!');
+                Observable.throw(new Error('Login provider not available!'));
         }
     }
 
-    _doSignup(action): Observable<IUserProfile> {
+    _doSignup(action): Observable<void> {
         switch (action.payload.provider) {
             case LoginProvider.EMail:
                 return this.authService.register(action.payload.email, action.payload.password, action.payload.recaptcha);
@@ -95,7 +90,7 @@ export class LoginEffects {
                 return this.authService.loginWithGitHub();
 
             default:
-                throw new Error('Login provider not available!');
+                Observable.throw(new Error('Login provider not available!'));
         }
     }
 }

@@ -5,7 +5,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import * as LoginActionTypes from '../../login/state/actions/login.actions';
 import * as AppActionTypes from '../actions/app.actions';
 import { AppActions, GoToHome, SetUserMenuOptions, UserMenuOptionSelected, GoToProductsManagement } from '../actions/app.actions';
-import { LoginSuccess, SignupSuccess, Logout } from '../../login/state/actions/login.actions';
+import { LoginSuccess, Logout, SetUserAuthentication, SignupSuccess } from '../../login/state/actions/login.actions';
 import { IUserProfile } from '../../../interfaces/IUserProfile';
 import { IMenuOption, UserMenuOptions } from '../../../interfaces/IMenuOption';
 
@@ -39,14 +39,12 @@ export class AppEffects {
     }
 
     @Effect() setUserOptions$ = this.actions$
-        .ofType<LoginSuccess | SignupSuccess>(
-            LoginActionTypes.LOGIN_SUCCESS,
-            LoginActionTypes.SIGNUP_SUCCESS,
+        .ofType<SetUserAuthentication>(
             LoginActionTypes.SET_USER_AUTHENTICATION,
         )
         .map(action => action.payload)
         .map((user: IUserProfile) => {
-            const menuOptions = AppMenuOptions[user.role] || [];
+            const menuOptions = user && AppMenuOptions[user.role] || [];
             return new SetUserMenuOptions({ options: menuOptions });
         });
 

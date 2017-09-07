@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/observable/fromPromise';
+import 'rxjs/add/observable/throw';
 import { AngularFireDatabase } from 'angularfire2/database';
 import * as firebaseApp from 'firebase/app';
 
@@ -49,7 +50,7 @@ export class ProductsService {
 
     deleteProduct(productId: string): Observable<void> {
         if (!productId) {
-            throw new AppError('INVALID_ARGS', 'Invalid argument provided');
+            Observable.throw(new AppError('INVALID_ARGS', 'Invalid argument provided'));
         }
 
         return Observable.fromPromise(this.afData.list('/products').remove(productId));

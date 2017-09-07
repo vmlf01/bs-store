@@ -24,7 +24,7 @@ export class ProductsListEffects {
         .switchMap(action => {
             return this.productsService.getProducts(action.payload)
                 .map(products => new LoadProductsListSuccess({ products }))
-                .catch(error => Observable.of(new LoadProductsListFailure({ code: error.code, message: error.message })));
+                .catch(error => Observable.of(new LoadProductsListFailure(error)));
         });
 }
 
