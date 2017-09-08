@@ -1,6 +1,7 @@
 import { mockProduct } from '../../../mockData/products';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProductsEditComponent } from './products-edit.component';
@@ -11,7 +12,7 @@ describe('ProductsEditComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [ReactiveFormsModule],
+            imports: [ReactiveFormsModule, NgbModule],
             declarations: [ProductsEditComponent],
             providers: [
             ],

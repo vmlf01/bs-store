@@ -23,6 +23,7 @@ export class ProductsEditComponent implements OnInit {
     description: FormControl;
     image: FormControl;
     rating: FormControl;
+    isFeatured: FormControl;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -36,6 +37,7 @@ export class ProductsEditComponent implements OnInit {
         // TODO: image selection control
         this.image = new FormControl(this.product.image, [ Validators.required ]);
         this.rating = new FormControl(this.product.rating);
+        this.isFeatured = new FormControl(this.product.isFeatured);
 
         this.productForm = this.formBuilder.group({
             name: this.name,
@@ -44,6 +46,7 @@ export class ProductsEditComponent implements OnInit {
             description: this.description,
             image: this.image,
             rating: this.rating,
+            isFeatured: this.isFeatured,
         });
 
         if (this.readOnly) {
@@ -60,7 +63,6 @@ export class ProductsEditComponent implements OnInit {
             ...this.product,
             ...value,
         });
-        // this.productForm.markAsPristine();
     }
 
 }

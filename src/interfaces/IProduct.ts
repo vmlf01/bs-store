@@ -6,4 +6,5 @@ export interface IProduct {
     description: string;
     image: string;
     rating: number;
+    isFeatured?: boolean;
 }

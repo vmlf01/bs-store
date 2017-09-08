@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { AppSharedModule } from '../shared/shared.module';
@@ -24,6 +25,7 @@ import { ProductsEditComponent } from './products-edit/products-edit.component';
         StoreModule.forFeature<IProductsStore>(productsFeatureName, reducers, { initialState }),
         EffectsModule.forFeature(productsEffects),
         AngularFireDatabaseModule,
+        NgbModule,
         NgxDatatableModule,
         AppSharedModule,
     ],
