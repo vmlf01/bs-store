@@ -8,14 +8,14 @@ export interface IUserProfile {
     role?: UserRoles;
 }
 
-export interface IUserProfileRoot {
+export interface IProfileRoot {
+    email: string;
+    name: string;
+    picture: string;
+    _sortName: string;
+}
+
+export interface IUserRoot {
     role?: UserRoles;
-    profile: {
-        id: string;
-        email: string;
-        name: string;
-        picture: string;
-        _sortName: string;
-    };
     isDeleted?: boolean;
 }

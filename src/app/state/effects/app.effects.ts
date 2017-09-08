@@ -4,7 +4,7 @@ import { Actions, Effect } from '@ngrx/effects';
 
 import * as LoginActionTypes from '../../login/state/actions/login.actions';
 import * as AppActionTypes from '../actions/app.actions';
-import { AppActions, GoToHome, SetUserMenuOptions, UserMenuOptionSelected, GoToProductsManagement } from '../actions/app.actions';
+import { AppActions, GoToHome, SetUserMenuOptions, UserMenuOptionSelected, GoToProductsManagement, GoToUsersManagement } from '../actions/app.actions';
 import { LoginSuccess, Logout, SetUserAuthentication, SignupSuccess } from '../../login/state/actions/login.actions';
 import { IUserProfile } from '../../../interfaces/IUserProfile';
 import { IMenuOption, UserMenuOptions } from '../../../interfaces/IMenuOption';
@@ -57,6 +57,9 @@ export class AppEffects {
 
                 case UserMenuOptions.Products:
                     return new GoToProductsManagement();
+
+                case UserMenuOptions.Users:
+                    return new GoToUsersManagement();
 
                 default:
                     return new GoToHome();

@@ -1,82 +1,82 @@
 import { Action, ActionReducer, createFeatureSelector, createSelector } from '@ngrx/store';
 
-import { ProductDetailsActions } from '../actions/product-details.actions';
-import * as ActionTypes from '../actions/product-details.actions';
-import { IProduct } from '../../../../interfaces/IProduct';
+import { UserDetailsActions } from '../actions/user-details.actions';
+import * as ActionTypes from '../actions/user-details.actions';
+import { IUserProfile } from '../../../../interfaces/IUserProfile';
 import { AppError } from '../../../../interfaces/AppError';
 
-export interface IProductDetailsState {
-    product: IProduct;
+export interface IUserDetailsState {
+    user: IUserProfile;
     isNew: boolean;
     isSaved: boolean;
     isReadOnly: boolean;
     error: AppError;
 }
 
-export const initialProductDetailsState: IProductDetailsState = {
-    product: null,
+export const initialUserDetailsState: IUserDetailsState = {
+    user: null,
     isNew: true,
     isSaved: false,
     isReadOnly: true,
     error: null,
 };
 
-export function productDetailsReducer(state: IProductDetailsState = initialProductDetailsState, action: ProductDetailsActions): IProductDetailsState {
+export function userDetailsReducer(state: IUserDetailsState = initialUserDetailsState, action: UserDetailsActions): IUserDetailsState {
     switch (action.type) {
-        case ActionTypes.ADD_NEW_PRODUCT:
+        case ActionTypes.ADD_NEW_USER:
             return {
                 ...state,
-                product: null,
+                user: null,
                 isNew: true,
                 isReadOnly: false,
                 error: null
             };
 
-        case ActionTypes.EDIT_EXISTING_PRODUCT:
+        case ActionTypes.EDIT_EXISTING_USER:
             return {
                 ...state,
-                product: null,
+                user: null,
                 isNew: false,
                 isReadOnly: false,
                 error: null,
             };
 
-        case ActionTypes.SHOW_EXISTING_PRODUCT:
+        case ActionTypes.SHOW_EXISTING_USER:
             return {
                 ...state,
-                product: null,
+                user: null,
                 isNew: false,
                 isReadOnly: true,
                 error: null,
             };
 
-        case ActionTypes.OPEN_PRODUCT_DETAILS_MODAL:
-        case ActionTypes.SAVE_PRODUCT_DETAILS:
+        case ActionTypes.OPEN_USER_DETAILS_MODAL:
+        case ActionTypes.SAVE_USER_DETAILS:
             return {
                 ...state,
                 isSaved: false,
                 error: null,
-                product: action.payload,
+                user: action.payload,
             };
 
-        case ActionTypes.PRODUCT_SAVE_SUCCESS:
+        case ActionTypes.USER_SAVE_SUCCESS:
             return {
                 ...state,
                 isSaved: true,
             };
 
-        case ActionTypes.CLOSE_PRODUCT_DETAILS_MODAL:
-        case ActionTypes.CANCEL_PRODUCT_DETAILS_MODAL:
-        case ActionTypes.DELETE_EXISTING_PRODUCT_SUCCESS:
+        case ActionTypes.CLOSE_USER_DETAILS_MODAL:
+        case ActionTypes.CANCEL_USER_DETAILS_MODAL:
+        case ActionTypes.DELETE_EXISTING_USER_SUCCESS:
             return {
                     ...state,
-                    product: null,
+                    user: null,
                     error: null,
                 };
 
-        case ActionTypes.OPEN_PRODUCT_DETAILS_MODAL_FAILURE:
-        case ActionTypes.PRODUCT_SAVE_FAILURE:
-        case ActionTypes.DELETE_EXISTING_PRODUCT_FAILURE:
+        case ActionTypes.OPEN_USER_DETAILS_MODAL_FAILURE:
+        case ActionTypes.USER_SAVE_FAILURE:
+        case ActionTypes.DELETE_EXISTING_USER_FAILURE:
             return {
                 ...state,
                 error: action.payload,

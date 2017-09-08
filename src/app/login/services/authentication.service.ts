@@ -9,7 +9,7 @@ import * as firebaseApp from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 
-import { IUserProfile, UserRoles, IUserProfileRoot } from '../../../interfaces/IUserProfile';
+import { IUserProfile, UserRoles, IProfileRoot, IUserRoot } from '../../../interfaces/IUserProfile';
 import { AppError } from '../../../interfaces/AppError';
 
 const defaultUserRole: UserRoles = 'BUYER';
@@ -56,11 +56,11 @@ export class AuthenticationService {
 
     _loginWithPopup(provider: firebaseApp.auth.AuthProvider): Observable<void> {
         return Observable.fromPromise(this.authProvider.signInWithPopup(provider))
-            .switchMap(result => this._validateUserIsNotDeleted(result.user).map(() => null));
+            .switchMap(result => this._initializeUserProfile(result.user).map(() => null));
     }
 
-    _validateUserIsNotDeleted(user: firebase.User): Observable<IUserProfileRoot> {
-        return this._getUserRoot(user.uid)
+    _validateUserIsNotDeleted(userId: string): Observable<IUserRoot> {
+        return this._getUserRoot(userId)
             .switchMap(userRoot => {
                 if (userRoot && userRoot.isDeleted) {
                     this.logout();
@@ -74,57 +74,69 @@ export class AuthenticationService {
         if (!user) {
             return Observable.of(null);
         }
-        return this._validateUserIsNotDeleted(user)
+        return this._validateUserIsNotDeleted(user.uid)
             .switchMap(userRoot => {
-                if (!userRoot) {
-                    return this._createUserProfile(user)
-                        .switchMap(() => this._initializeUserProfile(user));
-                }
+                return this._getProfileRoot(user.uid)
+                    .switchMap(profileRoot => {
+                        if (!profileRoot) {
+                            return this._createUserProfile(user)
+                                .switchMap(() => this._initializeUserProfile(user));
+                        }
 
-                return Observable.of(this._getUserProfile(user, userRoot));
+                        return Observable.of(this._mapUserProfile(user, profileRoot, userRoot));
+                    });
             });
     }
 
     _createUserProfile(user: firebaseApp.User): Observable<void> {
         const profile = {
-            id: user.uid,
             '_sortName': user.displayName && user.displayName.toLowerCase() || user.email.toLowerCase(),
             name: user.displayName || user.email,
             email: user.email,
             picture: user.photoURL,
-            role: defaultUserRole,
         };
 
         return Observable.fromPromise(
-            this.afData.object(this._getProfileRef(profile.id))
+            this.afData.object(this._getProfileRef(user.uid))
                 .set(profile)
         );
     }
 
-    _getUserProfile(user: firebase.User, userRoot: IUserProfileRoot): IUserProfile {
-        if (!user || !userRoot) {
+    _mapUserProfile(user: firebase.User, profileRoot: IProfileRoot, userRoot: IUserRoot): IUserProfile {
+        if (!user || !profileRoot) {
             return null;
         }
 
         return {
             id: user.uid,
-            email: userRoot.profile && userRoot.profile.email || user.email,
-            name: userRoot.profile && userRoot.profile.name || user.displayName || user.email,
-            picture: userRoot.profile && userRoot.profile.picture || user.photoURL,
+            email: profileRoot.email || user.email,
+            name: profileRoot.name || user.displayName || user.email,
+            picture: profileRoot.picture || user.photoURL,
             role: userRoot.role || defaultUserRole,
         };
     }
 
-    _getUserRoot(userId: string): Observable<IUserProfileRoot> {
-        return this.afData.object(this._getUserRef(userId))
-            .take(1);
+    _getProfileRoot(userId: string): Observable<IProfileRoot> {
+        return this.afData.object(this._getProfileRef(userId))
+            .take(1)
+            .map(result => result.$exists() && result);
     }
 
-    _getProfileRef(userId: string): string {
-        return `${this._getUserRef(userId)}/profile`;
+    _getUserRoot(userId: string): Observable<IUserRoot> {
+        return this.afData.object(this._getUserRef(userId))
+            .take(1)
+            .map(result => result.$exists() && result);
     }
 
     _getUserRef(userId: string): string {
         return `/users/${userId}`;
+    }
+
+    _getProfileRef(userId: string): string {
+        return `${this._getProfilesRef()}/${userId}`;
+    }
+
+    _getProfilesRef(): string {
+        return `/profiles`;
     }
 }

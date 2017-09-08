@@ -1,0 +1,24 @@
+{
+    "rules": {
+      "products": {
+        ".read": "true",
+        ".write": "auth != null && (root.child('users/' + auth.uid + '/role').val() === 'ADMIN' || root.child('users/' + auth.uid + '/role').val() === 'MANAGER')",
+        ".indexOn": "_sortName"
+      },
+      "users": {
+        ".read": "auth != null && root.child('users/' + auth.uid + '/role').val() === 'ADMIN'",
+        "$uid": {
+          ".read": "auth != null && ($uid === auth.uid || root.child('users/' + auth.uid + '/role').val() === 'ADMIN')",
+          ".write": "auth != null && root.child('users/' + auth.uid + '/role').val() === 'ADMIN'"
+        }
+      },
+      "profiles": {
+        ".read": "auth != null && root.child('users/' + auth.uid + '/role').val() === 'ADMIN'",
+        ".indexOn": "_sortName",
+        "$uid": {
+          ".read": "auth != null && ($uid === auth.uid || root.child('/users/' + auth.uid + '/role').val() === 'ADMIN')",
+          ".write": "auth != null && ($uid === auth.uid || root.child('/users/' + auth.uid + '/role').val() === 'ADMIN')"
+        }
+      }
+    }
+  }

@@ -7,6 +7,7 @@ export const SET_USER_MENU_OPTIONS = 'SET_USER_MENU_OPTIONS';
 export const GO_TO_HOME = 'GO_TO_HOME';
 export const USER_MENU_OPTION_SELECTED = 'USER_MENU_OPTION_SELECTED';
 export const GO_TO_PRODUCTS_MANAGEMENT = 'GO_TO_PRODUCTS_MANAGEMENT';
+export const GO_TO_USERS_MANAGEMENT = 'GO_TO_USERS_MANAGEMENT';
 export const RESUME_NAVIGATION = 'RESUME_NAVIGATION';
 
 export class AdminPageLoaded implements Action {
@@ -35,6 +36,10 @@ export class GoToProductsManagement implements Action {
     readonly type = GO_TO_PRODUCTS_MANAGEMENT;
 }
 
+export class GoToUsersManagement implements Action {
+    readonly type = GO_TO_USERS_MANAGEMENT;
+}
+
 export class ResumeNavigation implements Action {
     readonly type = RESUME_NAVIGATION;
     constructor(public readonly payload: string) {}
@@ -47,5 +52,6 @@ export type AppActions =
     | GoToHome
     | UserMenuOptionSelected
     | GoToProductsManagement
+    | GoToUsersManagement
     | ResumeNavigation
 ;

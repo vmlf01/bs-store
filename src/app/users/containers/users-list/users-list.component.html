@@ -1,0 +1,58 @@
+<div class="container">
+    <bs-page-title [title]="'Users List'"></bs-page-title>
+
+    <div class="row pt-2 mb-4">
+        <div class="col-md-12 text-center">
+            <bs-letters-filter-bar
+                [selectedLetter]="currentInitialLetter | async"
+                (onSelected)="loadUsers($event)"
+            ></bs-letters-filter-bar>
+        </div>
+    </div>
+
+    <div class="row pb-4">
+        <div class="col-md-12">
+            <ngx-datatable
+                class="material"
+                [columnMode]="'flex'"
+                [headerHeight]="50"
+                [footerHeight]="40"
+                [rowHeight]="'auto'"
+                [limit]="10"
+                [rows]="users | async"
+            >
+                <ngx-datatable-column name="Name" [flexGrow]="2">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                        <a href="" class="btn btn-link" (click)="$event.preventDefault(); handleEdit(row)">{{ value }}</a>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="E-Mail" prop="email" [flexGrow]="3">
+                    <ng-template let-value="value" ngx-datatable-cell-template>
+                        {{ value }}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Role" [flexGrow]="1">
+                    <ng-template let-value="value" ngx-datatable-cell-template>
+                        {{ value }}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Actions" [flexGrow]="1" *ngIf="permissions.canEdit || permissions.canDelete" >
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        <button *ngIf="permissions.canEdit" class="btn btn-sm btn-outline-info" (click)="handleEdit(row)">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                        <button *ngIf="permissions.canDelete" class="btn btn-sm btn-outline-danger" (click)="handleDelete(row)">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                        </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>
+    </div>
+
+    <div class="row pb-4" *ngIf="permissions.canAdd" >
+        <div class="col-md-12 text-right">
+            <button class="btn btn-success" (click)="handleAdd()">Add New</button>
+        </div>
+    </div>
+</div>

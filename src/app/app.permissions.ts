@@ -10,12 +10,22 @@ export const PermissionCatalogAddProduct = 'permission.catalog.product.add';
 export const PermissionCatalogEditProduct = 'permission.catalog.product.edit';
 export const PermissionCatalogDeleteProduct = 'permission.catalog.product.delete';
 
+export const PermissionUsersAccess = 'permission.users.access';
+export const PermissionAddUser = 'permission.users.add';
+export const PermissionEditUser = 'permission.users.edit';
+export const PermissionDeleteUser = 'permission.users.delete';
+
 const appPermissions: IRolePermissions = {
     'ADMIN': [
         PermissionCatalogAccess,
         PermissionCatalogAddProduct,
         PermissionCatalogEditProduct,
         PermissionCatalogDeleteProduct,
+
+        PermissionUsersAccess,
+        PermissionAddUser,
+        PermissionEditUser,
+        PermissionDeleteUser,
     ],
     'MANAGER': [
         PermissionCatalogAccess,

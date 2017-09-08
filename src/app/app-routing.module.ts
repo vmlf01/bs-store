@@ -23,6 +23,10 @@ const routes: Routes = [
                 path: 'products',
                 loadChildren: './products/products.module#AppProductsModule',
             },
+            {
+                path: 'users',
+                loadChildren: './users/users.module#AppUsersModule',
+            },
         ],
     },
     {

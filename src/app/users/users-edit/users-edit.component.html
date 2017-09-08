@@ -1,0 +1,39 @@
+<form class="form" role="form" novalidate="" [formGroup]="userForm" (ngSubmit)="handleSave(userForm)">
+    <div class="modal-header">
+        <h4 class="modal-title">User Details</h4>
+        <button type="button" class="close" aria-label="Close" (click)="onCancel.emit()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': name.dirty && !name.valid, 'is-valid': name.valid }">
+        </div>
+        <div class="form-group">
+            <label for="name">E-Mail</label>
+            <div class="form-control">{{ user.email }}</div>
+        </div>
+        <div class="form-group">
+            <label for="userRoles">Role</label>
+            <div>
+                <div class="btn-group" ngbRadioGroup name="userRoles" formControlName="role">
+                    <label ngbButtonLabel class="btn-info" *ngFor="let role of roles">
+                        <input ngbButton type="radio" [value]="role">{{ role | titlecase }}
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="picture" class="form-control-label">Picture</label>
+            <input type="text" formControlName="picture" class="form-control" [ngClass]="{ 'is-invalid': picture.dirty && !picture.valid, 'is-valid': picture.valid }">
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="error?.message">
+            {{ error.message }}
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success" *ngIf="!readOnly" [disabled]="!userForm.valid || userForm.pristine">Save</button>
+        <button class="btn btn-warning" (click)="onCancel.emit()">{{ readOnly ? 'Close' : 'Cancel' }}</button>
+    </div>
+</form>
