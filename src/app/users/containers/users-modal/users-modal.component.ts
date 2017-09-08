@@ -19,6 +19,7 @@ import { IUserProfile, UserRoles } from '../../../../interfaces/IUserProfile';
             [roles]="roles"
             [error]="error | async"
             [readOnly]="isReadOnly | async"
+            [isNew]="isNewUser | async"
             (onCancel)="handleCancel()"
             (onSave)="handleSave($event)"
         ></bs-users-edit>
@@ -30,6 +31,7 @@ export class UsersModalComponent implements OnInit, OnDestroy {
     error: Observable<AppError>;
     roles: UserRoles[] = [];
     isReadOnly: Observable<boolean>;
+    isNewUser: Observable<boolean>;
 
     private subscriptions: Subscription[];
 
@@ -39,17 +41,15 @@ export class UsersModalComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
-        this.store.select(selectRoles)
-            .take(1)
-            .subscribe(roles => {
-                console.log('ROLES', roles)
-                this.roles = roles;
-            });
         this.user = this.store.select(selectUserDetails).map(state => state.user);
         this.error = this.store.select(selectUserDetails).map(state => state.error);
         this.isReadOnly = this.store.select(selectUserDetails).map(state => state.isReadOnly);
+        this.isNewUser = this.store.select(selectUserDetails).map(state => state.isNew);
 
         this.subscriptions = [
+            this.store.select(selectRoles)
+                .take(1)
+                .subscribe(roles => this.roles = roles),
             this.store.select(selectUserDetails)
                 .map(state => state.isSaved)
                 .subscribe(isSaved => isSaved && this.closeModal()),

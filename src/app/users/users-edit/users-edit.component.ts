@@ -11,6 +11,7 @@ import { AppError } from '../../../interfaces/AppError';
 })
 export class UsersEditComponent implements OnInit {
     @Input() readOnly: boolean;
+    @Input() isNew: boolean;
     @Input() user: IUserProfile;
     @Input() roles: string[];
     @Input() error: AppError;
@@ -19,6 +20,8 @@ export class UsersEditComponent implements OnInit {
 
     userForm: FormGroup;
     name: FormControl;
+    email: FormControl;
+    password: FormControl;
     picture: FormControl;
     role: FormControl;
 
@@ -27,7 +30,7 @@ export class UsersEditComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.name = new FormControl(this.user.name, [ Validators.required ]);
+        this.name = new FormControl(this.user.name, [ Validators.required, Validators.minLength(4), Validators.maxLength(50) ]);
         this.role = new FormControl(this.user.role, [ Validators.required ]);
         // TODO: image selection control
         this.picture = new FormControl(this.user.picture, [ Validators.required ]);
@@ -37,6 +40,14 @@ export class UsersEditComponent implements OnInit {
             picture: this.picture,
             role: this.role,
         });
+
+        if (this.isNew) {
+            this.email = new FormControl('', [ Validators.required, Validators.email ]);
+            this.userForm.addControl('email', this.email);
+
+            this.password = new FormControl('', [ Validators.required, Validators.minLength(6), Validators.maxLength(50) ]);
+            this.userForm.addControl('password', this.password);
+        }
 
         if (this.readOnly) {
             this.userForm.disable();
