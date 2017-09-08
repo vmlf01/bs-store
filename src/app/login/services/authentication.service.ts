@@ -32,7 +32,7 @@ export class AuthenticationService {
 
     login(email: string, password: string): Observable<void> {
         return Observable.fromPromise(this.authProvider.signInWithEmailAndPassword(email, password))
-            .switchMap(user => this._validateUserIsNotDeleted(user).map(() => null));
+            .switchMap(user => this._validateUserIsNotDeleted(user.uid).map(() => null));
     }
 
     loginWithFacebook(): Observable<void> {

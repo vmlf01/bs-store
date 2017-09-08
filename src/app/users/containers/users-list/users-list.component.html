@@ -33,7 +33,7 @@
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Role" [flexGrow]="1">
                     <ng-template let-value="value" ngx-datatable-cell-template>
-                        {{ value }}
+                        {{ value | titlecase }}
                     </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Actions" [flexGrow]="1" *ngIf="permissions.canEdit || permissions.canDelete" >

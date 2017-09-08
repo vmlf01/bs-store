@@ -68,7 +68,7 @@ export class UserDetailsEffects {
         .switchMap(action => {
             return this.usersService.saveUser(action.payload)
                 .map(userId => new UserSaveSuccess(userId))
-                .catch(error => Observable.of(new UserSaveFailure(error.code)));
+                .catch(error => Observable.of(new UserSaveFailure(error)));
         });
 
     @Effect() deleteUser$ = this.actions$
@@ -82,9 +82,9 @@ export class UserDetailsEffects {
             }))
                 .switchMap(() => this.usersService.deleteUser(action.payload)
                     .map(() => new DeleteExistingUserSuccess())
-                    .catch(error => Observable.of(new DeleteExistingUserFailure(error.code)))
+                    .catch(error => Observable.of(new DeleteExistingUserFailure(error)))
                 )
-                .catch(() => Observable.of(new CancelDeleteExistingUser()));
+                .catch(error => Observable.of(new CancelDeleteExistingUser()));
         });
 }
 

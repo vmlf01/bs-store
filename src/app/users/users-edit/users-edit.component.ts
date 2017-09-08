@@ -30,7 +30,7 @@ export class UsersEditComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.name = new FormControl(this.user.name, [ Validators.required, Validators.minLength(4), Validators.maxLength(50) ]);
+        this.name = new FormControl(this.user.name, [ Validators.required, Validators.minLength(3), Validators.maxLength(50) ]);
         this.role = new FormControl(this.user.role, [ Validators.required ]);
         // TODO: image selection control
         this.picture = new FormControl(this.user.picture, [ Validators.required ]);

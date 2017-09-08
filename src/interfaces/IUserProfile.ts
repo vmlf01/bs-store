@@ -6,6 +6,7 @@ export interface IUserProfile {
     name: string;
     picture: string;
     role?: UserRoles;
+    password?: string;
 }
 
 export interface IProfileRoot {

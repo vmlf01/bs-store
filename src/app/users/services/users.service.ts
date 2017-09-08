@@ -1,17 +1,24 @@
-import { Injectable } from '@angular/core';
+import { UserDropdownComponent } from '../../shared/user-dropdown/user-dropdown.component';
+import { Injectable, InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/finally';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/observable/zip';
+import 'rxjs/add/observable/forkJoin';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebaseApp from 'firebase/app';
 
 import { IUserProfile, UserRoles, IProfileRoot, IUserRoot } from '../../../interfaces/IUserProfile';
 import { AppError } from '../../../interfaces/AppError';
+import { FirebaseAppConfig } from 'angularfire2';
 
 const defaultUserRole: UserRoles = 'BUYER';
+
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class UsersService {
@@ -28,7 +35,18 @@ export class UsersService {
         };
 
         return this.afData.list('/profiles', { query })
-            .map(users => users.map(profile => this._mapUserProfile(profile, {})));
+            .switchMap((users: IProfileRoot[]) => {
+                if (users.length === 0) {
+                    return Observable.of([]);
+                }
+
+                return Observable.forkJoin(
+                    users.map(profileRoot =>
+                        this._getUserRoot(profileRoot['$key'])
+                            .map(userRoot => this._mapUserProfile(profileRoot, userRoot))
+                    )
+                );
+            });
     }
 
     getUserDetails(userId: string): Observable<IUserProfile> {
@@ -40,29 +58,53 @@ export class UsersService {
     }
 
     saveUser(user: IUserProfile): Observable<string> {
-        return null;
-        // user = { ...user };
+        let saveUser$ = Observable.of(user.id);
 
-        // if (!user.id) {
-        //     // create a new object
-        //     const newRef = this.afData.list('/users').push({});
-        //     user.id = newRef.key;
-        // }
+        if (!user.id) {
+            saveUser$ = this._createNewUser(user);
+        }
 
-        // // set property for filtering index
-        // user['_sortName'] = user.name.toLowerCase();
+        return saveUser$.switchMap(userId => {
+            const userRoot = {
+                role: user.role,
+            };
 
-        // return Observable.fromPromise(this.afData.object(this._getUserRef(user.id)).set(user))
-        //     .map(() => user.id);
+            const profileRoot = {
+                name: user.name,
+                email: user.email,
+                picture: user.picture,
+                _sortName: user.name.toLowerCase(),
+                lastUpdate: new Date().toISOString(),
+            };
+
+            const updates = {
+                [`/users/${userId}`]: userRoot,
+                [`/profiles/${userId}`]: profileRoot,
+            };
+
+            return Observable.fromPromise(this.afData.object('/').update(updates))
+                .map(() => userId);
+        });
+    }
+
+    _createNewUser(user: IUserProfile) {
+        // create a new firebase auth user
+        const adminApp = firebaseApp.initializeApp(environment.firebase.config, 'admin');
+        adminApp.auth().setPersistence(firebaseApp.auth.Auth.Persistence.NONE);
+        return Observable.fromPromise(adminApp.auth().createUserWithEmailAndPassword(user.email, user.password))
+            .map(result => result.uid)
+            .finally(() => adminApp.delete());
     }
 
     deleteUser(userId: string): Observable<void> {
-        return null;
-        // if (!userId) {
-        //     throw new AppError('INVALID_ARGS', 'Invalid userId provided');
-        // }
+        if (!userId) {
+            return Observable.throw(new AppError('INVALID_ARGS', 'Invalid userId provided'));
+        }
 
-        // return Observable.fromPromise(this.afData.list('/users').remove(userId));
+        return Observable.forkJoin(
+            this.afData.object(`/users/${userId}`).update({ isDeleted: true }),
+            this.afData.object(`/profiles/${userId}`).remove(),
+        ).map(() => null);
     }
 
     getNewBlankUser(): IUserProfile {
