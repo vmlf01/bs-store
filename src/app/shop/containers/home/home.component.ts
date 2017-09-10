@@ -24,6 +24,7 @@ import { ShowProductDetails, ShowShoppingCart } from '../../state/actions/router
             <bs-product-list
                 [loading]="loading"
                 [products]="products"
+                [hasMore]="hasMore"
                 (productSelected)="showItemDetails($event)"
                 (loadMoreSelected)="loadMoreItems()"
             ></bs-product-list>
@@ -35,6 +36,7 @@ export class HomeContainerComponent implements OnInit, OnDestroy {
     productHighlight: IProduct;
     products: IProduct[] = [];
     loading: boolean;
+    hasMore: boolean;
 
     private subscriptions: Subscription[] = [];
 
@@ -59,6 +61,7 @@ export class HomeContainerComponent implements OnInit, OnDestroy {
                 .subscribe(state => {
                     this.loading = state.isLoading;
                     this.products = state.products;
+                    this.hasMore = state.hasMoreProducts;
                 }),
             this.store.select(selectFeaturedProduct)
                 .subscribe(state => {

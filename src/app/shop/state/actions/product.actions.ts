@@ -17,7 +17,7 @@ export class LoadProducts implements Action {
 
 export class LoadProductsSuccess implements Action {
     readonly type = LOAD_PRODUCTS_SUCCESS;
-    constructor(public readonly payload: { products: IProduct[], hasMore: boolean }) {}
+    constructor(public readonly payload: { products: IProduct[], nextPage: string }) {}
 }
 
 export class LoadProductDetails implements Action {

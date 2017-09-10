@@ -5,7 +5,12 @@ import { IProduct } from '../../../../interfaces/IProduct';
 @Component({
     selector: 'bs-product-details',
     templateUrl: './product-details.component.html',
-    styles: []
+    styles: [`
+        .card-img-top {
+            max-height: 500px;
+            object-fit: contain;
+        }
+    `]
 })
 export class ProductDetailsComponent implements OnInit {
     @Input() product: IProduct;

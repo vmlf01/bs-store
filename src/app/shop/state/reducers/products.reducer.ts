@@ -5,6 +5,7 @@ import { IProduct } from '../../../../interfaces/IProduct';
 
 export interface IProductsState {
     products: IProduct[];
+    nextPage: string;
     isLoading: boolean;
     hasMoreProducts: boolean;
     productDetails: IProduct;
@@ -12,6 +13,7 @@ export interface IProductsState {
 
 export const initialProductsState: IProductsState = {
     products: [],
+    nextPage: '',
     isLoading: false,
     hasMoreProducts: false,
     productDetails: null,
@@ -24,6 +26,7 @@ export function productsReducer(state: IProductsState = initialProductsState, ac
                 ...state,
                 isLoading: true,
                 products: action.payload ? [] : state.products,
+                nextPage: action.payload ? '' : state.nextPage,
             };
 
         case ActionTypes.LOAD_PRODUCTS_SUCCESS:
@@ -31,7 +34,8 @@ export function productsReducer(state: IProductsState = initialProductsState, ac
                 ...state,
                 isLoading: false,
                 products: state.products.concat(action.payload.products),
-                hasMoreProducts: action.payload.hasMore,
+                hasMoreProducts: !!action.payload.nextPage,
+                nextPage: action.payload.nextPage,
             };
 
         case ActionTypes.LOAD_PRODUCT_DETAILS:

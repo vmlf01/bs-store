@@ -15,7 +15,12 @@ import { IProduct } from '../../../../interfaces/IProduct';
             </div>
         </div>
     `,
-    styles: []
+    styles: [`
+        .card-img-top {
+            max-height: 250px;
+            object-fit: cover;
+        }
+    `]
 })
 export class ProductCardComponent implements OnInit {
     @Input() product: IProduct;

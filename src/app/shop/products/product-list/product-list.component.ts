@@ -17,7 +17,7 @@ import { IProduct } from '../../../../interfaces/IProduct';
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" *ngIf="hasMore">
             <div class="col-lg-4 col-md-6 col-sm-12 mx-auto">
                 <button
                     class="btn btn-outline-info btn-sm btn-block mb-4"
@@ -32,6 +32,7 @@ import { IProduct } from '../../../../interfaces/IProduct';
 export class ProductListComponent implements OnInit {
     @Input() products: IProduct[];
     @Input() loading: boolean;
+    @Input() hasMore: boolean;
     @Output() productSelected = new EventEmitter<IProduct>();
     @Output() buyNowSelected = new EventEmitter<IProduct>();
     @Output() loadMoreSelected = new EventEmitter();
