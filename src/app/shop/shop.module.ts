@@ -29,6 +29,7 @@ import { OrderPaymentComponent } from './containers/order-payment/order-payment.
 import { CartContainerComponent } from './cart/cart-container/cart-container.component';
 import { ShoppingCartContainerComponent } from './containers/shopping-cart/shopping-cart.component';
 import { CartAddressComponent } from './cart/cart-address/cart-address.component';
+import { OrderSummaryComponent } from './cart/order-summary/order-summary.component';
 
 @NgModule({
     imports: [
@@ -58,6 +59,7 @@ import { CartAddressComponent } from './cart/cart-address/cart-address.component
         OrderPaymentComponent,
         CartContainerComponent,
         CartAddressComponent,
+        OrderSummaryComponent,
     ],
     providers: [
         ShopService,

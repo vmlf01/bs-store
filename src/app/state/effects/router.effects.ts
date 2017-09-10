@@ -63,6 +63,10 @@ export class AppRouterEffects {
         .ofType(ShopActionTypes.SHOW_ORDER_BILLING_ADDRESS)
         .do(() => this.router.navigate(['/shop/billing']));
 
+    @Effect({ dispatch: false }) goToPayment$ = this.actions$
+        .ofType(ShopActionTypes.SHOW_ORDER_PAYMENT)
+        .do(() => this.router.navigate(['/shop/summary']));
+
     @Effect({ dispatch: false }) goToDetails$ = this.actions$
         .ofType<ShowProductDetails>(ShopActionTypes.SHOW_PRODUCT_DETAILS)
         .do((action) => this.router.navigate(['/shop', action.payload]));

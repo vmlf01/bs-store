@@ -13,7 +13,7 @@ import { Component, OnInit } from '@angular/core';
     `,
     styles: [`
         .container {
-            padding: 50px 0;
+            padding: 30px 0;
         }
     `]
 })

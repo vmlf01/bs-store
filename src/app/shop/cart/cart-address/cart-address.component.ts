@@ -37,7 +37,7 @@ import { IAddress } from '../../../../interfaces/IAddress';
 export class CartAddressComponent implements OnInit {
     @Input() title = '';
     @Input() address: IAddress;
-    @Output() onBack = new EventEmitter<IAddress>();
+    @Output() onBack = new EventEmitter();
     @Output() onNext = new EventEmitter<IAddress>();
 
     addressForm: FormGroup;

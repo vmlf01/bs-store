@@ -3,6 +3,7 @@ import { IProduct } from '../../../../interfaces/IProduct';
 import { ICartContents } from '../../../../interfaces/ICartContents';
 import { IOrderItem } from '../../../../interfaces/IOrderItem';
 import { IAddress } from '../../../../interfaces/IAddress';
+import { IOrder } from '../../../../interfaces/IOrder';
 
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const CHANGE_ITEM_QUANTITY = 'CHANGE_ITEM_QUANTITY';
@@ -11,7 +12,7 @@ export const CHECKOUT_CART = 'CHECKOUT_CART';
 
 export const SET_ORDER_SHIPPING_ADDRESS = 'SET_ORDER_SHIPPING_ADDRESS';
 export const SET_ORDER_BILLING_ADDRESS = 'SET_ORDER_BILLING_ADDRESS';
-export const CONFIRM_ORDER_PAYMENT = 'CONFIRM_ORDER_PAYMENT';
+export const MAKE_ORDER_PAYMENT = 'MAKE_ORDER_PAYMENT';
 
 export class AddToCart implements Action {
     readonly type = ADD_TO_CART;
@@ -42,8 +43,9 @@ export class SetOrderBillingAddress implements Action {
     constructor(public readonly payload: IAddress) {}
 }
 
-export class ConfirmOrderPayment implements Action {
-    readonly type = CONFIRM_ORDER_PAYMENT;
+export class MakeOrderPayment implements Action {
+    readonly type = MAKE_ORDER_PAYMENT;
+    constructor(public readonly payload: IOrder) {}
 }
 
 export type CartActions =
@@ -53,5 +55,5 @@ export type CartActions =
     | CheckoutCart
     | SetOrderShippingAddress
     | SetOrderBillingAddress
-    | ConfirmOrderPayment
+    | MakeOrderPayment
 ;
