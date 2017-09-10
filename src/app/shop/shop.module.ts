@@ -22,6 +22,7 @@ import { CartItemComponent } from './cart/cart-item/cart-item.component';
 import { CartTotalsComponent } from './cart/cart-totals/cart-totals.component';
 import { CartDetailsComponent } from './cart/cart-details/cart-details.component';
 import { CartEmptyComponent } from './cart/cart-empty/cart-empty.component';
+import { ShopService } from './services/shop.service';
 
 @NgModule({
     imports: [
@@ -46,7 +47,8 @@ import { CartEmptyComponent } from './cart/cart-empty/cart-empty.component';
         CartTotalsComponent,
         CartEmptyComponent,
     ],
-    exports: [
+    providers: [
+        ShopService,
     ],
 })
 export class AppShopModule { }
