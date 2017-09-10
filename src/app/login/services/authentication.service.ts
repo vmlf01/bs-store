@@ -121,6 +121,8 @@ export class AuthenticationService {
             name: profileRoot.name || user.displayName || user.email,
             picture: profileRoot.picture || user.photoURL,
             role: userRoot.role || defaultUserRole,
+            shippingAddress: profileRoot.shippingAddress,
+            billingAddress: profileRoot.billingAddress,
         };
     }
 

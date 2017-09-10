@@ -1,3 +1,4 @@
+import { BsAlertService } from '../../../shared/bs-alert.service';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
@@ -16,6 +17,7 @@ export class ProfileEffects {
         private actions$: Actions,
         private store: Store<any>,
         private usersService: UsersService,
+        private bsAlert: BsAlertService,
     ) {
     }
 
@@ -23,6 +25,7 @@ export class ProfileEffects {
         .ofType<SaveUserProfile>(ActionTypes.SAVE_USER_PROFILE)
         .switchMap(action => {
             return this.usersService.saveUser(action.payload)
+                .do(() => this.bsAlert.success({ title: 'Profile updated' }))
                 .map(() => new SaveUserProfileSuccess())
                 .catch(error => Observable.of(new SaveUserProfileFailure(error)));
         });

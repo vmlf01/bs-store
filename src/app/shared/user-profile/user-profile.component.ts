@@ -20,7 +20,6 @@ export class UserProfileComponent implements OnInit {
     picture: FormControl;
 
     constructor(
-        private formBuilder: FormBuilder,
     ) { }
 
     ngOnInit() {
@@ -29,6 +28,18 @@ export class UserProfileComponent implements OnInit {
         this.profileForm = new FormGroup({
             name: this.name,
             picture: this.picture,
+            shippingAddress: new FormGroup({
+                street: new FormControl(this.profile.shippingAddress && this.profile.shippingAddress.street || ''),
+                city: new FormControl(this.profile.shippingAddress && this.profile.shippingAddress.city || ''),
+                zip: new FormControl(this.profile.shippingAddress && this.profile.shippingAddress.zip || ''),
+                country: new FormControl(this.profile.shippingAddress && this.profile.shippingAddress.country || ''),
+            }),
+            billingAddress: new FormGroup({
+                street: new FormControl(this.profile.shippingAddress && this.profile.billingAddress.street || ''),
+                city: new FormControl(this.profile.shippingAddress && this.profile.billingAddress.city || ''),
+                zip: new FormControl(this.profile.shippingAddress && this.profile.billingAddress.zip || ''),
+                country: new FormControl(this.profile.shippingAddress && this.profile.billingAddress.country || ''),
+            }),
         });
     }
 
@@ -48,5 +59,6 @@ export class UserProfileComponent implements OnInit {
             ...this.profile,
             ...value,
         });
+        this.profileForm.markAsPristine();
     }
 }

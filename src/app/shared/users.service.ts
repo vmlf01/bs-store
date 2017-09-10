@@ -72,6 +72,8 @@ export class UsersService {
                 name: user.name,
                 email: user.email,
                 picture: user.picture,
+                shippingAddress: user.shippingAddress,
+                billingAddress: user.billingAddress,
                 _sortName: user.name.toLowerCase(),
                 lastUpdate: new Date().toISOString(),
             };
@@ -127,6 +129,8 @@ export class UsersService {
             name: profileRoot.name,
             picture: profileRoot.picture,
             role: userRoot.role || defaultUserRole,
+            shippingAddress: profileRoot.shippingAddress,
+            billingAddress: profileRoot.billingAddress,
         };
     }
 

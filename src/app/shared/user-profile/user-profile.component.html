@@ -29,8 +29,18 @@
     </div>
     <div class="row">
         <div class="col-md-6">
+            <bs-address-editor
+                [title]="'Shipping Address'"
+                [addressForm]="profileForm.controls['shippingAddress']"
+            ></bs-address-editor>
         </div>
-    </div>
+        <div class="col-md-6">
+            <bs-address-editor
+                [title]="'Billing Address'"
+                [addressForm]="profileForm.controls['billingAddress']"
+            ></bs-address-editor>
+        </div>
+        </div>
     <div class="row">
         <div class="col-md-12 text-right">
             <button type="submit" class="btn btn-success" [disabled]="!profileForm.valid || profileForm.pristine">Save</button>

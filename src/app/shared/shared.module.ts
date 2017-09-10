@@ -16,6 +16,7 @@ import { PageTitleComponent } from './page-title/page-title.component';
 import { BsAlertService } from './bs-alert.service';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UsersService } from './users.service';
+import { AddressEditorComponent } from './address-editor/address-editor.component';
 
 @NgModule({
     imports: [
@@ -34,6 +35,7 @@ import { UsersService } from './users.service';
         LettersFilterBarComponent,
         PageTitleComponent,
         UserProfileComponent,
+        AddressEditorComponent,
     ],
     exports: [
         HeaderComponent,
