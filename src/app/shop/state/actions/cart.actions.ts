@@ -13,6 +13,7 @@ export const CHECKOUT_CART = 'CHECKOUT_CART';
 export const SET_ORDER_SHIPPING_ADDRESS = 'SET_ORDER_SHIPPING_ADDRESS';
 export const SET_ORDER_BILLING_ADDRESS = 'SET_ORDER_BILLING_ADDRESS';
 export const MAKE_ORDER_PAYMENT = 'MAKE_ORDER_PAYMENT';
+export const ORDER_PROCESSED_SUCCESS = 'ORDER_PROCESSED_SUCCESS';
 
 export class AddToCart implements Action {
     readonly type = ADD_TO_CART;
@@ -48,6 +49,11 @@ export class MakeOrderPayment implements Action {
     constructor(public readonly payload: IOrder) {}
 }
 
+export class OrderProcessedSuccess implements Action {
+    readonly type = ORDER_PROCESSED_SUCCESS;
+    constructor(public readonly payload: string) {}
+}
+
 export type CartActions =
     AddToCart
     | ChangeItemQuantity
@@ -56,4 +62,5 @@ export type CartActions =
     | SetOrderShippingAddress
     | SetOrderBillingAddress
     | MakeOrderPayment
+    | OrderProcessedSuccess
 ;

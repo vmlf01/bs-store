@@ -30,6 +30,7 @@ import { CartContainerComponent } from './cart/cart-container/cart-container.com
 import { ShoppingCartContainerComponent } from './containers/shopping-cart/shopping-cart.component';
 import { CartAddressComponent } from './cart/cart-address/cart-address.component';
 import { OrderSummaryComponent } from './cart/order-summary/order-summary.component';
+import { PaymentService } from "./services/payment.service";
 
 @NgModule({
     imports: [
@@ -63,6 +64,7 @@ import { OrderSummaryComponent } from './cart/order-summary/order-summary.compon
     ],
     providers: [
         ShopService,
+        PaymentService,
     ],
 })
 export class AppShopModule { }

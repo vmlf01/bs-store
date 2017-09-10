@@ -106,6 +106,9 @@ export function cartReducer(state: ICartState = initialCartState, action: CartAc
                 billingAddress: action.payload,
             };
 
+        case ActionTypes.ORDER_PROCESSED_SUCCESS:
+            return initialCartState;
+
         default:
             return state;
     }

@@ -16,4 +16,5 @@ export const environment = {
             // storageBucket: 'bs-store-18092.appspot.com',
         }
     },
+    stripeKey: 'pk_test_ZmOyKclJqAJ9Q7nzYOSLRUNf',
 };
