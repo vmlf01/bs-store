@@ -39,6 +39,6 @@
     </div>
     <div class="modal-footer">
         <button type="submit" class="btn btn-success" *ngIf="!readOnly" [disabled]="!userForm.valid || userForm.pristine">Save</button>
-        <button class="btn btn-warning" (click)="onCancel.emit()">{{ readOnly ? 'Close' : 'Cancel' }}</button>
+        <button type="button" class="btn btn-warning" (click)="onCancel.emit()">{{ readOnly ? 'Close' : 'Cancel' }}</button>
     </div>
 </form>

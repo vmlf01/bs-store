@@ -1,3 +1,4 @@
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
@@ -13,10 +14,13 @@ import { CartIconComponent } from './cart-icon/cart-icon.component';
 import { LettersFilterBarComponent } from './letters-filter-bar/letters-filter-bar.component';
 import { PageTitleComponent } from './page-title/page-title.component';
 import { BsAlertService } from './bs-alert.service';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UsersService } from './users.service';
 
 @NgModule({
     imports: [
         CommonModule,
+        ReactiveFormsModule,
         RouterModule,
         NgbModule,
     ],
@@ -29,6 +33,7 @@ import { BsAlertService } from './bs-alert.service';
         CartIconComponent,
         LettersFilterBarComponent,
         PageTitleComponent,
+        UserProfileComponent,
     ],
     exports: [
         HeaderComponent,
@@ -37,6 +42,7 @@ import { BsAlertService } from './bs-alert.service';
         PageTitleComponent,
         LettersFilterBarComponent,
         BsCurrencyPipe,
+        UserProfileComponent,
     ],
 })
 export class AppSharedModule {
@@ -47,6 +53,7 @@ export class AppSharedModule {
                 LoadingService,
                 CurrencyPipe,
                 BsAlertService,
+                UsersService,
             ],
         };
     }

@@ -25,9 +25,9 @@ import {
     CancelDeleteExistingUser,
     ShowExistingUser,
 } from '../actions/user-details.actions';
-import { UsersService } from '../../services/users.service';
 import { AppError } from '../../../../interfaces/AppError';
 import { BsAlertService } from '../../../shared/bs-alert.service';
+import { UsersService } from '../../../shared/users.service';
 
 @Injectable()
 export class UserDetailsEffects {

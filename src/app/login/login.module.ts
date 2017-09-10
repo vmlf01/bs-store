@@ -13,6 +13,7 @@ import { SignupFormComponent } from './signup-form/signup-form.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { LoginContainerComponent } from './containers/login/login.component';
 import { SignupContainerComponent } from './containers/signup/signup.component';
+import { ProfileContainerComponent } from './containers/profile/profile.component';
 import { ILoginStore, initialLoginStoreState, LoginFeatureName, LoginReducers } from './login.store';
 import { loginEffects } from './login.effects';
 import { AuthenticationService } from './services/authentication.service';
@@ -36,12 +37,14 @@ import { AuthorizationService } from './services/authorization.service';
         SignupFormComponent,
         LoginContainerComponent,
         SignupContainerComponent,
+        ProfileContainerComponent,
     ],
     exports: [
         LoginFormComponent,
         SignupFormComponent,
         LoginContainerComponent,
         SignupContainerComponent,
+        ProfileContainerComponent,
     ],
 })
 export class AppLoginModule {

@@ -5,6 +5,8 @@ import { IPermissions, IRolePermissions } from './login/services/IPermissions';
 import { IAppStore } from './app.store';
 import { selectUserProfile } from './login/login.store';
 
+export const PermissionAuthenticated = 'permission.authenticated';
+
 export const PermissionCatalogAccess = 'permission.catalog.access';
 export const PermissionCatalogAddProduct = 'permission.catalog.product.add';
 export const PermissionCatalogEditProduct = 'permission.catalog.product.edit';
@@ -17,6 +19,8 @@ export const PermissionDeleteUser = 'permission.users.delete';
 
 const appPermissions: IRolePermissions = {
     'ADMIN': [
+        PermissionAuthenticated,
+
         PermissionCatalogAccess,
         PermissionCatalogAddProduct,
         PermissionCatalogEditProduct,
@@ -31,6 +35,9 @@ const appPermissions: IRolePermissions = {
         PermissionCatalogAccess,
         PermissionCatalogAddProduct,
         PermissionCatalogEditProduct,
+    ],
+    'BUYER': [
+        PermissionAuthenticated,
     ],
 };
 

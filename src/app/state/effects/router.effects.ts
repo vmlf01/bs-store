@@ -75,6 +75,10 @@ export class AppRouterEffects {
         .ofType(AppActionTypes.GO_TO_USERS_MANAGEMENT)
         .do(() => this.router.navigate(['/manage/users']));
 
+    @Effect({ dispatch: false }) goToMyProfile$ = this.actions$
+        .ofType(AppActionTypes.GO_TO_MY_PROFILE)
+        .do(() => this.router.navigate(['/profile']));
+
     @Effect({ dispatch: false }) resumeNavigation$ = this.actions$
         .ofType<ResumeNavigation>(AppActionTypes.RESUME_NAVIGATION)
         .do(action => this.router.navigateByUrl(action.payload));

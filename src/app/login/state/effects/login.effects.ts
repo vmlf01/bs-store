@@ -26,6 +26,8 @@ import {
 import { AuthenticationService } from '../../services/authentication.service';
 import { IUserProfile } from '../../../../interfaces/IUserProfile';
 import { ShowLogin } from '../actions/router.actions';
+import * as ProfileActionTypes from '../actions/profile.actions';
+import { ReloadUserProfile } from '../actions/profile.actions';
 
 @Injectable()
 export class LoginEffects {
@@ -61,6 +63,14 @@ export class LoginEffects {
     @Effect() logout$ = this.actions$
         .ofType<Logout>(ActionTypes.LOGOUT)
         .switchMap(() => this.authService.logout().map(payload => new LogoutSuccess()));
+
+    @Effect() userProfileUpdated$ = this.actions$
+        .ofType(ProfileActionTypes.SAVE_USER_PROFILE_SUCCESS)
+        .map(() => new ReloadUserProfile());
+
+    @Effect({ dispatch: false }) reloadUserProfile$ = this.actions$
+        .ofType(ProfileActionTypes.RELOAD_USER_PROFILE)
+        .do(() => this.authService.reloadUserProfile());
 
     _doLogin(action): Observable<void> {
         switch (action.payload.provider) {

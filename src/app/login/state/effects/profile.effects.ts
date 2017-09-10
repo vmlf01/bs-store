@@ -6,12 +6,12 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import * as ActionTypes from '../actions/users-list.actions';
-import { LoadUsersListSuccess, LoadUsersList, LoadUsersListFailure } from '../actions/users-list.actions';
 import { UsersService } from '../../../shared/users.service';
+import { SaveUserProfile, SaveUserProfileFailure, SaveUserProfileSuccess } from '../actions/profile.actions';
+import * as ActionTypes from '../actions/profile.actions';
 
 @Injectable()
-export class UsersListEffects {
+export class ProfileEffects {
     constructor(
         private actions$: Actions,
         private store: Store<any>,
@@ -19,12 +19,11 @@ export class UsersListEffects {
     ) {
     }
 
-    @Effect() loadUsers$ = this.actions$
-        .ofType<LoadUsersList>(ActionTypes.LOAD_USERS_LIST)
+    @Effect() updateProfile$ = this.actions$
+        .ofType<SaveUserProfile>(ActionTypes.SAVE_USER_PROFILE)
         .switchMap(action => {
-            return this.usersService.getUsers(action.payload)
-                .map(users => new LoadUsersListSuccess({ users }))
-                .catch(error => Observable.of(new LoadUsersListFailure(error.message)));
+            return this.usersService.saveUser(action.payload)
+                .map(() => new SaveUserProfileSuccess())
+                .catch(error => Observable.of(new SaveUserProfileFailure(error)));
         });
 }
-

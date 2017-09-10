@@ -13,7 +13,6 @@ import { routes } from './users.routes';
 import { IUsersStore, usersFeatureName, reducers, initialState } from './users.store';
 import { usersEffects } from './users.effects';
 import { UsersListComponent } from './containers/users-list/users-list.component';
-import { UsersService } from './services/users.service';
 import { UsersModalComponent } from './containers/users-modal/users-modal.component';
 import { UsersEditComponent } from './users-edit/users-edit.component';
 
@@ -38,9 +37,6 @@ import { UsersEditComponent } from './users-edit/users-edit.component';
         UsersModalComponent,
     ],
     exports: [
-    ],
-    providers: [
-        UsersService,
     ],
 })
 export class AppUsersModule { }

@@ -17,7 +17,7 @@ describe('UserDropdownComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [UserDropdownComponent]
+            declarations: [UserDropdownComponent],
         })
             .compileComponents();
     }));

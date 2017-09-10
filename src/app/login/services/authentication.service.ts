@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/take';
@@ -17,17 +18,24 @@ const defaultUserRole: UserRoles = 'BUYER';
 @Injectable()
 export class AuthenticationService {
     authProvider: firebaseApp.auth.Auth;
+    userProfile$ = new BehaviorSubject<firebaseApp.User>(null);
 
     constructor(
         private afAuth: AngularFireAuth,
         private afData: AngularFireDatabase,
     ) {
         this.authProvider = afAuth.auth;
+
+        this.afAuth.authState.subscribe(authState => this.userProfile$.next(authState));
     }
 
     getAuthState(): Observable<IUserProfile> {
-        return this.afAuth.authState
+        return this.userProfile$
             .switchMap(user => this._initializeUserProfile(user).catch(() => Observable.of(null)));
+    }
+
+    reloadUserProfile(): void {
+        this.userProfile$.next(this.userProfile$.getValue());
     }
 
     login(email: string, password: string): Observable<void> {

@@ -1,4 +1,3 @@
-import { UserDropdownComponent } from '../../shared/user-dropdown/user-dropdown.component';
 import { Injectable, InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -12,13 +11,13 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebaseApp from 'firebase/app';
 
-import { IUserProfile, UserRoles, IProfileRoot, IUserRoot } from '../../../interfaces/IUserProfile';
-import { AppError } from '../../../interfaces/AppError';
+import { IUserProfile, UserRoles, IProfileRoot, IUserRoot } from '../../interfaces/IUserProfile';
+import { AppError } from '../../interfaces/AppError';
 import { FirebaseAppConfig } from 'angularfire2';
 
 const defaultUserRole: UserRoles = 'BUYER';
 
-import { environment } from '../../../environments/environment';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class UsersService {
