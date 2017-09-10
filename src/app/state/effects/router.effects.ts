@@ -55,6 +55,14 @@ export class AppRouterEffects {
         .ofType(ShopActionTypes.SHOW_SHOPPING_CART)
         .do(() => this.router.navigate(['/shop/cart']));
 
+    @Effect({ dispatch: false }) goToShippingAddress$ = this.actions$
+        .ofType(ShopActionTypes.SHOW_ORDER_SHIPPING_ADDRESS)
+        .do(() => this.router.navigate(['/shop/shipping']));
+
+    @Effect({ dispatch: false }) goToBillingAddress$ = this.actions$
+        .ofType(ShopActionTypes.SHOW_ORDER_BILLING_ADDRESS)
+        .do(() => this.router.navigate(['/shop/billing']));
+
     @Effect({ dispatch: false }) goToDetails$ = this.actions$
         .ofType<ShowProductDetails>(ShopActionTypes.SHOW_PRODUCT_DETAILS)
         .do((action) => this.router.navigate(['/shop', action.payload]));

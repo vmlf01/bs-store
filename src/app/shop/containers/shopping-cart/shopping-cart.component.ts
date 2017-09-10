@@ -13,28 +13,20 @@ import { ShowProductList, ShowProductDetails } from '../../state/actions/router.
 @Component({
     selector: 'bs-cart',
     template: `
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <bs-cart-contents
-                        [contents]="contents"
-                        (updateItemQuantity)="updateItemQuantity($event)"
-                        (checkout)="checkoutCart()"
-                        (continueShopping)="continueShopping()"
-                        (showItemDetails)="showItemDetails($event)"
-                        (removeItem)="removeCartItem($event)"
-                    ></bs-cart-contents>
-                </div>
-            </div>
-        </div>
+        <bs-cart-container>
+            <bs-cart-contents
+                [contents]="contents"
+                (updateItemQuantity)="updateItemQuantity($event)"
+                (checkout)="checkoutCart()"
+                (continueShopping)="continueShopping()"
+                (showItemDetails)="showItemDetails($event)"
+                (removeItem)="removeCartItem($event)"
+            ></bs-cart-contents>
+        </bs-cart-container>
     `,
-    styles: [`
-        .container {
-            padding: 50px 0;
-        }
-    `]
+    styles: []
 })
-export class CartContainerComponent implements OnInit, OnDestroy {
+export class ShoppingCartContainerComponent implements OnInit, OnDestroy {
     contents: ICartContents;
 
     private subscriptions: Subscription[] = [];

@@ -45,6 +45,7 @@ import { AddressEditorComponent } from './address-editor/address-editor.componen
         LettersFilterBarComponent,
         BsCurrencyPipe,
         UserProfileComponent,
+        AddressEditorComponent,
     ],
 })
 export class AppSharedModule {

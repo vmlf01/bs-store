@@ -1,15 +1,13 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { Observable } from 'rxjs/Rx';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LoadingService } from '../../../shared/loading.service';
-import { CartContainerComponent } from './cart.component';
+import { OrderShippingComponent } from './order-shipping.component';
 
-describe('CartContainerComponent', () => {
-    let component: CartContainerComponent;
-    let fixture: ComponentFixture<CartContainerComponent>;
+describe('OrderShippingComponent', () => {
+    let component: OrderShippingComponent;
+    let fixture: ComponentFixture<OrderShippingComponent>;
 
     const mockStore = {
         select: jasmine.createSpy('select').and.returnValue(Observable.of({})),
@@ -18,7 +16,7 @@ describe('CartContainerComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [CartContainerComponent],
+            declarations: [OrderShippingComponent],
             providers: [
                 { provide: Store, useValue: mockStore },
             ],
@@ -30,7 +28,7 @@ describe('CartContainerComponent', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(CartContainerComponent);
+        fixture = TestBed.createComponent(OrderShippingComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

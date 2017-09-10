@@ -4,10 +4,13 @@ import { ICartContents } from '../../../../interfaces/ICartContents';
 import * as ActionTypes from '../actions/cart.actions';
 import { CartActions } from '../actions/cart.actions';
 import { IOrderItem } from '../../../../interfaces/IOrderItem';
+import { IAddress } from '../../../../interfaces/IAddress';
 
 export interface ICartState {
     contents: ICartContents;
     itemCount: number;
+    shippingAddress: IAddress;
+    billingAddress: IAddress;
 }
 
 export const initialCartState: ICartState = {
@@ -18,6 +21,8 @@ export const initialCartState: ICartState = {
         items: [],
     },
     itemCount: 0,
+    shippingAddress: null,
+    billingAddress: null,
 };
 
 export function cartReducer(state: ICartState = initialCartState, action: CartActions): ICartState {
@@ -88,6 +93,18 @@ export function cartReducer(state: ICartState = initialCartState, action: CartAc
                 itemCount: calculateItemsCount(cartItems),
             };
         }
+
+        case ActionTypes.SET_ORDER_SHIPPING_ADDRESS:
+            return {
+                ...state,
+                shippingAddress: action.payload,
+            };
+
+        case ActionTypes.SET_ORDER_BILLING_ADDRESS:
+            return {
+                ...state,
+                shippingAddress: action.payload,
+            };
 
         default:
             return state;

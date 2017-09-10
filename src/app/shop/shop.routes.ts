@@ -1,8 +1,12 @@
+import { OrderBillingComponent } from './containers/order-billing/order-billing.component';
+import { OrderShippingComponent } from './containers/order-shipping/order-shipping.component';
 import { Routes } from '@angular/router';
 
 import { HomeContainerComponent } from './containers/home/home.component';
 import { ItemDetailsContainerComponent } from './containers/item-details/item-details.component';
-import { CartContainerComponent } from './containers/cart/cart.component';
+import { ShoppingCartContainerComponent } from './containers/shopping-cart/shopping-cart.component';
+import { AuthorizationGuard } from '../login/guards/authentication.guard';
+import { PermissionAuthenticated } from '../app.permissions';
 
 export const routes: Routes = [
     {
@@ -11,7 +15,21 @@ export const routes: Routes = [
     },
     {
         path: 'cart',
-        component: CartContainerComponent,
+        component: ShoppingCartContainerComponent,
+    },
+    {
+        path: 'shipping',
+        component: OrderShippingComponent,
+        canLoad: [AuthorizationGuard],
+        canActivate: [AuthorizationGuard],
+        data: { permission: PermissionAuthenticated },
+    },
+    {
+        path: 'billing',
+        component: OrderBillingComponent,
+        canLoad: [AuthorizationGuard],
+        canActivate: [AuthorizationGuard],
+        data: { permission: PermissionAuthenticated },
     },
     {
         path: ':id',
