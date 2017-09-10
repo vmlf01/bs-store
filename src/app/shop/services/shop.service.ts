@@ -15,8 +15,20 @@ export class ShopService {
         return null;
     }
 
+    getProductDetails(productId: string): Observable<IProduct> {
+        return this.afData.object(this._getProductRef(productId));
+    }
+
     getFeaturedProduct(): Observable<IProduct> {
         return this.afData.object(this._getFeaturedProductRef());
+    }
+
+    _getProductsRef() {
+        return '/products';
+    }
+
+    _getProductRef(productId: string) {
+        return `${this._getProductsRef()}/${productId}`;
     }
 
     _getFeaturedProductRef() {
