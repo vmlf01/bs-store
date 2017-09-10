@@ -32,6 +32,8 @@ const appPermissions: IRolePermissions = {
         PermissionDeleteUser,
     ],
     'MANAGER': [
+        PermissionAuthenticated,
+
         PermissionCatalogAccess,
         PermissionCatalogAddProduct,
         PermissionCatalogEditProduct,
