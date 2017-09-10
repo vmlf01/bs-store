@@ -68,7 +68,7 @@ export class PaymentService {
                 const payment = {
                     orderId: orderId,
                     token: paymentToken,
-                    amount: this.order.total + this.order.shipping,
+                    amount: this.order.total,
                     currency: this.order.currency,
                 };
 
@@ -79,6 +79,6 @@ export class PaymentService {
     }
 
     _getStripeAmount(order: IOrder) {
-        return Math.floor((order.total + order.shipping) * 100);
+        return Math.floor(order.total * 100);
     }
 }

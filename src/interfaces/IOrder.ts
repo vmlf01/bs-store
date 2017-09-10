@@ -7,11 +7,14 @@ export interface IOrder {
     id?: string;
     requesterId: string;
     requester: string;
+    email: string;
     items: IOrderItem[];
+    subtotal: number;
     total: number;
     shipping: number;
     currency: string;
     shippingAddress: IAddress;
     billingAddress: IAddress;
     status?: OrderStatus;
+    date: string;
 }

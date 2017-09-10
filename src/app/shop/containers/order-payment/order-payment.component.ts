@@ -44,12 +44,15 @@ export class OrderPaymentComponent implements OnInit {
                 this.order = {
                     requesterId: profile.id,
                     requester: profile.name,
+                    email: profile.email,
                     items: cart.contents.items,
                     currency: cart.contents.currency,
-                    total: cart.contents.total,
+                    subtotal: cart.contents.total,
                     shipping: cart.contents.shipping,
+                    total: cart.contents.total + cart.contents.shipping,
                     shippingAddress: cart.shippingAddress,
                     billingAddress: cart.billingAddress,
+                    date: new Date().toISOString(),
                 };
             });
     }

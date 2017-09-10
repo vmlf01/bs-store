@@ -17,6 +17,10 @@ export const PermissionAddUser = 'permission.users.add';
 export const PermissionEditUser = 'permission.users.edit';
 export const PermissionDeleteUser = 'permission.users.delete';
 
+export const PermissionOrdersAccess = 'permission.orders.access';
+export const PermissionOrderChangeStatus = 'permission.orders.change-status';
+export const PermissionDeleteOrder = 'permission.orders.delete';
+
 const appPermissions: IRolePermissions = {
     'ADMIN': [
         PermissionAuthenticated,
@@ -30,6 +34,9 @@ const appPermissions: IRolePermissions = {
         PermissionAddUser,
         PermissionEditUser,
         PermissionDeleteUser,
+
+        PermissionOrdersAccess,
+        PermissionDeleteOrder,
     ],
     'MANAGER': [
         PermissionAuthenticated,
@@ -37,6 +44,9 @@ const appPermissions: IRolePermissions = {
         PermissionCatalogAccess,
         PermissionCatalogAddProduct,
         PermissionCatalogEditProduct,
+
+        PermissionOrdersAccess,
+        PermissionOrderChangeStatus,
     ],
     'BUYER': [
         PermissionAuthenticated,

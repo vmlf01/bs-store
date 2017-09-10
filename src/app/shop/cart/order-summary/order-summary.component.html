@@ -32,9 +32,9 @@
                 </div>
                 <div class="col-sm-6 col-md-4">
                     <bs-cart-totals
-                        [subTotal]="order.total"
+                        [subTotal]="order.subtotal"
                         [shipping]="order.shipping"
-                        [total]="order.total + order.shipping"
+                        [total]="order.total"
                         [currency]="order.currency"
                     ></bs-cart-totals>
                 </div>

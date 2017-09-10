@@ -27,6 +27,10 @@ const routes: Routes = [
                 path: 'users',
                 loadChildren: './users/users.module#AppUsersModule',
             },
+            {
+                path: 'orders',
+                loadChildren: './orders/orders.module#AppOrdersModule',
+            },
         ],
     },
     {

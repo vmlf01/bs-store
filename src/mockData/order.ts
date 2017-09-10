@@ -5,6 +5,7 @@ import { IOrder } from '../interfaces/IOrder';
 export const mockOrder: IOrder = {
     requesterId: mockUser.id,
     requester: mockUser.name,
+    email: mockUser.email,
     items: [
         {
             id: 'mock-item',
@@ -17,9 +18,11 @@ export const mockOrder: IOrder = {
             quantity: 1
         },
     ],
-    total: 10,
+    subtotal: 10,
     shipping: 2,
+    total: 12,
     currency: 'USD',
     shippingAddress: mockAddress,
     billingAddress: mockAddress,
+    date: '2017-09-10T19:59:27.101Z',
 };

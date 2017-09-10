@@ -8,6 +8,7 @@ export const GO_TO_HOME = 'GO_TO_HOME';
 export const USER_MENU_OPTION_SELECTED = 'USER_MENU_OPTION_SELECTED';
 export const GO_TO_PRODUCTS_MANAGEMENT = 'GO_TO_PRODUCTS_MANAGEMENT';
 export const GO_TO_USERS_MANAGEMENT = 'GO_TO_USERS_MANAGEMENT';
+export const GO_TO_ORDERS_MANAGEMENT = 'GO_TO_ORDERS_MANAGEMENT';
 export const GO_TO_MY_PROFILE = 'GO_TO_MY_PROFILE';
 export const RESUME_NAVIGATION = 'RESUME_NAVIGATION';
 
@@ -45,6 +46,10 @@ export class GoToMyProfile implements Action {
     readonly type = GO_TO_MY_PROFILE;
 }
 
+export class GoToOrdersManagement implements Action {
+    readonly type = GO_TO_ORDERS_MANAGEMENT;
+}
+
 export class ResumeNavigation implements Action {
     readonly type = RESUME_NAVIGATION;
     constructor(public readonly payload: string) {}
@@ -58,6 +63,7 @@ export type AppActions =
     | UserMenuOptionSelected
     | GoToProductsManagement
     | GoToUsersManagement
+    | GoToOrdersManagement
     | GoToMyProfile
     | ResumeNavigation
 ;
