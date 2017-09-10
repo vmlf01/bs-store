@@ -24,15 +24,6 @@ export class OrderEffects {
         .ofType(ActionTypes.CHECKOUT_CART)
         .map(() => new ShowOrderShippingAddress());
 
-    @Effect({ dispatch: false }) login$ = this.actions$
-        .ofType<SetUserAuthentication>(LoginActionTypes.SET_USER_AUTHENTICATION)
-        .do(action => {
-            if (action.payload) {
-                this.store.dispatch(new SetOrderShippingAddress(action.payload.shippingAddress));
-                this.store.dispatch(new SetOrderBillingAddress(action.payload.billingAddress));
-            }
-        });
-
     @Effect({ dispatch: false }) logout$ = this.actions$
         .ofType(LoginActionTypes.LOGOUT_SUCCESS)
         .do(() => {

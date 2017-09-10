@@ -24,7 +24,7 @@ import { IAddress } from '../../../../interfaces/IAddress';
                             </div>
                             <div class="col-md-6"></div>
                             <div class="col-md-3">
-                                <button type="submit" class="btn btn-primary btn-sm btn-block" [disabled]="!addressForm.valid || addressForm.pristine">Continue</button>
+                                <button type="submit" class="btn btn-primary btn-sm btn-block" [disabled]="!addressForm.valid">Continue</button>
                             </div>
                         </div>
                     </div>

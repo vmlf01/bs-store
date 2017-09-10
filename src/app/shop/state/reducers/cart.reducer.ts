@@ -103,7 +103,7 @@ export function cartReducer(state: ICartState = initialCartState, action: CartAc
         case ActionTypes.SET_ORDER_BILLING_ADDRESS:
             return {
                 ...state,
-                shippingAddress: action.payload,
+                billingAddress: action.payload,
             };
 
         default:
