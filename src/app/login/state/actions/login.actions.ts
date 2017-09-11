@@ -14,6 +14,7 @@ export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const USER_AUTHENTICATION_NEEDED = 'USER_AUTHENTICATION_NEEDED';
 export const USER_NOT_AUTHORIZED = 'USER_NOT_AUTHORIZED';
 export const SET_USER_AUTHENTICATION = 'SET_USER_AUTHENTICATION';
+export const CLEAR_REDIRECT_URL = 'CLEAR_REDIRECT_URL';
 
 export class Login implements Action {
     readonly type = LOGIN;
@@ -66,6 +67,10 @@ export class SetUserAuthentication implements Action {
     constructor(public readonly payload: IUserProfile) {}
 }
 
+export class ClearRedirectUrl implements Action {
+    readonly type = CLEAR_REDIRECT_URL;
+}
+
 export type LoginActions =
     Login
     | LoginSuccess
@@ -78,4 +83,5 @@ export type LoginActions =
     | UserAuthenticationNeeded
     | UserNotAuthorized
     | SetUserAuthentication
+    | ClearRedirectUrl
 ;

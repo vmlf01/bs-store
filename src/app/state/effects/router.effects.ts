@@ -18,7 +18,8 @@ import * as AppActionTypes from '../actions/app.actions';
 import * as ShopActionTypes from '../../shop/state/actions/router.actions';
 import * as OrderActionTypes from '../../orders/state/actions/orders-list.actions';
 import { selectAuthRedirect } from '../../login/login.store';
-import { ShowOrderDetailsManagement, ShowOrdersManagement } from "../../orders/state/actions/orders-list.actions";
+import { ShowOrderDetailsManagement, ShowOrdersManagement } from '../../orders/state/actions/orders-list.actions';
+import { ClearRedirectUrl } from '../../login/state/actions/login.actions';
 
 @Injectable()
 export class AppRouterEffects {
@@ -31,8 +32,7 @@ export class AppRouterEffects {
 
     @Effect() postAuthRedirect$ = this.actions$
         .ofType(
-            LoginActionTypes.LOGIN_SUCCESS,
-            LoginActionTypes.SIGNUP_SUCCESS,
+            LoginActionTypes.SET_USER_AUTHENTICATION,
         )
         .withLatestFrom(this.store.select(selectAuthRedirect))
         .map(([action, redirectUrl]) => redirectUrl ?
@@ -103,5 +103,8 @@ export class AppRouterEffects {
 
     @Effect({ dispatch: false }) resumeNavigation$ = this.actions$
         .ofType<ResumeNavigation>(AppActionTypes.RESUME_NAVIGATION)
-        .do(action => this.router.navigateByUrl(action.payload));
+        .do(action => {
+            this.router.navigateByUrl(action.payload);
+            this.store.dispatch(new ClearRedirectUrl());
+        });
 }

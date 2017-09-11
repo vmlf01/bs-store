@@ -14,7 +14,6 @@ import * as LoginActionTypes from '../../../login/state/actions/login.actions';
 import { ShowOrderBillingAddress, ShowOrderShippingAddress } from '../actions/router.actions';
 import { PaymentService } from '../../services/payment.service';
 import { BsAlertService } from '../../../shared/bs-alert.service';
-import { SetUserAuthentication } from '../../../login/state/actions/login.actions';
 
 @Injectable()
 export class OrderEffects {

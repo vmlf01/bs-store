@@ -101,7 +101,7 @@ export class AuthenticationService {
             '_sortName': user.displayName && user.displayName.toLowerCase() || user.email.toLowerCase(),
             name: user.displayName || user.email,
             email: user.email,
-            picture: user.photoURL,
+            picture: user.photoURL || 'assets/default-user.png',
         };
 
         return Observable.fromPromise(

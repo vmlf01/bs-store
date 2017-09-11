@@ -1,3 +1,4 @@
+import { IAddress } from '../../interfaces/IAddress';
 import { Injectable, InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -72,8 +73,8 @@ export class UsersService {
                 name: user.name,
                 email: user.email,
                 picture: user.picture,
-                shippingAddress: user.shippingAddress,
-                billingAddress: user.billingAddress,
+                shippingAddress: user.shippingAddress || this._getNewBlankAddress(),
+                billingAddress: user.billingAddress || this._getNewBlankAddress(),
                 _sortName: user.name.toLowerCase(),
                 lastUpdate: new Date().toISOString(),
             };
@@ -86,6 +87,22 @@ export class UsersService {
             return Observable.fromPromise(this.afData.object('/').update(updates))
                 .map(() => userId);
         });
+    }
+
+    saveUserProfile(user: IUserProfile): Observable<string> {
+        const profileRoot = {
+            name: user.name,
+            email: user.email,
+            picture: user.picture,
+            shippingAddress: user.shippingAddress || this._getNewBlankAddress(),
+            billingAddress: user.billingAddress || this._getNewBlankAddress(),
+            _sortName: user.name.toLowerCase(),
+            lastUpdate: new Date().toISOString(),
+        };
+
+        return Observable.fromPromise(
+            this.afData.object(this._getProfileRef(user.id)).update(profileRoot)
+        ).map(() => user.id);
     }
 
     _createNewUser(user: IUserProfile) {
@@ -114,7 +131,18 @@ export class UsersService {
             name: '',
             email: '',
             role: 'BUYER',
-            picture: '',
+            picture: 'assets/default-user.png',
+            shippingAddress: this._getNewBlankAddress(),
+            billingAddress: this._getNewBlankAddress(),
+        };
+    }
+
+    _getNewBlankAddress(): IAddress {
+        return {
+            street: '',
+            city: '',
+            zip: '',
+            country: '',
         };
     }
 
@@ -129,8 +157,8 @@ export class UsersService {
             name: profileRoot.name,
             picture: profileRoot.picture,
             role: userRoot.role || defaultUserRole,
-            shippingAddress: profileRoot.shippingAddress,
-            billingAddress: profileRoot.billingAddress,
+            shippingAddress: profileRoot.shippingAddress || this._getNewBlankAddress(),
+            billingAddress: profileRoot.billingAddress || this._getNewBlankAddress(),
         };
     }
 

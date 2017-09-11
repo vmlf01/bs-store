@@ -24,7 +24,7 @@ export class ProfileEffects {
     @Effect() updateProfile$ = this.actions$
         .ofType<SaveUserProfile>(ActionTypes.SAVE_USER_PROFILE)
         .switchMap(action => {
-            return this.usersService.saveUser(action.payload)
+            return this.usersService.saveUserProfile(action.payload)
                 .do(() => this.bsAlert.success({ title: 'Profile updated' }))
                 .map(() => new SaveUserProfileSuccess())
                 .catch(error => Observable.of(new SaveUserProfileFailure(error)));

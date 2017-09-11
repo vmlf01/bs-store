@@ -28,14 +28,14 @@
             ".read": "auth != null && (root.child('users/' + auth.uid + '/role').val() === 'ADMIN' || root.child('users/' + auth.uid + '/role').val() === 'MANAGER')",
             "$uid": {
                 ".read": "auth != null && ($uid === auth.uid || root.child('users/' + auth.uid + '/role').val() === 'ADMIN' || root.child('users/' + auth.uid + '/role').val() === 'MANAGER')",
-                ".write": "auth != null && (($uid === auth.uid && !data.exists()) || root.child('users/' + auth.uid + '/role').val() === 'ADMIN' || root.child('users/' + auth.uid + '/role').val() === 'MANAGER')"
+                ".write": "auth != null && ($uid === auth.uid || root.child('users/' + auth.uid + '/role').val() === 'ADMIN' || root.child('users/' + auth.uid + '/role').val() === 'MANAGER')"
             }
         },
         "payments": {
             ".read": "auth != null && (root.child('users/' + auth.uid + '/role').val() === 'ADMIN' || root.child('users/' + auth.uid + '/role').val() === 'MANAGER')",
             "$uid": {
                 ".read": "auth != null && (root.child('users/' + auth.uid + '/role').val() === 'ADMIN' || root.child('users/' + auth.uid + '/role').val() === 'MANAGER')",
-                ".write": "auth != null && (($uid === auth.uid && !data.exists()) || root.child('users/' + auth.uid + '/role').val() === 'ADMIN' || root.child('users/' + auth.uid + '/role').val() === 'MANAGER')"
+                ".write": "auth != null && ($uid === auth.uid || root.child('users/' + auth.uid + '/role').val() === 'ADMIN' || root.child('users/' + auth.uid + '/role').val() === 'MANAGER')"
             }
         }
     }

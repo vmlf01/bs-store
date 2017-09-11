@@ -65,6 +65,12 @@ export function loginReducer(state: ILoginState = initialLoginState, action: Log
                 redirectUrl: action.payload,
             };
 
+        case ActionTypes.CLEAR_REDIRECT_URL:
+            return {
+                ...state,
+                redirectUrl: '',
+            };
+
         default:
             return state;
     }
