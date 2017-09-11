@@ -33,7 +33,8 @@ export class OrdersService {
     }
 
     getOrderDetails(userId: string, orderId: string): Observable<IOrder> {
-        return this.afData.object(this._getOrderRef(userId, orderId));
+        return this.afData.object(this._getOrderRef(userId, orderId))
+            .map(result => ({ ...result, id: result['$key'] }));
     }
 
     updateOrderStatus(order: IOrder): Observable<void> {

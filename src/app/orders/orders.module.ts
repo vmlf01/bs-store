@@ -14,6 +14,7 @@ import { IOrdersStore, ordersFeatureName, reducers, initialState } from './order
 import { ordersEffects } from './orders.effects';
 import { OrdersListComponent } from './containers/orders-list/orders-list.component';
 import { OrdersService } from './services/orders.service';
+import { OrderDetailsComponent } from './containers/order-details/order-details.component';
 
 @NgModule({
     imports: [
@@ -29,6 +30,7 @@ import { OrdersService } from './services/orders.service';
     ],
     declarations: [
         OrdersListComponent,
+        OrderDetailsComponent,
     ],
     exports: [
     ],

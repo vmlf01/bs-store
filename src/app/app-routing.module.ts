@@ -6,7 +6,7 @@ import { LoginContainerComponent } from './login/containers/login/login.componen
 import { SignupContainerComponent } from './login/containers/signup/signup.component';
 import { loginRoutes } from './login/login.routes';
 import { AuthorizationGuard } from './login/guards/authentication.guard';
-import { PermissionCatalogAccess } from './app.permissions';
+import { PermissionCatalogAccess, PermissionOrdersAccess, PermissionUsersAccess } from './app.permissions';
 
 const routes: Routes = [
     {
@@ -15,21 +15,27 @@ const routes: Routes = [
     },
     {
         path: 'manage',
-        canLoad: [AuthorizationGuard],
-        canActivateChild: [AuthorizationGuard],
-        data: { permission: PermissionCatalogAccess },
         children: [
             {
                 path: 'products',
                 loadChildren: './products/products.module#AppProductsModule',
+                canLoad: [AuthorizationGuard],
+                canActivate: [AuthorizationGuard],
+                data: { permission: PermissionCatalogAccess },
             },
             {
                 path: 'users',
                 loadChildren: './users/users.module#AppUsersModule',
+                canLoad: [AuthorizationGuard],
+                canActivate: [AuthorizationGuard],
+                data: { permission: PermissionUsersAccess },
             },
             {
                 path: 'orders',
                 loadChildren: './orders/orders.module#AppOrdersModule',
+                canLoad: [AuthorizationGuard],
+                canActivate: [AuthorizationGuard],
+                data: { permission: PermissionOrdersAccess },
             },
         ],
     },

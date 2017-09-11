@@ -16,7 +16,9 @@ import * as LoginActionTypes from '../../login/state/actions/login.actions';
 import * as LoginRouterActionTypes from '../../login/state/actions/router.actions';
 import * as AppActionTypes from '../actions/app.actions';
 import * as ShopActionTypes from '../../shop/state/actions/router.actions';
+import * as OrderActionTypes from '../../orders/state/actions/orders-list.actions';
 import { selectAuthRedirect } from '../../login/login.store';
+import { ShowOrderDetailsManagement, ShowOrdersManagement } from "../../orders/state/actions/orders-list.actions";
 
 @Injectable()
 export class AppRouterEffects {
@@ -88,8 +90,12 @@ export class AppRouterEffects {
         .do(() => this.router.navigate(['/manage/users']));
 
     @Effect({ dispatch: false }) goToOrdersManagement$ = this.actions$
-        .ofType(AppActionTypes.GO_TO_ORDERS_MANAGEMENT)
+        .ofType<ShowOrdersManagement>(OrderActionTypes.SHOW_ORDERS_MANAGEMENT)
         .do(() => this.router.navigate(['/manage/orders']));
+
+    @Effect({ dispatch: false }) goToOrderDetailsManagement$ = this.actions$
+        .ofType<ShowOrderDetailsManagement>(OrderActionTypes.SHOW_ORDER_DETAILS_MANAGEMENT)
+        .do((action) => this.router.navigate(['/manage/orders', action.payload.requesterId, action.payload.id]));
 
     @Effect({ dispatch: false }) goToMyProfile$ = this.actions$
         .ofType(AppActionTypes.GO_TO_MY_PROFILE)

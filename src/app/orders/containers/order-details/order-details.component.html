@@ -1,0 +1,97 @@
+<div class="container" *ngIf="order">
+    <bs-page-title [title]="'Order Details'"></bs-page-title>
+
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h5>Order Date</h5>
+            <div>{{ order.date | date:'medium' }}</div>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h5>Requester</h5>
+            <div>{{ order.requester }}</div>
+        </div>
+        <div class="col-md-6">
+            <h5>E-Mail</h5>
+            <div>{{ order.email }}</div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="order__address-panel">
+                <h5>Shipping Address</h5>
+                <div>{{ order.shippingAddress.street }}</div>
+                <div>{{ order.shippingAddress.city }}</div>
+                <div>{{ order.shippingAddress.zip }}</div>
+                <div>{{ order.shippingAddress.country }}</div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="order__address-panel">
+                <h5>Billing Address</h5>
+                <div>{{ order.billingAddress.street }}</div>
+                <div>{{ order.billingAddress.city }}</div>
+                <div>{{ order.billingAddress.zip }}</div>
+                <div>{{ order.billingAddress.country }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <ngx-datatable class="material" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="40" [rowHeight]="'auto'" [rows]="order.items">
+                <ngx-datatable-column name="Name" [flexGrow]="2">
+                    <ng-template let-value="value" ngx-datatable-cell-template>
+                        {{ value }}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Unit Price" prop="price" [flexGrow]="2">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                        {{ value | bsCurrency:row.currency }}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Quantity" [flexGrow]="2">
+                    <ng-template let-value="value" ngx-datatable-cell-template>
+                        {{ value }}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Total" [flexGrow]="2">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{ row.quantity * row.price | bsCurrency:row.currency }}
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-12 text-right">
+            <h5><small>Total</small> {{ order.total | bsCurrency:order.currency }}</h5>
+        </div>
+    </div>
+
+
+    <form class="form" role="form" novalidate="" [formGroup]="orderForm" (ngSubmit)="handleSave(orderForm)">
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="status" class="form-control-label">Order Status</label>
+                    <select formControlName="status" class="form-control custom-select" [ngClass]="{ 'is-invalid': status.dirty && !status.valid, 'is-valid': status.valid }">
+                        <option *ngFor="let status of orderStatus" [value]="status">{{ status }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="alert alert-danger" role="alert" *ngIf="error$ | async">
+                    {{ error$ | async }}
+                </div>
+            </div>
+            <div class="col-md-12 text-right">
+                <button type="submit" class="btn btn-success" *ngIf="!readOnly" [disabled]="!orderForm.valid || orderForm.pristine">Update Status</button>
+                <button type="button" class="btn btn-warning" (click)="handleCancel()">{{ readOnly ? 'Close' : 'Cancel' }}</button>
+            </div>
+        </div>
+    </form>
+</div>

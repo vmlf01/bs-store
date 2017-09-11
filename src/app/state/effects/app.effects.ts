@@ -4,10 +4,11 @@ import { Actions, Effect } from '@ngrx/effects';
 
 import * as LoginActionTypes from '../../login/state/actions/login.actions';
 import * as AppActionTypes from '../actions/app.actions';
-import { AppActions, GoToHome, SetUserMenuOptions, UserMenuOptionSelected, GoToProductsManagement, GoToUsersManagement, GoToMyProfile, GoToOrdersManagement } from '../actions/app.actions';
+import { AppActions, GoToHome, SetUserMenuOptions, UserMenuOptionSelected, GoToProductsManagement, GoToUsersManagement, GoToMyProfile } from '../actions/app.actions';
 import { LoginSuccess, Logout, SetUserAuthentication, SignupSuccess } from '../../login/state/actions/login.actions';
 import { IUserProfile } from '../../../interfaces/IUserProfile';
 import { IMenuOption, UserMenuOptions } from '../../../interfaces/IMenuOption';
+import { ShowOrdersManagement } from '../../orders/state/actions/orders-list.actions';
 
 const AppMenuOptions = {
     'BUYER': [
@@ -65,7 +66,7 @@ export class AppEffects {
                     return new GoToMyProfile();
 
                 case UserMenuOptions.Orders:
-                    return new GoToOrdersManagement();
+                    return new ShowOrdersManagement();
 
                 default:
                     return new GoToHome();

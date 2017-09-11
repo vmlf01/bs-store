@@ -2,6 +2,10 @@ import { Action } from '@ngrx/store';
 import { IOrder } from '../../../../interfaces/IOrder';
 import { AppError } from '../../../../interfaces/AppError';
 
+
+export const SHOW_ORDERS_MANAGEMENT = 'SHOW_ORDERS_MANAGEMENT';
+export const SHOW_ORDER_DETAILS_MANAGEMENT = 'SHOW_ORDER_DETAILS_MANAGEMENT';
+
 export const LOAD_ORDERS_LIST = 'LOAD_ORDERS_LIST';
 export const LOAD_ORDERS_LIST_SUCCESS = 'LOAD_ORDERS_LIST_SUCCESS';
 export const LOAD_ORDERS_LIST_FAILURE = 'LOAD_ORDERS_LIST_FAILURE';
@@ -10,6 +14,15 @@ export const DELETE_EXISTING_ORDER = 'DELETE_EXISTING_ORDER';
 export const DELETE_EXISTING_ORDER_SUCCESS = 'DELETE_EXISTING_ORDER_SUCCESS';
 export const DELETE_EXISTING_ORDER_FAILURE = 'DELETE_EXISTING_ORDER_FAILURE';
 export const CANCEL_DELETE_EXISTING_ORDER = 'CANCEL_DELETE_EXISTING_ORDER';
+
+export class ShowOrdersManagement implements Action {
+    readonly type = SHOW_ORDERS_MANAGEMENT;
+}
+
+export class ShowOrderDetailsManagement implements Action {
+    readonly type = SHOW_ORDER_DETAILS_MANAGEMENT;
+    constructor(public readonly payload: IOrder) {}
+}
 
 export class LoadOrdersList implements Action {
     readonly type = LOAD_ORDERS_LIST;
@@ -44,7 +57,9 @@ export class DeleteExistingOrderFailure implements Action {
 }
 
 export type OrdersListActions =
-    LoadOrdersList
+    ShowOrdersManagement
+    | ShowOrderDetailsManagement
+    | LoadOrdersList
     | LoadOrdersListSuccess
     | LoadOrdersListFailure
     | DeleteExistingOrder

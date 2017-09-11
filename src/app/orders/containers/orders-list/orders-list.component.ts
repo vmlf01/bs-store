@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { IOrder } from '../../../../interfaces/IOrder';
-import { LoadOrdersList, DeleteExistingOrder } from '../../state/actions/orders-list.actions';
+import { LoadOrdersList, DeleteExistingOrder, ShowOrderDetailsManagement } from '../../state/actions/orders-list.actions';
 import { selectOrdersList, selectOrders } from '../../orders.store';
 import { AuthorizationService } from '../../../login/services/authorization.service';
 import { PermissionOrderChangeStatus, PermissionDeleteOrder } from '../../../app.permissions';
@@ -45,10 +45,7 @@ export class OrdersListComponent implements OnInit {
     }
 
     handleEdit(order: IOrder) {
-        // this.store.dispatch(this.permissions.canEdit ?
-        //     new EditExistingOrder(order.id) :
-        //     new ShowExistingOrder(order.id)
-        // );
+        this.store.dispatch(new ShowOrderDetailsManagement(order));
     }
 
     handleDelete(order: IOrder) {
